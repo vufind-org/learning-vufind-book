@@ -1,0 +1,17 @@
+Working with XML and HTML
+*************************
+
+Chapter 10. Content Harvesting
+##############################
+
+Learning Objectives
+-------------------
+After reading this chapter, you will understand:
+
+•       How VuFind uses the OAI-PMH protocol.
+•       How to load XML-based data into VuFind’s index using XSLT.
+
+10.1 Understanding OAI-PMH
+--------------------------
+
+
