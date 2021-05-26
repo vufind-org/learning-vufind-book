@@ -66,7 +66,7 @@ Programs that can be started or stopped using systemd are known as services. Eac
    [Install]
    WantedBy=multi-user.target
 
- Be sure that the file paths in ExecStart and ExecStop point to the correct command in $VUFIND_HOME. Confirm that the User line matches the user account you created in 6.2.1 above. For an explanation of the remaining settings, see the systemd.service documentation (https://www.freedesktop.org/software/systemd/man/systemd.service.html).
+Be sure that the file paths in ExecStart and ExecStop point to the correct command in $VUFIND_HOME. Confirm that the User line matches the user account you created in 6.2.1 above. For an explanation of the remaining settings, see the systemd.service documentation (https://www.freedesktop.org/software/systemd/man/systemd.service.html).
 
 6.2.3 Starting, Stopping and Enabling the Service
 _________________________________________________
@@ -128,8 +128,8 @@ Imagine, for example, that you have configured two identical VuFind servers: one
 
 
 1.      On the staging server, reset your index as described in 6.3.1, and reindex all of your records as described in chapters 3 and 11.
-2.      Copy the $VUFIND_HOME/solr/vufind/biblio directory on the staging server to a temporary location on the production server. The rsync command is a good way to do this – e.g., on the staging server, run: *rsync -r $VUFIND_HOME/solr/vufind/biblio user@production-server:/tmp/* (in this example, note that user@production-server should be replaced by a valid username and valid server name).
-3.      Stop Solr, move the new index into position, and then start Solr again. This will require a minimal amount of downtime, but it should be a matter of seconds or minutes rather than the longer period the full reindex process would have taken. The command for this might look something like this: *systemctl stop solr ; mv $VUFIND_HOME/solr/vufind/biblio /tmp/biblio_old ; mv /tmp/biblio $VUFIND_HOME/solr/vufind/ ; systemctl start solr* (this four-part command stops Solr, moves the current (old) Solr core directory into the /tmp directory so you can get it back if you need to, then moves the new (reindexed) Solr core directory into position from the place in /tmp where we rsynced it, and finally starts Solr again… by stringing all of the commands together with semi-colons, we ensure that they run one after another without pausing, further minimizing any downtime).
+2.      Copy the $VUFIND_HOME/solr/vufind/biblio directory on the staging server to a temporary location on the production server. The rsync command is a good way to do this – e.g., on the staging server, run: :code:`rsync -r $VUFIND_HOME/solr/vufind/biblio user@production-server:/tmp/` (in this example, note that user@production-server should be replaced by a valid username and valid server name).
+3.      Stop Solr, move the new index into position, and then start Solr again. This will require a minimal amount of downtime, but it should be a matter of seconds or minutes rather than the longer period the full reindex process would have taken. The command for this might look something like this: :code:`systemctl stop solr ; mv $VUFIND_HOME/solr/vufind/biblio /tmp/biblio_old ; mv /tmp/biblio $VUFIND_HOME/solr/vufind/ ; systemctl start solr` (this four-part command stops Solr, moves the current (old) Solr core directory into the /tmp directory so you can get it back if you need to, then moves the new (reindexed) Solr core directory into position from the place in /tmp where we rsynced it, and finally starts Solr again… by stringing all of the commands together with semi-colons, we ensure that they run one after another without pausing, further minimizing any downtime).
 
 This example procedure still requires a fair amount of manual effort, and is a rather crude demonstration of the possibilities of Solr. Solr has built-in replication capabilities that can be used to move indexes between servers automatically, with no downtime. The Solr Cloud feature offers even more powerful possibilities. To learn more about these features, see the Solr documentation (https://lucene.apache.org/solr/guide/).
 
@@ -196,11 +196,11 @@ If you use Shibboleth authentication and the “single logout” feature, you ma
 
    php $VUFIND_HOME/public/index.php util expire_external_sessions
 
- Over time, it is possible that additional features will be introduced which will require similar cleanup actions. You can always get a summary of VuFind’s available command line utilities by running:
+Over time, it is possible that additional features will be introduced which will require similar cleanup actions. You can always get a summary of VuFind’s available command line utilities by running:
 
- .. code-block:: console
+.. code-block:: console
 
-    php $VUFIND_HOME/public/index.php
+   php $VUFIND_HOME/public/index.php
 
 Looking through this for additional “expire” actions should reveal whether anything new has been added since this book was written.
 

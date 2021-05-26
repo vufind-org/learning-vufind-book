@@ -129,10 +129,13 @@ To install VuFind using Git, you first need to clone the official VuFind Git rep
    cd /usr/local/vufind
    git clone https://github.com/vufind-org/vufind.git 
 
-(Note that you may need to add sudo to some commands and/or change some permissions to make this
-work, depending on your Linux security configuration).
+(Note that you may need to add sudo to some commands and/or change some permissions to make this work, depending on your Linux security configuration).
 
-This will create a local clone of the repository and automatically check out the branch used for ongoing development. This is useful if you want to try the very latest “bleeding edge” development code, but that code is not guaranteed to be 100% stable, since some of it may be very new. If you prefer to access a more reliable, well-tested release, you can instead checkout a version tag, for example: *git checkout v7.0*
+This will create a local clone of the repository and automatically check out the branch used for ongoing development. This is useful if you want to try the very latest “bleeding edge” development code, but that code is not guaranteed to be 100% stable, since some of it may be very new. If you prefer to access a more reliable, well-tested release, you can instead checkout a version tag, for example:
+
+.. code-block:: console
+
+    git checkout v7.0
 
 Git will give you all of VuFInd’s code, but nothing else; you will be responsible for installing all of the software that VuFind depends upon – both the requirements described in section 2.1, as well as the package’s Composer dependencies.
 
