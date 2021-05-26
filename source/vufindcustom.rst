@@ -107,7 +107,7 @@ Note the double backslashes in the class name; because backslash has a special m
 
 If successful, you should see output similar to:
 
-.. code-blocl:: console
+.. code-block:: console
   
    Saved file: /…/vufind/module/MyModule/src/MyModule/RecordDriver/SolrMarc.php
    Created backup: /…/vufind/module/MyModule/config/module.config.php.1584707459.bak
