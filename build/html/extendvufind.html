@@ -1,36 +1,25 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Introduction to Laminas &#8212; Vufind Documentation 0.0.1 documentation</title>
-    
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.0.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="top" title="Vufind Documentation 0.0.1 documentation" href="index.html" />
     <link rel="next" title="Vufind plugins" href="vufindplugin.html" />
     <link rel="prev" title="Other Search Backedns" href="otherv.html" /> 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -43,7 +32,8 @@
         <li class="right" >
           <a href="otherv.html" title="Other Search Backedns"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Vufind Documentation 0.0.1 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Vufind Documentation 0.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Introduction to Laminas</a></li> 
       </ul>
     </div>  
 
@@ -58,9 +48,9 @@
 <h2>Chapter 16. Introduction to Laminas<a class="headerlink" href="#chapter-16-introduction-to-laminas" title="Permalink to this headline">¶</a></h2>
 <p>After reading this chapter, you will understand:</p>
 <ul class="simple">
-<li>Why VuFind uses a framework.</li>
-<li>How VuFind’s architecture is designed.</li>
-<li>The importance of dependency injection.</li>
+<li><p>Why VuFind uses a framework.</p></li>
+<li><p>How VuFind’s architecture is designed.</p></li>
+<li><p>The importance of dependency injection.</p></li>
 </ul>
 <div class="section" id="why-use-a-framework">
 <h3>16.1 Why Use a Framework?<a class="headerlink" href="#why-use-a-framework" title="Permalink to this headline">¶</a></h3>
@@ -92,13 +82,13 @@
 <h4>16.3.2 VuFind’s Built-In Modules<a class="headerlink" href="#vufinds-built-in-modules" title="Permalink to this headline">¶</a></h4>
 <p>VuFind contains several code modules, found under the $VUFIND_HOME/modules directory; as of release 7.0, they are:</p>
 <ul class="simple">
-<li>VuFind – the core of VuFind, containing the majority of the code.</li>
-<li>VuFindAdmin – code for VuFind’s web-based administration panel.</li>
-<li>VuFindApi – code for exposing VuFind search results and records through an API.</li>
-<li>VuFindConsole – code for all of VuFind’s command-line utilities.</li>
-<li>VuFindDevTools – code for utilities used by VuFind developers (only active when development mode is turned on in $VUFIND_LOCAL_DIR/httpd-vufind.conf).</li>
-<li>VuFindSearch – code for VuFind’s search system (including low-level backend code).</li>
-<li>VuFindTheme – code for VuFind’s theme system.</li>
+<li><p>VuFind – the core of VuFind, containing the majority of the code.</p></li>
+<li><p>VuFindAdmin – code for VuFind’s web-based administration panel.</p></li>
+<li><p>VuFindApi – code for exposing VuFind search results and records through an API.</p></li>
+<li><p>VuFindConsole – code for all of VuFind’s command-line utilities.</p></li>
+<li><p>VuFindDevTools – code for utilities used by VuFind developers (only active when development mode is turned on in $VUFIND_LOCAL_DIR/httpd-vufind.conf).</p></li>
+<li><p>VuFindSearch – code for VuFind’s search system (including low-level backend code).</p></li>
+<li><p>VuFindTheme – code for VuFind’s theme system.</p></li>
 </ul>
 <p>There is also a module called VuFindLocalTemplate, which is not used directly but is the basis for building local modules, as described in the next section.</p>
 </div>
@@ -122,11 +112,11 @@
 <p>In addition to the power of abstraction, the service manager helps with dependency injection in a very important way. The service manager can build objects using a variety of strategies, but the most common (and the one used by most of VuFind’s code) is with the help of factory classes. As the name suggests, a factory is a class used for building other objects. The factories used by the Laminas service manager are powerful for two reasons: they can use the service manager itself as part of the process of building objects (greatly simplifying the job of managing nested dependencies), and they are reusable: as long as you adhere to certain conventions, like ensuring that service names in the service manager always correspond to PHP class names, the same factory can be used to build objects belonging to multiple classes. Reusability can be a real time saver when many objects in your application have the exact same set of dependencies.</p>
 <p>All of this should become more clear with an example – let’s implement the “Solr connector with an HTTP client dependency” example with LaminasServiceManager. We’ll assume for the sake of example that the HTTP client has no other dependencies, but the Solr connector needs the HTTP client. To do this, we would configure the ServiceManager with two services. First, the HTTP client could be configured to use the ServiceManager’s generic “InvokableFactory” – a reusable factory which builds an object in the simplest possible way, without passing any dependencies into it. Next, the Solr connector could be configured to use a new custom factory. In the Solr connector’s factory code, we could fetch the HTTP client from the service manager</p>
 <ol class="arabic simple">
-<li>The application asks the service manager to provide the Solr connector.</li>
-<li>The service manager looks up how to build a Solr connector, and calls the appropriate factory class.</li>
-<li>The Solr connector factory asks the service manager to provide the HTTP client.</li>
-<li>The service manager looks up how to build the HTTP client, and calls the Invokable factory, which immediately builds the HTTP client object.</li>
-<li>The Solr connector factory now builds the Solr connector using the HTTP client, then returns the result to the application.</li>
+<li><p>The application asks the service manager to provide the Solr connector.</p></li>
+<li><p>The service manager looks up how to build a Solr connector, and calls the appropriate factory class.</p></li>
+<li><p>The Solr connector factory asks the service manager to provide the HTTP client.</p></li>
+<li><p>The service manager looks up how to build the HTTP client, and calls the Invokable factory, which immediately builds the HTTP client object.</p></li>
+<li><p>The Solr connector factory now builds the Solr connector using the HTTP client, then returns the result to the application.</p></li>
 </ol>
 <p>For a very complex object, the service manager might end up triggering a complex chain reaction, using many factories and looking up many additional services… but as long as each factory simply asks the service manager for the immediate dependencies of the object being built, the developer doesn’t need to worry too much about those implementation details. The chain may be complex, but each link in the chain is easy to build and clear to read.</p>
 <p>Understanding the role of the service manager is probably the single most important key to understanding VuFind’s code. It is not necessarily obvious at first, but the power of this one tool informs much of VuFind’s design, both in how the code is broken down into parts and in how nearly everything can be customized and extended. If this is not yet clear, you may wish to revisit this chapter after you have had more experience working with the code. Chapter 17, discussing plug-ins, may shed additional light as well.</p>
@@ -146,21 +136,22 @@
 <div class="section" id="review-questions">
 <h3>Review Questions<a class="headerlink" href="#review-questions" title="Permalink to this headline">¶</a></h3>
 <ol class="arabic simple">
-<li>What is the difference between a model, a view, and a controller?</li>
-<li>What is one disadvantage of dependency injection, and how does VuFind mitigate it?</li>
-<li>Name three Laminas components used by VuFind, and explain their significance.</li>
+<li><p>What is the difference between a model, a view, and a controller?</p></li>
+<li><p>What is one disadvantage of dependency injection, and how does VuFind mitigate it?</p></li>
+<li><p>Name three Laminas components used by VuFind, and explain their significance.</p></li>
 </ol>
 </div>
 </div>
 </div>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
+  <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Introduction to Laminas</a><ul>
 <li><a class="reference internal" href="#chapter-16-introduction-to-laminas">Chapter 16. Introduction to Laminas</a><ul>
@@ -191,20 +182,20 @@
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/extendvufind.txt"
+      <li><a href="_sources/extendvufind.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
     </form>
+    </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -221,12 +212,13 @@
         <li class="right" >
           <a href="otherv.html" title="Other Search Backedns"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Vufind Documentation 0.0.1 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Vufind Documentation 0.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Introduction to Laminas</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, Demian Katz .
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.9.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
     </div>
   </body>
 </html>

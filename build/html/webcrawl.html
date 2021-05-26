@@ -1,36 +1,25 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Web crawling with Vufind &#8212; Vufind Documentation 0.0.1 documentation</title>
-    
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.0.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="top" title="Vufind Documentation 0.0.1 documentation" href="index.html" />
     <link rel="next" title="Combining regular and web results" href="combineresults.html" />
     <link rel="prev" title="XML Indexing" href="xmlindex.html" /> 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -43,7 +32,8 @@
         <li class="right" >
           <a href="xmlindex.html" title="XML Indexing"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Vufind Documentation 0.0.1 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Vufind Documentation 0.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Web crawling with Vufind</a></li> 
       </ul>
     </div>  
 
@@ -96,7 +86,7 @@
 <h4>12.3.2 Configuring and Running the Web Crawler<a class="headerlink" href="#configuring-and-running-the-web-crawler" title="Permalink to this headline">¶</a></h4>
 <p>Once full text indexing is configured, setting up VuFind’s web crawler is quite simple. Copy $VUFIND_HOME/config/vufind/webcrawl.ini to $VUFIND_LOCAL_DIR/config/vufind/ and edit the file. Simply add a “url[] =” line to the [Sitemaps] section for every sitemap URL that you wish to crawl. If your site has a sitemapIndex.xml, you can point to this single file and VuFind’s crawler will follow all of the links within it. You can turn on the “verbose” setting in the [General] section if you want to see more detailed output while the indexing process is running.</p>
 <p>Once the configuration is set up, you can initiate the crawling process with the command:</p>
-<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">php $VUFIND_HOME/import/webcrawl.php</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">php $VUFIND_HOME/import/webcrawl.php</span>
 </pre></div>
 </div>
 <p>This will index all of the pages in all of the sitemaps referenced in webcrawl.ini. This process can take a long time for large sites, since it has to download every web page in order to index it. When it finishes indexing new pages, it will delete any pages in the index that have ceased to exist since the last time the tool was launched. For this reason, you should never run the web indexer while your site is offline, since it could end up removing useful content from your index.</p>
@@ -108,9 +98,9 @@
 <p>Once you have finished indexing content, you can search your web index through VuFind’s separate Web search; the URL will be something like <a class="reference external" href="http://localhost/vufind/Web">http://localhost/vufind/Web</a>, assuming that <a class="reference external" href="http://localhost/vufind/">http://localhost/vufind/</a> is your VuFind base URL.</p>
 <p>If you wish to customize the behavior of the web search, there are several files that you can override as needed:</p>
 <ul class="simple">
-<li>$VUFIND_HOME/config/vufind/website.ini – This file contains settings equivalent to the contents of searches.ini and facets.ini, but applied to the website index instead of the main biblio core. See sections 4.3 and 4.4 for more detail.</li>
-<li>$VUFIND_HOME/config/vufind/websearchspecs.yaml – This file contains rules used for managing relevance ranking of search results, following the same format as the main searchspecs.yaml used by the biblio core. See section 5.3 for more detail.</li>
-<li>templates/RecordDriver/SolrWeb/result-list.phtml – This template file can be overridden within your theme to change the way individual web results are displayed in the search result list; the VuFindRecordDriverSolrWeb class can also be extended to add functionality as needed. For more on customizing record views, see chapter 9.</li>
+<li><p>$VUFIND_HOME/config/vufind/website.ini – This file contains settings equivalent to the contents of searches.ini and facets.ini, but applied to the website index instead of the main biblio core. See sections 4.3 and 4.4 for more detail.</p></li>
+<li><p>$VUFIND_HOME/config/vufind/websearchspecs.yaml – This file contains rules used for managing relevance ranking of search results, following the same format as the main searchspecs.yaml used by the biblio core. See section 5.3 for more detail.</p></li>
+<li><p>templates/RecordDriver/SolrWeb/result-list.phtml – This template file can be overridden within your theme to change the way individual web results are displayed in the search result list; the VuFindRecordDriverSolrWeb class can also be extended to add functionality as needed. For more on customizing record views, see chapter 9.</p></li>
 </ul>
 <p>Unless you are planning on using VuFind exclusively for web searching, you will likely want to make it convenient for users to seamlessly search across both the web index and the main bibliographic record index. See chapter 13 for more on how to combine different types of searches using VuFind.</p>
 </div>
@@ -125,21 +115,22 @@
 <div class="section" id="review-questions">
 <h3>Review Questions<a class="headerlink" href="#review-questions" title="Permalink to this headline">¶</a></h3>
 <ol class="arabic simple">
-<li>What is the difference between sitemap.xml and sitemapIndex.xml?</li>
-<li>What configuration files do you need to edit in order to set up web indexing in VuFind?</li>
-<li>What URL is used to perform searches of VuFind’s web index?</li>
+<li><p>What is the difference between sitemap.xml and sitemapIndex.xml?</p></li>
+<li><p>What configuration files do you need to edit in order to set up web indexing in VuFind?</p></li>
+<li><p>What URL is used to perform searches of VuFind’s web index?</p></li>
 </ol>
 </div>
 </div>
 </div>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
+  <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Web crawling with Vufind</a><ul>
 <li><a class="reference internal" href="#chapter-12-web-crawling-with-vufind">Chapter 12. Web Crawling with VuFind</a><ul>
@@ -170,20 +161,20 @@
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/webcrawl.txt"
+      <li><a href="_sources/webcrawl.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
     </form>
+    </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -200,12 +191,13 @@
         <li class="right" >
           <a href="xmlindex.html" title="XML Indexing"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Vufind Documentation 0.0.1 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Vufind Documentation 0.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Web crawling with Vufind</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, Demian Katz .
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.9.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
     </div>
   </body>
 </html>

@@ -1,36 +1,25 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Configuring Vufind &#8212; Vufind Documentation 0.0.1 documentation</title>
-    
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Part 2. Configuration and Administration &#8212; Vufind Documentation 0.0.1 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.0.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="top" title="Vufind Documentation 0.0.1 documentation" href="index.html" />
     <link rel="next" title="Understanding Solr" href="solr.html" />
     <link rel="prev" title="Indexing Marc" href="indexmarc.html" /> 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -43,7 +32,8 @@
         <li class="right" >
           <a href="indexmarc.html" title="Indexing Marc"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Vufind Documentation 0.0.1 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Vufind Documentation 0.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Part 2. Configuration and Administration</a></li> 
       </ul>
     </div>  
 
@@ -52,18 +42,18 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="configuring-vufind">
-<h1>Configuring Vufind<a class="headerlink" href="#configuring-vufind" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="part-2-configuration-and-administration">
+<h1>Part 2. Configuration and Administration<a class="headerlink" href="#part-2-configuration-and-administration" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="chapter-4-configuring-vufind">
 <h2>Chapter 4. Configuring VuFind<a class="headerlink" href="#chapter-4-configuring-vufind" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="learning-objectives">
 <h3>Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permalink to this headline">¶</a></h3>
 <p>After reading this chapter, you will understand:</p>
 <ul class="simple">
-<li>How to find key VuFind configurations.</li>
-<li>How to configure search types.</li>
-<li>How to configure facets.</li>
-<li>The reason for the existence of additional configuration files.</li>
+<li><p>How to find key VuFind configurations.</p></li>
+<li><p>How to configure search types.</p></li>
+<li><p>How to configure facets.</p></li>
+<li><p>The reason for the existence of additional configuration files.</p></li>
 </ul>
 </div>
 <div class="section" id="introduction-and-review">
@@ -80,8 +70,8 @@
 </div>
 <div class="section" id="searches-ini">
 <h3>4.3 searches.ini<a class="headerlink" href="#searches-ini" title="Permalink to this headline">¶</a></h3>
-<p>The searches.ini file contains settings related to the way VuFind presents search options related to its Solr index. This file lists legal search options (such as author, title, subject) and sort options (such as date, title, relevance). This is also the place to configure recommendation modules, which provide context-sensitive information accompanying search results (see Chapter 14 for more details). If you want to change default behaviors, rearrange options in drop-down menus, or customize search results screens, this file is a good place to start. Users interested in customizing the way searches are constructed will also need to understand the searchspecs.yaml, which is discussed later in section 5.3.</p>
-<p>Note that searches.ini is only important if you are using the Solr index for your searches. If you are using a different search method, such as a third-party API, there will be a different configuration file (such as Summon.ini, WorldCat.ini, etc.) which will contain similarly-structured settings that will impact searches from that environment. Most VuFind users incorporate Solr in some way, but if your use case does not require Summon, it is possible that you will never use searches.ini – but understanding its contents will still be useful because whatever backend you use probably relies on most of the same basic concepts.</p>
+<p>The searches.ini file contains settings related to the way VuFind presents search options related to its Solr index. This file lists legal search options (such as author, title, subject) and sort options (such as date, title, relevance). This is also the place to configure recommendation modules, which provide context-sensitive information accompanying search results (see Chapter 14 for more details). If you want to change default behaviors, rearrange options in drop-down menus, or customize search results screens, this file is a good place to start. Users interested in customizing the way searches are constructed will also need to understand the searchspecs.yaml, which is discussed later in section 5.2.</p>
+<p>Note that searches.ini is only important if you are using the Solr index for your searches. If you are using a different search method, such as a third-party API, there will be a different configuration file (such as Summon.ini, WorldCat.ini, etc.) which will contain similarly-structured settings that will impact searches from that environment. Most VuFind users incorporate Solr in some way, but if your use case does not require Solr, it is possible that you will never use searches.ini. Even so, understanding its contents will still be useful because whatever backend you use probably relies on most of the same basic concepts.</p>
 </div>
 <div class="section" id="facets-ini">
 <h3>4.4 facets.ini<a class="headerlink" href="#facets-ini" title="Permalink to this headline">¶</a></h3>
@@ -109,8 +99,8 @@
 <h5>4.5.1.3 The NoILS Driver<a class="headerlink" href="#the-noils-driver" title="Permalink to this headline">¶</a></h5>
 <p>The NoILS driver disables some or all of VuFind’s ILS-specific behavior, and it can also replace some functionality normally delegated to an ILS with data retrieval from the Solr index. There are two different use cases for this driver:</p>
 <ol class="arabic simple">
-<li>By using the loadNoILSOnFailure setting in config.ini, VuFind can be configured to load the NoILS driver instead of the regularly configured driver when a problem is encountered. You can then set the NoILS.ini file into “ils-offline” mode to display a message about temporarily unavailability of ILS-related functionality. This is useful to give your users a better experience during planned or unplanned outages of your ILS.</li>
-<li>If you have no ILS at all, you can select NoILS as your driver and set the NoILS.ini file into “ils-none” mode, and this will ensure that VuFind hides functionality related to the ILS at all times.</li>
+<li><p>By using the loadNoILSOnFailure setting in config.ini, VuFind can be configured to load the NoILS driver instead of the regularly configured driver when a problem is encountered. You can then set the NoILS.ini file into “ils-offline” mode to display a message about temporary unavailability of ILS-related functionality. This is useful to give your users a better experience during planned or unplanned outages of your ILS.</p></li>
+<li><p>If you have no ILS at all, you can select NoILS as your driver and set the NoILS.ini file into “ils-none” mode, and this will ensure that VuFind hides functionality related to the ILS at all times.</p></li>
 </ol>
 <p>Whether disabling ILS functionality until you are ready to pick a system, or as a safety net in case of failures, the NoILS driver is an important tool to be aware of when configuring VuFind.</p>
 </div>
@@ -124,12 +114,13 @@
 </div>
 <div class="section" id="feature-oriented-configurations">
 <h4>4.5.3 Feature-Oriented Configurations<a class="headerlink" href="#feature-oriented-configurations" title="Permalink to this headline">¶</a></h4>
-<p>Some features of VuFind require especially complex configuration and/or are only used in very specialized situations, and putting all of those settings into the main config.ini files would make that file harder to read and work with. Thus, they have been split out into separate files. Some important examples include: combined.ini and searchbox.ini, which will be discussed in more detail in chapter 13; export.ini, which controls the ways in which users can download record data from the system; permissions.ini, which provides rule-based access control over some of VuFind’s features; and sitemap.ini, which controls the creation of sitemap files to assist search engine crawling (see also section 12.1).</p>
+<p>Some features of VuFind require especially complex configuration and/or are only used in very specialized situations, and putting all of those settings into the main config.ini files would make that file harder to read and work with. Thus, they have been split out into separate files. Some important examples include: combined.ini and searchbox.ini, which will be discussed in more detail in chapter 13; export.ini, which controls the ways in which users can download record data from the system; permissions.ini, which provides rule-based access control over some of VuFind’s features; and sitemap.ini, which controls the creation of sitemap files to assist search engine crawling (see also section 12.2).</p>
 </div>
 </div>
 <div class="section" id="additional-resources">
 <h3>Additional Resources<a class="headerlink" href="#additional-resources" title="Permalink to this headline">¶</a></h3>
-<p>For a more comprehensive and up-to-date list of configuration files, see the appropriate wiki page (<a class="reference external" href="https://vufind.org/wiki/configuration:files">https://vufind.org/wiki/configuration:files</a>).</p>
+<p>A video covering most of the information from this chapter is available through the VuFind website
+(<a class="reference external" href="https://vufind.org/wiki/videos:configuring_search_and_facet_settings">https://vufind.org/wiki/videos:configuring_search_and_facet_settings</a>). For a more comprehensive and up-to-date list of configuration files, see the appropriate wiki page (<a class="reference external" href="https://vufind.org/wiki/configuration:files">https://vufind.org/wiki/configuration:files</a>).</p>
 </div>
 <div class="section" id="summary">
 <h3>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h3>
@@ -138,25 +129,26 @@
 <div class="section" id="review-questions">
 <h3>Review Questions<a class="headerlink" href="#review-questions" title="Permalink to this headline">¶</a></h3>
 <ol class="arabic simple">
-<li>What are the primary purposes of config.ini, searches.ini and facets.ini?</li>
-<li>What are two reasons you might wish to configure the NoILS driver?</li>
-<li>What does a semi-colon (;) in a configuration file mean?</li>
-<li>What are three feature-oriented configuration files (excluding searches.ini and facets.ini), and why would you want to use them?</li>
-<li>What is a search backend?</li>
+<li><p>What are the primary purposes of config.ini, searches.ini and facets.ini?</p></li>
+<li><p>What are two reasons you might wish to configure the NoILS driver?</p></li>
+<li><p>What does a semi-colon (;) in a configuration file mean?</p></li>
+<li><p>What are three feature-oriented configuration files (excluding searches.ini and facets.ini), and why would you want to use them?</p></li>
+<li><p>What is a search backend?</p></li>
 </ol>
 </div>
 </div>
 </div>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
+  <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Configuring Vufind</a><ul>
+<li><a class="reference internal" href="#">Part 2. Configuration and Administration</a><ul>
 <li><a class="reference internal" href="#chapter-4-configuring-vufind">Chapter 4. Configuring VuFind</a><ul>
 <li><a class="reference internal" href="#learning-objectives">Learning Objectives</a></li>
 <li><a class="reference internal" href="#introduction-and-review">4.1 Introduction and Review</a></li>
@@ -192,20 +184,20 @@
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/confvufind.txt"
+      <li><a href="_sources/confvufind.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
     </form>
+    </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -222,12 +214,13 @@
         <li class="right" >
           <a href="indexmarc.html" title="Indexing Marc"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Vufind Documentation 0.0.1 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Vufind Documentation 0.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Part 2. Configuration and Administration</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, Demian Katz .
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.9.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
     </div>
   </body>
 </html>

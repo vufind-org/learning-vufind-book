@@ -1,36 +1,25 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Recommendation modules &#8212; Vufind Documentation 0.0.1 documentation</title>
-    
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.0.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="top" title="Vufind Documentation 0.0.1 documentation" href="index.html" />
     <link rel="next" title="Other Search Backedns" href="otherv.html" />
     <link rel="prev" title="Combining regular and web results" href="combineresults.html" /> 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -43,7 +32,8 @@
         <li class="right" >
           <a href="combineresults.html" title="Combining regular and web results"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Vufind Documentation 0.0.1 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Vufind Documentation 0.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Recommendation modules</a></li> 
       </ul>
     </div>  
 
@@ -60,9 +50,9 @@
 <h3>Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permalink to this headline">¶</a></h3>
 <p>After reading this chapter, you will understand:</p>
 <ul class="simple">
-<li>What a recommendation module is.</li>
-<li>How recommendation module configuration works.</li>
-<li>Some common use cases for recommendation modules.</li>
+<li><p>What a recommendation module is.</p></li>
+<li><p>How recommendation module configuration works.</p></li>
+<li><p>Some common use cases for recommendation modules.</p></li>
 </ul>
 </div>
 <div class="section" id="what-is-a-recommendation-module">
@@ -79,7 +69,7 @@
 <p>This configuration setup offers a balance between ease of use and specificity. You can define default values that will be used in most situations, but you can override them with more specific recommendations as needed.</p>
 <p>At each level of the configuration, recommendation modules are configured by providing the name of the module, optionally followed by a set of parameters separated by colons. The meanings of these parameters are detailed in the comments in searches.ini (and some examples will be explained below).</p>
 <p>Here are the most relevant configurations from searches.ini as of VuFind 6.1.1:</p>
-<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">[General]</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">[General]</span>
 <span class="go">default_top_recommend[] = TopFacets:ResultsTop</span>
 <span class="go">default_top_recommend[] = SpellingSuggestions</span>
 <span class="go">default_side_recommend[] = SideFacets:Results:CheckboxFacets</span>
@@ -112,9 +102,9 @@
 <p>VuFind provides two recommendation modules that can be used to meet this need: CatalogResults, which displays results from the main Solr biblio core, and WebResults, which displays results from the Solr website core. Both of these modules accept two parameters: the name of the URL parameter containing search terms (which defaults to “lookfor,” which does not need to be changed for this example) and the number of search results to display in the sidebar (which defaults to 5). We just need to turn on WebResults in searches.ini and CatalogResults in website.ini.</p>
 <p>This can be set up by following these steps:</p>
 <ol class="arabic simple">
-<li>Copy searches.ini  and website.ini from $VUFIND_HOME/config/vufind/ to $VUFIND_LOCAL_DIR/config/vufind/ if you have not previously customized these files.</li>
-<li>Edit $VUFIND_LOCAL_DIR/config/vufind/searches.ini, and add <em>default_side_recommend[] = WebResults</em> to the [General] section of the file. In a default VuFind configuration, there should be no customizations in the [SideRecommendations] section, but if you have made customizations there, you will want to add WebResults to each of the customized search handlers as well.</li>
-<li>Edit $VUFIND_LOCAL_DIR/config/vufind/website.ini and add <em>default_side_recommend[] = CatalogResults</em> to the [General] section if it is not already there (in recent VuFind releases, this is already turned on by default).</li>
+<li><p>Copy searches.ini  and website.ini from $VUFIND_HOME/config/vufind/ to $VUFIND_LOCAL_DIR/config/vufind/ if you have not previously customized these files.</p></li>
+<li><p>Edit $VUFIND_LOCAL_DIR/config/vufind/searches.ini, and add <em>default_side_recommend[] = WebResults</em> to the [General] section of the file. In a default VuFind configuration, there should be no customizations in the [SideRecommendations] section, but if you have made customizations there, you will want to add WebResults to each of the customized search handlers as well.</p></li>
+<li><p>Edit $VUFIND_LOCAL_DIR/config/vufind/website.ini and add <em>default_side_recommend[] = CatalogResults</em> to the [General] section if it is not already there (in recent VuFind releases, this is already turned on by default).</p></li>
 </ol>
 <p>Now VuFind should display brief previews of web results in standard result listings and vice versa.</p>
 <p>If you wanted to display a different number of results in the recommendation boxes (for the sake of example, 3), you could edit the configuration lines to read <em>default_side_recommend[] = WebResults::3</em> and <em>default_side_recommend[] = CatalogResults::3</em>. The double colon is present because we are leaving the first parameter blank.</p>
@@ -124,7 +114,7 @@
 <h3>14.4 Example: Displaying Extra Links for Empty Search Results<a class="headerlink" href="#example-displaying-extra-links-for-empty-search-results" title="Permalink to this headline">¶</a></h3>
 <p>It is often useful to provide links to specific resources related to a search. For example, you might have a “search tips” page on your website which could provide guidance for users having difficulty with searches. VuFind includes a recommendation module named RecommendLinks which can render such a list. The RecommendLinks helper takes two parameters: the name of an ini file, and the name of a section within that file; it uses these to locate the list of recommendations to display. If no extra details are specified, it will look in the [RecommendLinks] section of searches.ini. Allowing configuration of the location of links means that the same RecommendLinks module can be used in different contexts to display different lists of links.</p>
 <p>To implement the example of a link to a “search tips” guide when a user performs a search with no results, we could simply add <em>default_noresults_recommend[] = RecommendLinks</em> to the [General] section of $VUFIND_LOCAL_DIR/config/vufind/searches.ini, and then, in the same file, add this to the [RecommendLinks] section:</p>
-<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">Search Tips = http://library.myuniversity.edu/search-tips</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Search Tips = http://library.myuniversity.edu/search-tips</span>
 </pre></div>
 </div>
 <p>(where “Search Tips” is the link text that will be displayed to the user, and <a class="reference external" href="http://library.myuniversity.edu/search-tips">http://library.myuniversity.edu/search-tips</a> is the desired link URL).</p>
@@ -141,20 +131,21 @@
 <div class="section" id="review-questions">
 <h3>Review Questions<a class="headerlink" href="#review-questions" title="Permalink to this headline">¶</a></h3>
 <ol class="arabic simple">
-<li>Where can you find a complete list of recommendation modules, including parameters?</li>
-<li>Why are the brackets ([]) important at the end of settings like “default_top_recommend[]”?</li>
+<li><p>Where can you find a complete list of recommendation modules, including parameters?</p></li>
+<li><p>Why are the brackets ([]) important at the end of settings like “default_top_recommend[]”?</p></li>
 </ol>
 </div>
 </div>
 </div>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
+  <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Recommendation modules</a><ul>
 <li><a class="reference internal" href="#chapter-14-recommendation-modules">Chapter 14. Recommendation Modules</a><ul>
@@ -181,20 +172,20 @@
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/recommend.txt"
+      <li><a href="_sources/recommend.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
     </form>
+    </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -211,12 +202,13 @@
         <li class="right" >
           <a href="combineresults.html" title="Combining regular and web results"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Vufind Documentation 0.0.1 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Vufind Documentation 0.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Recommendation modules</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, Demian Katz .
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.9.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
     </div>
   </body>
 </html>

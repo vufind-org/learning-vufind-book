@@ -1,36 +1,25 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Customizing Record Views &#8212; Vufind Documentation 0.0.1 documentation</title>
-    
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.0.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="top" title="Vufind Documentation 0.0.1 documentation" href="index.html" />
     <link rel="next" title="Working with XML and HTML" href="vufind_harvest.html" />
     <link rel="prev" title="Styling Vufind" href="vufindstyle.html" /> 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -43,7 +32,8 @@
         <li class="right" >
           <a href="vufindstyle.html" title="Styling Vufind"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Vufind Documentation 0.0.1 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Vufind Documentation 0.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Customizing Record Views</a></li> 
       </ul>
     </div>  
 
@@ -59,9 +49,9 @@
 <div class="section" id="learning-objectives">
 <h3>Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>VuFind’s record model, and the purpose of record drivers and the record data formatter.</li>
-<li>How to customize the display of existing fields.</li>
-<li>How to add new fields to records.</li>
+<li><p>VuFind’s record model, and the purpose of record drivers and the record data formatter.</p></li>
+<li><p>How to customize the display of existing fields.</p></li>
+<li><p>How to add new fields to records.</p></li>
 </ul>
 </div>
 <div class="section" id="understanding-record-drivers">
@@ -79,19 +69,19 @@
 <p>Prior to release 4.0, many of VuFind’s record driver templates were long and repetitive, building large tables of data extracted from metadata records and Solr. This had the advantage of simplicity, but it was somewhat difficult to read, maintain and customize. It was hard to quickly identify which fields were being displayed in a particular template, and making local customizations required duplicating large amounts of template code, which in turn led to laborious reconciliation work when core templates changed during upgrades.</p>
 <p>To address these issues, VuFind 4.0 introduced a new view helper called the RecordDataFormatter, whose job is to extract a collection of data from a record driver following a configurable set of rules. This change does make VuFind’s learning curve a bit steeper, since making the most of the RecordDataFormatter’s configuration requires some understanding of PHP, and there are quite a few configuration options to navigate. However, the learning cost is counterbalanced by a solution which resolves the template length, readability and maintenance challenges of the old approach. Additionally, for users who do not like the RecordDataFormatter, there is no mandate to use it; it is a view helper used in VuFind’s default templates, but there is nothing preventing you from building a custom template using the older, simpler approach if you prefer having total control over how things are retrieved and laid out.</p>
 <p>To see how the RecordDataFormatter is configured, you can look at the factory code which builds the view helper, which is found in $VUFIND_HOME/module/VuFind/src/VuFind/View/Helper/Root/RecordDataFormatterFactory.php. If you are not familiar with PHP, this file will be quite intimidating at first glance, but once you recognize some basic patterns, most of it should make sense even if you do not fully understand the programming language behind it. At the top of the file, there is a method named __invoke(), which does the high-level work of building the view helper. You will notice several “setDefaults” lines, which establish default rules for which fields should be retrieved on particular templates. For example:</p>
-<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span>helper-&gt;setDefaults<span class="o">(</span><span class="s1">&#39;core&#39;</span>, <span class="o">[</span><span class="nv">$this</span>, <span class="s1">&#39;getDefaultCoreSpecs&#39;</span><span class="o">])</span><span class="p">;</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span>helper-&gt;setDefaults<span class="o">(</span><span class="s1">&#39;core&#39;</span>, <span class="o">[</span><span class="nv">$this</span>, <span class="s1">&#39;getDefaultCoreSpecs&#39;</span><span class="o">])</span><span class="p">;</span>
 </pre></div>
 </div>
 <p>Indicates that when rendering the core.phtml record driver template, the RecordDataFormatter should use the configuration defined in the <em>getDefaultCoreSpecs()</em> method.</p>
 <p>If you scroll down through the file, you will eventually find the definition of the getDefaultCoreSpecs method, which begins with function <em>getDefaultCoreSpecs()</em>. You will see that this method, like all of the others written to establish default configurations, makes use of a utility called <em>RecordDataFormatterSpecBuilder</em>, which is a PHP class containing code which helps build up the configuration array expected by the RecordDataFormatter. You don’t have to use the SpecBuilder, but it makes the configuration code more concise, and it will also help you extend and rearrange the configuration if you wish to make customizations. An example of this will be shown below in section 9.3.</p>
 <p>The SpecBuilder has several methods, including <em>setLine, setMultiLine</em>, and <em>setTemplateLine</em>. Each of these are shorthand for different types of configuration that the RecordDataFormatter can understand, and each sets up the display of some of the data in the final output. The difference is simply how the details are retrieved and formatted.</p>
 <p>The <em>setLine</em> method offers the absolute simplest example. For example, take a look at this line from <em>getDefaultDescriptionSpecs()</em>:</p>
-<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span>spec-&gt;setLine<span class="o">(</span><span class="s1">&#39;Physical Description&#39;</span>, <span class="s1">&#39;getPhysicalDescriptions&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span>spec-&gt;setLine<span class="o">(</span><span class="s1">&#39;Physical Description&#39;</span>, <span class="s1">&#39;getPhysicalDescriptions&#39;</span><span class="o">)</span><span class="p">;</span>
 </pre></div>
 </div>
 <p>This simply says “retrieve any values from the record driver’s <em>getPhysicalDescriptions()</em> method, and display them with a label of ‘Physical Description:’.”</p>
 <p>This simple case, taking only two parameters (label and method) takes advantage of the SpecBuilder’s defaults. The <em>setLine()</em> method can accept up to four parameters, with the third (render type) and fourth (options array) opening up a lot of advanced features and behaviors. You should refer to the VuFind wiki (see Additional Resources below) for more details; new options are added from time to time, and the documentation will give you the most up-to-date possibilitiesThe other two methods (<em>setTemplateLine()</em> and <em>setMultiLine()</em>)  are actually wrappers around <em>setLine()</em> which make it more convenient to set up some commonly-used advanced configurations. The <em>setTemplateLine()</em> method is by far the most commonly-used option; this retrieves data from a record driver method, but instead of displaying it “raw,” it instead passes it to its own record driver template for additional formatting. This is useful for data fields that need to be linked or labeled in special ways. This method is used to display many of VuFind’s default fields, which also means that if you want to change the way those fields are displayed, you can simply override the relevant template in your custom theme without having to touch the RecordDataFormatter configuration. Here is an example:.</p>
-<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">  $</span>spec-&gt;setTemplateLine<span class="o">(</span><span class="s1">&#39;Series&#39;</span>, <span class="s1">&#39;getSeries&#39;</span>, <span class="s1">&#39;data-series.phtml&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">  $</span>spec-&gt;setTemplateLine<span class="o">(</span><span class="s1">&#39;Series&#39;</span>, <span class="s1">&#39;getSeries&#39;</span>, <span class="s1">&#39;data-series.phtml&#39;</span><span class="o">)</span><span class="p">;</span>
 
 <span class="go">As you can probably guess, this retrieves data from the record driver’s *getSeries()* method, formats that data using the data-series.phtml template, and then displays the result with a label of “Series:”.</span>
 </pre></div>
@@ -108,9 +98,9 @@
 <p>The easiest way to display a new field is to store that data in a field of the Solr index. While VuFind does have the ability to retrieve details from the raw MARC records stored in its index (using special utility methods included in the SolrMarc record driver), pulling the data out to its own field makes it easier to search and facet using that data, and it provides better uniformity if you also expect to work with the same kind of data from non-MARC sources.</p>
 <p>To index the new field, you should:</p>
 <ol class="arabic simple">
-<li>Create a marc_local.properties file in your $VUFIND_LOCAL_DIR/import directory if you don’t already have one (see section 3.4.3).</li>
-<li>Add this line to the marc_local.properties file: donor_str_mv = 597a</li>
-<li>Reindex all of your records as described in section 3.2.</li>
+<li><p>Create a marc_local.properties file in your $VUFIND_LOCAL_DIR/import directory if you don’t already have one (see section 3.4.3).</p></li>
+<li><p>Add this line to the marc_local.properties file: donor_str_mv = 597a</p></li>
+<li><p>Reindex all of your records as described in section 3.2.</p></li>
 </ol>
 <p>Note that the “donor_str_mv” field name in the example above takes advantage of the “dynamic field suffixes” configured in VuFind’s default schema. While adding a new field to Solr usually requires an edit to the schema file (see section 5.1.2), it is possible to define fields based on patterns, so that, for example, any field name ending with “_str_mv” is recognized as a multi-valued string field. VuFind’s wiki (<a class="reference external" href="https://vufind.org/wiki/development:architecture:solr_index_schema#dynamic_field_suffixes">https://vufind.org/wiki/development:architecture:solr_index_schema#dynamic_field_suffixes</a>) details all of the available dynamic field suffixes.</p>
 </div>
@@ -119,14 +109,21 @@
 <p>Now that your index contains data in the donor_str_mv field, you need to tell VuFind how to read the new field. This requires the addition of a new record driver method. Since we are working with MARC records in this example, the easiest way to set up this method is to extend the SolrDefault record driver in a local code module.</p>
 <p>Depending on how you installed VuFind, you may or may not already have a local module set up; if you do not, or if you are not sure, you can read ahead to section 16.3.3 for more details. For the purposes of this example, we will assume that you have a local module called MyModule. You should substitute “MyModule” with your actual module name in all of the subsequent example commands.</p>
 <p>VuFind contains a code generator tool called “extendclass” which can be used to override any core service or plugin with code in your local module. This saves a lot of time setting up files and configurations. To create our local custom record driver, we simply run these commands:</p>
-<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">cd $VUFIND_HOME</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd $VUFIND_HOME</span>
 <span class="go">php public/index.php generate extendclass VuFind\\RecordDriver\\SolrMarc MyModule</span>
 </pre></div>
 </div>
 <p>Note the double backslashes in the class name; because backslash has a special meaning to the Unix command line, it is necessary to “escape” the backslash characters on the command line, or else they will not be passed to the generator correctly.</p>
 <p>If successful, you should see output similar to:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Saved file: /…/vufind/module/MyModule/src/MyModule/RecordDriver/SolrMarc.php</span>
+<span class="go">Created backup: /…/vufind/module/MyModule/config/module.config.php.1584707459.bak</span>
+<span class="go">Successfully updated /…/vufind/module/MyModule/config/module.config.php</span>
+<span class="go">Successfully updated /…/vufind/module/MyModule/config/module.config.php</span>
+<span class="go">Successfully updated /…/vufind/module/MyModule/config/module.config.php</span>
+</pre></div>
+</div>
 <p>Now if you edit $VUFIND_HOME/module/MyModule/src/MyModule/RecordDriver/SolrMarc.php, you will see that the generator has created an empty PHP class for you:</p>
-<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">&lt;?php</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&lt;?php</span>
 
 <span class="go">namespace MyModule\RecordDriver;</span>
 
@@ -137,7 +134,7 @@
 </pre></div>
 </div>
 <p>You simply need to add a method to provide access to the new donor_str_mv field. Edit the file so it looks like this:</p>
-<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">&lt;?php</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&lt;?php</span>
 
 <span class="go">namespace MyModule\RecordDriver;</span>
 
@@ -152,7 +149,7 @@
 </div>
 <p>All of the Solr fields are exposed to the record driver as part of the <em>$this-&gt;fields</em> property. The <em>?? []</em> syntax simply means “if the requested value is not there, return an empty array instead.”</p>
 <p>After making any changes or additions to module.config.php, it is also a good idea to clear your configuration cache, to make sure that your changes take effect immediately:</p>
-<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">sudo rm -rf $VUFIND_LOCAL_DIR/cache/configs/*</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo rm -rf $VUFIND_LOCAL_DIR/cache/configs/*</span>
 </pre></div>
 </div>
 </div>
@@ -162,11 +159,11 @@
 <p>Now that the data is indexed and the record driver can retrieve it, we simply need to tell the RecordDataFormatter view helper to make use of the new record driver method. To do this, we need to extend the RecordDataFormatter’s factory. As of this writing, there is not a code generator to automate this process, but it is simple enough that a generator should not be necessary.</p>
 <p>First, make sure you have a custom theme set up, since you will need to register your custom factory in your theme configuration. See section 7.2 for details on creating a new theme. For this example, we assume that your theme is named localtheme.</p>
 <p>Next, create a file for your custom factory, called $VUFIND_HOME/module/MyModule/src/MyModule/View/Helper/Root/RecordDataFormatterFactory.php. Note that you will have to create a directory to hold this file first, which you can do with:</p>
-<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">mkdir -p $VUFIND_HOME/module/MyModule/src/MyModule/View/Helper/Root</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">mkdir -p $VUFIND_HOME/module/MyModule/src/MyModule/View/Helper/Root</span>
 </pre></div>
 </div>
 <p>You should fill in the file with this code:</p>
-<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">&lt;?php</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&lt;?php</span>
 
 <span class="go">namespace MyModule\View\Helper\Root;</span>
 
@@ -188,7 +185,7 @@
 <div><p>By passing additional options, and by manipulating the array inherited from the parent code, it is also possible to change the order of fields, remove unwanted fields, etc. This example is designed to be as simple as possible; see the links under “Additional Resources” for some more advanced discussion and examples.</p>
 <p>In any case, now that the factory is built, the last step is to register it in our theme configuration. Edit your $VUFIND_HOME/themes/localtheme/theme.config.php file, and edit it so it looks something like this:</p>
 </div></blockquote>
-<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">&lt;?php</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&lt;?php</span>
 <span class="go">return [</span>
 <span class="go">    &#39;extends&#39; =&gt; &#39;bootstrap3&#39;,</span>
 <span class="go">        &#39;helpers&#39; =&gt; [</span>
@@ -213,22 +210,23 @@
 <div class="section" id="review-questions">
 <h3>Review Questions<a class="headerlink" href="#review-questions" title="Permalink to this headline">¶</a></h3>
 <ol class="arabic simple">
-<li>What is the responsibility of a record driver in VuFind?</li>
-<li>What is special about the way VuFind loads record drivers representing Solr records?</li>
-<li>What problems inspired the creation of the RecordDataFormatter?</li>
-<li>What are the three main methods of the RecordDataFormatterSpecBuilder, and how do they differ from one another?</li>
+<li><p>What is the responsibility of a record driver in VuFind?</p></li>
+<li><p>What is special about the way VuFind loads record drivers representing Solr records?</p></li>
+<li><p>What problems inspired the creation of the RecordDataFormatter?</p></li>
+<li><p>What are the three main methods of the RecordDataFormatterSpecBuilder, and how do they differ from one another?</p></li>
 </ol>
 </div>
 </div>
 </div>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
+  <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Customizing Record Views</a><ul>
 <li><a class="reference internal" href="#chapter-9-customizing-record-views">Chapter 9. Customizing Record Views</a><ul>
@@ -259,20 +257,20 @@
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/vufindcustom.txt"
+      <li><a href="_sources/vufindcustom.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
     </form>
+    </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -289,12 +287,13 @@
         <li class="right" >
           <a href="vufindstyle.html" title="Styling Vufind"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Vufind Documentation 0.0.1 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Vufind Documentation 0.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Customizing Record Views</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, Demian Katz .
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.9.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
     </div>
   </body>
 </html>

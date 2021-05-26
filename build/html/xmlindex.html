@@ -1,36 +1,25 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>XML Indexing &#8212; Vufind Documentation 0.0.1 documentation</title>
-    
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.0.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="top" title="Vufind Documentation 0.0.1 documentation" href="index.html" />
     <link rel="next" title="Web crawling with Vufind" href="webcrawl.html" />
     <link rel="prev" title="Working with XML and HTML" href="vufind_harvest.html" /> 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -43,7 +32,8 @@
         <li class="right" >
           <a href="vufind_harvest.html" title="Working with XML and HTML"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Vufind Documentation 0.0.1 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Vufind Documentation 0.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">XML Indexing</a></li> 
       </ul>
     </div>  
 
@@ -60,10 +50,10 @@
 <h3>Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permalink to this headline">¶</a></h3>
 <p>After reading this chapter, you will understand:</p>
 <ul class="simple">
-<li>The purpose of XSLT.</li>
-<li>How to extend XSLT with custom functions.</li>
-<li>How to use XSLT to index XML records.</li>
-<li>How to import batches of records harvested with OAI-PMH.</li>
+<li><p>The purpose of XSLT.</p></li>
+<li><p>How to extend XSLT with custom functions.</p></li>
+<li><p>How to use XSLT to index XML records.</p></li>
+<li><p>How to import batches of records harvested with OAI-PMH.</p></li>
 </ul>
 </div>
 <div class="section" id="understanding-xslt">
@@ -76,17 +66,17 @@
 <div class="section" id="vufinds-command-line-xslt-indexer">
 <h3>11.2 VuFind’s Command-Line XSLT Indexer<a class="headerlink" href="#vufinds-command-line-xslt-indexer" title="Permalink to this headline">¶</a></h3>
 <p>VuFind’s XSLT indexing tool is found at $VUFIND_HOME/import/import-xsl.php. It can be run from the command line like this:</p>
-<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">php $VUFIND_HOME/import/import-xsl.php &lt;XML_file&gt; &lt;properties_file&gt;</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">php $VUFIND_HOME/import/import-xsl.php &lt;XML_file&gt; &lt;properties_file&gt;</span>
 </pre></div>
 </div>
 <p>In this command, &lt;XML_file&gt; is the path to an XML file to index, and &lt;properties_file&gt; is the name of a indexing configuration file. For &lt;properties_file&gt;, you only need to specify a filename, not a full path; that filename will be searched for first in $VUFIND_LOCAL_DIR/import, and then in $VUFIND_HOME/import, allowing you to override configuration files through your local configuration directory following VuFind’s usual conventions.</p>
 <p>The properties file specifies which XSLT sheet will be used to perform the transformation; example XSLTs are found in $VUFIND_HOME/import/xsl and can be overridden in the equivalent $VUFIND_LOCAL_DIR subdirectory as needed. The file also specifies which custom PHP functions will be made accessible to the XSLT code, and sets up parameters (like your institution name) that will be passed along to the XSLT. All of the example properties files found in $VUFIND_HOME/import contain detailed comments explaining the various settings; you should look at one of these to find the latest up-to-date information on available options.</p>
-<p>The import-xsl.php command accepts an optional &#8211;test-only switch, which puts it into test mode. In test mode, the result of the XSLT transformation is displayed on screen, and no data is sent to Solr. This is extremely useful for troubleshooting, testing and developing XSLT without potentially loading bad data into your index. For example, if you wanted to see what would happen if you applied the default OJS transformations to an XML record found in $VUFIND_LOCAL_DIR/harvest/ojs/record1.xml, you could run this command:</p>
-<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">php $VUFIND_HOME/import/import-xsl.php --test-only $VUFIND_LOCAL_DIR/harvest/ojs/record1.xml ojs.properties</span>
+<p>The import-xsl.php command accepts an optional –test-only switch, which puts it into test mode. In test mode, the result of the XSLT transformation is displayed on screen, and no data is sent to Solr. This is extremely useful for troubleshooting, testing and developing XSLT without potentially loading bad data into your index. For example, if you wanted to see what would happen if you applied the default OJS transformations to an XML record found in $VUFIND_LOCAL_DIR/harvest/ojs/record1.xml, you could run this command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">php $VUFIND_HOME/import/import-xsl.php --test-only $VUFIND_LOCAL_DIR/harvest/ojs/record1.xml ojs.properties</span>
 </pre></div>
 </div>
 <p>The result might look something like this:</p>
-<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
 <span class="go"> &lt;add xmlns:oai_dc=&quot;http://www.openarchives.org/OAI/2.0/oai_dc/&quot; xmlns:dc=&quot;http://purl.org/dc/elements/1.1/&quot; xmlns:php=&quot;http://php.net/xsl&quot; xmlns:xlink=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;</span>
 <span class="go">  &lt;doc&gt;</span>
 <span class="go">  &lt;field name=&quot;id&quot;/&gt;</span>
@@ -114,7 +104,7 @@
 <div class="section" id="batch-loading-xml">
 <h3>11.3 Batch-Loading XML<a class="headerlink" href="#batch-loading-xml" title="Permalink to this headline">¶</a></h3>
 <p>While indexing a single record is useful (especially when developing and testing a new set of import rules), it is much more common to want to ingest a batch of records all at once (such as after performing an OAI-PMH harvest as discussed in the previous chapter). Fortunately, VuFind includes a script to automatically ingest all of the XML files in a directory. It is used like this:</p>
-<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span>VUFIND_HOME/harvest/batch-import-xsl.sh &lt;harvest_subdirectory&gt; &lt;properties_file&gt;
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span>VUFIND_HOME/harvest/batch-import-xsl.sh &lt;harvest_subdirectory&gt; &lt;properties_file&gt;
 </pre></div>
 </div>
 <p>The &lt;harvest_subdirectory&gt; parameter is the name of a directory found under either $VUFIND_LOCAL_DIR/harvest or $VUFIND_HOME/harvest (following the usual VuFind pattern of checking the local directory first). The &lt;properties_file&gt; parameter specifies a configuration filename, exactly as described for the single-file importer in section 11.2.</p>
@@ -131,21 +121,22 @@
 <div class="section" id="review-questions">
 <h3>Review Questions<a class="headerlink" href="#review-questions" title="Permalink to this headline">¶</a></h3>
 <ol class="arabic simple">
-<li>What is XSLT and how does VuFind use it?</li>
-<li>How can you see the result of a record’s XSLT transformation without actually indexing that record into Solr?</li>
-<li>What command is used for batch-loading harvested XML records, and what parameters does it need?</li>
+<li><p>What is XSLT and how does VuFind use it?</p></li>
+<li><p>How can you see the result of a record’s XSLT transformation without actually indexing that record into Solr?</p></li>
+<li><p>What command is used for batch-loading harvested XML records, and what parameters does it need?</p></li>
 </ol>
 </div>
 </div>
 </div>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
+  <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">XML Indexing</a><ul>
 <li><a class="reference internal" href="#chapter-11-xml-indexing">Chapter 11. XML Indexing</a><ul>
@@ -171,20 +162,20 @@
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/xmlindex.txt"
+      <li><a href="_sources/xmlindex.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
     </form>
+    </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -201,12 +192,13 @@
         <li class="right" >
           <a href="vufind_harvest.html" title="Working with XML and HTML"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Vufind Documentation 0.0.1 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Vufind Documentation 0.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">XML Indexing</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, Demian Katz .
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.9.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
     </div>
   </body>
 </html>

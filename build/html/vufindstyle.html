@@ -1,36 +1,25 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Styling Vufind &#8212; Vufind Documentation 0.0.1 documentation</title>
-    
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.0.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="top" title="Vufind Documentation 0.0.1 documentation" href="index.html" />
     <link rel="next" title="Customizing Record Views" href="vufindcustom.html" />
-    <link rel="prev" title="Creating a Vufind Theme" href="vufindtheme.html" /> 
-  </head>
-  <body role="document">
+    <link rel="prev" title="Part 3. Styling and Theming" href="vufindtheme.html" /> 
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -41,9 +30,10 @@
           <a href="vufindcustom.html" title="Customizing Record Views"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="vufindtheme.html" title="Creating a Vufind Theme"
+          <a href="vufindtheme.html" title="Part 3. Styling and Theming"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Vufind Documentation 0.0.1 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Vufind Documentation 0.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Styling Vufind</a></li> 
       </ul>
     </div>  
 
@@ -60,9 +50,9 @@
 <h3>Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permalink to this headline">¶</a></h3>
 <p>After reading this chapter, you will understand:</p>
 <ul class="simple">
-<li>How to apply custom styles to your VuFind theme.</li>
-<li>How to take advantage of CSS frameworks in VuFind.</li>
-<li>How to use a CSS pre-processor with VuFind.</li>
+<li><p>How to apply custom styles to your VuFind theme.</p></li>
+<li><p>How to take advantage of CSS frameworks in VuFind.</p></li>
+<li><p>How to use a CSS pre-processor with VuFind.</p></li>
 </ul>
 </div>
 <div class="section" id="understanding-css-frameworks">
@@ -86,7 +76,7 @@
 <p>To add a custom CSS file to your theme, you can simply edit your theme’s theme.config.php file, and add a new CSS filename to the ‘css’ element of the configuration. All CSS files listed in this array will be loaded on every page of VuFind’s interface, so this is the best way to make global changes. Because of VuFind’s theme inheritance, it is important to give your CSS file a unique name; if you give it the same name as one of the CSS files in a parent theme, it will completely replace that existing file rather than being added to it.</p>
 <p>As an example, assume that you have created a custom theme named “localtheme” as described in section 7.2 above, and you want to change the body background color to a pale gray color.</p>
 <p>First, you should edit your $VUFIND_HOME/themes/localtheme/theme.config.php file; by default, it should look like this:</p>
-<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">&lt;?php</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&lt;?php</span>
 <span class="go">return [</span>
 <span class="go">    &#39;extends&#39; =&gt; &#39;bootstrap3&#39;</span>
 <span class="go">];</span>
@@ -99,9 +89,9 @@
 return [</p>
 <blockquote>
 <div><blockquote>
-<div><dl class="docutils">
-<dt>&#8216;extends&#8217; =&gt; &#8216;bootstrap3&#8217;,</dt>
-<dd>&#8216;css&#8217; =&gt; [&#8216;myinstitution.css&#8217;]</dd>
+<div><dl class="simple">
+<dt>‘extends’ =&gt; ‘bootstrap3’,</dt><dd><p>‘css’ =&gt; [‘myinstitution.css’]</p>
+</dd>
 </dl>
 </div></blockquote>
 <p>];</p>
@@ -109,7 +99,7 @@ return [</p>
 </div></blockquote>
 <p>This tells VuFind to add a CSS file called myinstitution.css to every page of its interface; we chose the name myinstitution.css to avoid any possible naming conflict with the core themes (of course, you could replace “myinstitution” with the actual name of your institution if you wished). You only need to specify the filename itself, not any path information; VuFind will search for this filename in your theme’s css folder, and should it fail to find it, it will also search through all of the parent themes.</p>
 <p>In order to ensure that VuFind actually finds something when it does its search, you should also create the expected file by editing $VUFIND_HOME/themes/localtheme/css/myinstitution.css. You can paste in this content:</p>
-<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">body {</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">body {</span>
 <span class="go"> background-color: #d0d0d8;</span>
 <span class="go"> }</span>
 </pre></div>
@@ -125,19 +115,20 @@ return [</p>
 <p>Everything else in this file is an example, and you are free to change or remove it. The provided example shows how to define some variables (like “&#64;active-orange” and “&#64;dark-green”) for internal use, and also how to override some core Bootstrap and VuFind variables (like &#64;brand-primary and &#64;body-bg) to change the way the theme looks without having to build CSS stanzas. There are also some more specific example styles below the variables, and the file ends by demonstrating that you can use &#64;import statements to pull in additional files if you want; the home-page.less file is an example of this capability.</p>
 <p>If you wanted to implement the same background color change that was used as an example in 8.3.1, you could accomplish it here by editing a single variable and then recompiling the LESS.</p>
 <p>First, edit $VUFIND_HOME/themes/localtheme/less/custom.less, and change this line:</p>
-<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">@body-bg: #5ab48a;</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">@body-bg: #5ab48a;</span>
 </pre></div>
 </div>
 <p>to
 .. code-block:: console</p>
 <blockquote>
-<div>&#64;body-bg: #d0d0d8;</div></blockquote>
+<div><p>&#64;body-bg: #d0d0d8;</p>
+</div></blockquote>
 <p>This will have exactly the same effect as the CSS file override described earlier; however, rather than adding a new CSS rule to override an earlier rule, changing this variable enables you to actually change the CSS output created when the LESS compiler processes the files found in the parent themes.</p>
 <p>Before you will see the results of your change, you must compile the LESS into CSS. You have two options for this: the slow PHP compiler, or the faster Javascript compiler.</p>
 <div class="section" id="compiling-less-using-php">
 <h5>8.3.2.1 Compiling LESS Using PHP<a class="headerlink" href="#compiling-less-using-php" title="Permalink to this headline">¶</a></h5>
 <p>To use the PHP-based compiler, simply run these commands:</p>
-<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">cd $VUFIND_HOME</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd $VUFIND_HOME</span>
 <span class="go">php util/cssBuilder.php</span>
 </pre></div>
 </div>
@@ -145,7 +136,7 @@ return [</p>
 <div class="section" id="compiling-less-using-javascript">
 <h5>8.3.2.1 Compiling LESS Using Javascript<a class="headerlink" href="#compiling-less-using-javascript" title="Permalink to this headline">¶</a></h5>
 <p>To use the Javascript-based compiler, you will need to install Node.js and grunt on your system. This is usually a matter of installing the nodejs package with your platform’s package manager, and then running:</p>
-<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">npm install -g grunt-cli</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">npm install -g grunt-cli</span>
 <span class="go">grunt less</span>
 </pre></div>
 </div>
@@ -163,21 +154,22 @@ return [</p>
 <div class="section" id="review-questions">
 <h3>Review Questions<a class="headerlink" href="#review-questions" title="Permalink to this headline">¶</a></h3>
 <ol class="arabic simple">
-<li>Why does VuFind use CSS frameworks?</li>
-<li>Why does VuFind use a CSS preprocessor?</li>
-<li>What are the advantages and disadvantages of using custom CSS vs. using custom LESS?</li>
+<li><p>Why does VuFind use CSS frameworks?</p></li>
+<li><p>Why does VuFind use a CSS preprocessor?</p></li>
+<li><p>What are the advantages and disadvantages of using custom CSS vs. using custom LESS?</p></li>
 </ol>
 </div>
 </div>
 </div>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
+  <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Styling Vufind</a><ul>
 <li><a class="reference internal" href="#chapter-8-styling-vufind">Chapter 8. Styling VuFind</a><ul>
@@ -204,27 +196,27 @@ return [</p>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="vufindtheme.html"
-                        title="previous chapter">Creating a Vufind Theme</a></p>
+                        title="previous chapter">Part 3. Styling and Theming</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="vufindcustom.html"
                         title="next chapter">Customizing Record Views</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/vufindstyle.txt"
+      <li><a href="_sources/vufindstyle.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
     </form>
+    </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -239,14 +231,15 @@ return [</p>
           <a href="vufindcustom.html" title="Customizing Record Views"
              >next</a> |</li>
         <li class="right" >
-          <a href="vufindtheme.html" title="Creating a Vufind Theme"
+          <a href="vufindtheme.html" title="Part 3. Styling and Theming"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Vufind Documentation 0.0.1 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Vufind Documentation 0.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Styling Vufind</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, Demian Katz .
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.9.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
     </div>
   </body>
 </html>

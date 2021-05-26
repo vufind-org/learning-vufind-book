@@ -1,36 +1,25 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Working with XML and HTML &#8212; Vufind Documentation 0.0.1 documentation</title>
-    
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.0.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="top" title="Vufind Documentation 0.0.1 documentation" href="index.html" />
     <link rel="next" title="XML Indexing" href="xmlindex.html" />
     <link rel="prev" title="Customizing Record Views" href="vufindcustom.html" /> 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -43,7 +32,8 @@
         <li class="right" >
           <a href="vufindcustom.html" title="Customizing Record Views"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Vufind Documentation 0.0.1 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Vufind Documentation 0.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Working with XML and HTML</a></li> 
       </ul>
     </div>  
 
@@ -60,8 +50,8 @@
 <h3>Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permalink to this headline">¶</a></h3>
 <p>After reading this chapter, you will understand:</p>
 <ul class="simple">
-<li>How VuFind uses the OAI-PMH protocol.</li>
-<li>How to load XML-based data into VuFind’s index using XSLT.</li>
+<li><p>How VuFind uses the OAI-PMH protocol.</p></li>
+<li><p>How to load XML-based data into VuFind’s index using XSLT.</p></li>
 </ul>
 </div>
 <div class="section" id="understanding-oai-pmh">
@@ -69,7 +59,7 @@
 <p>OAI-PMH stands for the Open Archives Initiative Protocol for Metadata Harvesting. It provides a relatively simple set of rules for exchanging metadata between computer systems using XML documents. The standard was developed in the early 2000’s, with the current version of the protocol (2.0) being finalized in 2002. While it shows its age in some ways (such as its exclusive reliance on XML formats), it is widely adopted and supported, making it a very useful tool for obtaining records to index into VuFind.</p>
 <p>At its most basic, OAI-PMH allows a client machine to download all of the metadata records from a server machine. In addition to supporting harvesting of full collections, OAI-PMH also allows a client to harvest records incrementally, receiving a collection of records that have been added, deleted or changed since a particular date. Other features include the ability to request specific subsets of a collection (which are defined by the server providing the records – the protocol sets no guidelines for how sets are determined) and the ability to retrieve records in multiple formats (though only Dublin Core, the favored “least common denominator” XML metadata standard, is guaranteed to be universally supported).</p>
 <p>VuFind includes tools for harvesting and indexing records from an OAI-PMH server. It also includes built-in functionality that allows it to act as an OAI-PMH server if you wish to provide your records to others. This chapter discusses VuFind’s harvesting and server support in more detail; chapter 11 will talk about what to do with harvested records once you have them.</p>
-<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
 <span class="go">&lt;OAI-PMH xmlns=&quot;http://www.openarchives.org/OAI/2.0/&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:schemaLocation=&quot;http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd&quot;&gt;</span>
 <span class="go">  &lt;responseDate&gt;2020-03-25T14:46:53Z&lt;/responseDate&gt;</span>
 <span class="go">  &lt;request verb=&quot;ListMetadataFormats&quot;&gt;http://www.doaj.org/oai.article&lt;/request&gt;</span>
@@ -92,17 +82,17 @@
 <p>uFind includes examples for a variety of common formats, but if you harvest a brand new metadata format, you will also be responsible for defining rules for indexing it into VuFind; this is discussed further in chapter 11.</p>
 <div class="section" id="working-with-identifiers">
 <h4>10.2.4 Working with Identifiers<a class="headerlink" href="#working-with-identifiers" title="Permalink to this headline">¶</a></h4>
-<p>As discussed in section 3.5.2, it is very important for every record to have its own unique identifier; without IDs, we can’t index things into Solr in a useful way. Some of the metadata formats provided by OAI-PMH servers – especially the richer ones like MARC &#8211; will already contain useful identifiers. However, it is fairly common that records will not contain unique identifiers, or that they will contain multiple identifiers that are not easily differentiated from one another.</p>
+<p>As discussed in section 3.5.2, it is very important for every record to have its own unique identifier; without IDs, we can’t index things into Solr in a useful way. Some of the metadata formats provided by OAI-PMH servers – especially the richer ones like MARC – will already contain useful identifiers. However, it is fairly common that records will not contain unique identifiers, or that they will contain multiple identifiers that are not easily differentiated from one another.</p>
 <p>VuFind includes examples for a variety of common formats, but if you harvest a brand new metadata format, you will also be responsible for defining rules for indexing it into VuFind; this is discussed further in chapter 11.</p>
 </div>
 <div class="section" id="id1">
 <h4>10.2.4 Working with Identifiers<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
-<p>As discussed in section 3.5.2, it is very important for every record to have its own unique identifier; without IDs, we can’t index things into Solr in a useful way. Some of the metadata formats provided by OAI-PMH servers – especially the richer ones like MARC &#8211; will already contain useful identifiers. However, it is fairly common that records will not contain unique identifiers, or that they will contain multiple identifiers that are not easily differentiated from one another.</p>
+<p>As discussed in section 3.5.2, it is very important for every record to have its own unique identifier; without IDs, we can’t index things into Solr in a useful way. Some of the metadata formats provided by OAI-PMH servers – especially the richer ones like MARC – will already contain useful identifiers. However, it is fairly common that records will not contain unique identifiers, or that they will contain multiple identifiers that are not easily differentiated from one another.</p>
 <p>Fortunately, VuFind’s OAI-PMH harvester provides a simple solution to this problem. When the OAI-PMH protocol provides records, it sends not just the raw metadata, but also a header above the metadata that includes additional information. This header always includes a unique ID for every record. The harvester only saves the metadata itself, not the header, but several configuration options exist for injecting values from the header into the metadata as custom XML tags.</p>
 <p>If you add “injectId = identifier” to your oai.ini configuration section, then unique IDs from the header will be added to an &lt;identifier&gt; tag inside the top-level tag of your harvested metadata records. The “identifier” tag is used by all of VuFind’s example indexing configurations, but if you wish to use a different tag name for some reason, you can just specify a different value in the configuration.</p>
 <p>It is also worth noting that most OAI-PMH record identifiers are quite verbose – for example, “oai:doaj.org/article:311ce1ec3dea42d2a7db0c3de149d865.” It may be desirable to shorten them and/or remove certain characters in order to improve the readability of URLs and avoid other problems (for example, some web servers may require configuration adjustments to support identifiers containing slash characters). Fortunately, there are oai.ini settings to address this situation as well: the idSearch[] and idReplace[] settings can be used in combination with injectId to perform regular expression replacements on IDs before injecting them into metadata. Regular expressions are also briefly discussed in section 5.3.6; they provide a standard language for matching patterns in text, and can be very useful for transformations like this.</p>
 <p>If we wanted to replace the “oai:doaj.org/” prefix with a more concise “<a href="#id2"><span class="problematic" id="id3">doaj_</span></a>” prefix, we could revise our example configuration from earlier to:</p>
-<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">[doaj]</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">[doaj]</span>
 <span class="go">url = http://www.doaj.org/oai.article</span>
 <span class="go">metadataPrefix = oai_dc</span>
 <span class="go">injectId = identifier</span>
@@ -127,7 +117,7 @@
 </div>
 <div class="section" id="the-stand-alone-harvest-tool">
 <h4>10.2.7 The Stand-Alone Harvest Tool<a class="headerlink" href="#the-stand-alone-harvest-tool" title="Permalink to this headline">¶</a></h4>
-<p>VuFind’s OAI-PMH harvest tool is also available as a separate project; if you ever need to perform a metadata harvest but do not need the full weight of VuFind, it may be useful to download the separate tool, which is available at <a class="reference external" href="https://github.com/vufind-org/vufindharvest">https://github.com/vufind-org/vufindharvest</a>. The only differences between the stand-alone version and the version found in VuFind are the name of the directory containing the executable PHP code (bin instead of harvest) and the fact that the stand-alone tool does not automatically look for an oai.ini file, since it has no concept of $VUFIND_HOME or $VUFIND_LOCAL_DIR. Instead, you need to use the “&#8211;ini=filename.ini” command-line switch to specify your configuration file.</p>
+<p>VuFind’s OAI-PMH harvest tool is also available as a separate project; if you ever need to perform a metadata harvest but do not need the full weight of VuFind, it may be useful to download the separate tool, which is available at <a class="reference external" href="https://github.com/vufind-org/vufindharvest">https://github.com/vufind-org/vufindharvest</a>. The only differences between the stand-alone version and the version found in VuFind are the name of the directory containing the executable PHP code (bin instead of harvest) and the fact that the stand-alone tool does not automatically look for an oai.ini file, since it has no concept of $VUFIND_HOME or $VUFIND_LOCAL_DIR. Instead, you need to use the “–ini=filename.ini” command-line switch to specify your configuration file.</p>
 </div>
 </div>
 <div class="section" id="open-source-oai-pmh-servers">
@@ -171,21 +161,22 @@
 <div class="section" id="review-questions">
 <h3>Review Questions<a class="headerlink" href="#review-questions" title="Permalink to this headline">¶</a></h3>
 <ol class="arabic simple">
-<li>What are the most important features of the OAI-PMH protocol?</li>
-<li>What are five commonly-used systems that provide OAI-PMH support?</li>
-<li>What configuration settings are required to allow VuFind to work as an OAI-PMH server?</li>
+<li><p>What are the most important features of the OAI-PMH protocol?</p></li>
+<li><p>What are five commonly-used systems that provide OAI-PMH support?</p></li>
+<li><p>What configuration settings are required to allow VuFind to work as an OAI-PMH server?</p></li>
 </ol>
 </div>
 </div>
 </div>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
+  <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Working with XML and HTML</a><ul>
 <li><a class="reference internal" href="#chapter-10-content-harvesting">Chapter 10. Content Harvesting</a><ul>
@@ -224,20 +215,20 @@
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/vufind_harvest.txt"
+      <li><a href="_sources/vufind_harvest.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
     </form>
+    </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -254,12 +245,13 @@
         <li class="right" >
           <a href="vufindcustom.html" title="Customizing Record Views"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Vufind Documentation 0.0.1 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Vufind Documentation 0.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Working with XML and HTML</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, Demian Katz .
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.9.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
     </div>
   </body>
 </html>
