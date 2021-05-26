@@ -1,5 +1,5 @@
-Vufind Basics
-*************
+Part 1. Vufind Basics
+*********************
 
 Chapter 1. Introduction to VuFind
 #################################

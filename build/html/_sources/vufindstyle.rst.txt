@@ -1,5 +1,5 @@
-Styling Vufind
-**************
+Part 3. Styling and Theming
+***************************
 
 Chapter 8. Styling VuFind
 #########################
@@ -56,8 +56,8 @@ First, you should edit your $VUFIND_HOME/themes/localtheme/theme.config.php file
        'extends' => 'bootstrap3'
    ];
 
-
 You should add a comma on the end of the ‘extends’ line, and put a ‘css’ line below that pointing to an array of filenames (which for now will include just one file):
+
 .. code-block:: console
 
     <?php
@@ -89,6 +89,7 @@ If you look in $VUFIND_HOME/themes/localtheme/less after generating the theme, y
 If you edit custom.less, you will see that its first line is:
 
 .. code-block:: console
+
    @import “bootstrap”;
 
 This pulls in the default Bootstrap framework styles, which you will need to take advantage of the framework and to make sure that default VuFind templates display correctly. You should leave this line alone.

@@ -4,6 +4,7 @@ Preface
 For more than a decade, the free and open source VuFind tool has been providing user-friendly access to information from libraries and other organizations. While the software has a supportive and friendly community and detailed online documentation, it has lacked a comprehensive introductory text to orient new users to its features and options. This book is designed to fill that gap, and help you become comfortable with this flexible application.
 
 The book is divided into six parts:
+
 •  Part 1 will help you understand the purpose of VuFind, install the software, and load some MARC records into it.
 •  Part 2 will show you how to do some basic configuration and administration of the software.
 •  Part 3 will show you how to customize the software’s look and feel.

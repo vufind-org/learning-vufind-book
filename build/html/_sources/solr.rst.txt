@@ -1,5 +1,5 @@
-Understanding Solr
-******************
+Part 2. Configuration and Administration
+****************************************
 
 Chapter 5. Understanding Solr
 #############################
@@ -191,6 +191,7 @@ This is probably best explained with another example:
      QueryFields:
         oclc_num:
          - [oclc_num, ~]
+
 This is a handler definition for searching by OCLC number, a commonly used unique identifier. OCLC numbers sometimes have leading prefixes and/or extra zeroes. This section is designed to reduce an OCLC number to its core numeric value, eliminating any prefix or leading zeroes. While it would be possible to accomplish this inside Solr by creating a custom data type in the schema, in this instance, doing outside manipulation was deemed a lighter-weight solution.
 
 As you can see, there is no DismaxFields or DismaxHandler setting in this section; this handler is going to use the older Lucene query syntax for searching. It doesn’t need DisMax because it is only going to search a single field.

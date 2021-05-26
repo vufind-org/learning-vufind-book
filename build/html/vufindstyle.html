@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Styling Vufind &#8212; Vufind Documentation 0.0.1 documentation</title>
+    <title>Part 3. Styling and Theming &#8212; Vufind Documentation 0.0.1 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
@@ -17,7 +17,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Customizing Record Views" href="vufindcustom.html" />
+    <link rel="next" title="Part 3. Styling and Theming" href="vufindcustom.html" />
     <link rel="prev" title="Part 3. Styling and Theming" href="vufindtheme.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
@@ -27,13 +27,13 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="vufindcustom.html" title="Customizing Record Views"
+          <a href="vufindcustom.html" title="Part 3. Styling and Theming"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="vufindtheme.html" title="Part 3. Styling and Theming"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Vufind Documentation 0.0.1 documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Styling Vufind</a></li> 
+        <li class="nav-item nav-item-this"><a href="">Part 3. Styling and Theming</a></li> 
       </ul>
     </div>  
 
@@ -42,8 +42,8 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="styling-vufind">
-<h1>Styling Vufind<a class="headerlink" href="#styling-vufind" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="part-3-styling-and-theming">
+<h1>Part 3. Styling and Theming<a class="headerlink" href="#part-3-styling-and-theming" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="chapter-8-styling-vufind">
 <h2>Chapter 8. Styling VuFind<a class="headerlink" href="#chapter-8-styling-vufind" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="learning-objectives">
@@ -82,21 +82,14 @@
 <span class="go">];</span>
 </pre></div>
 </div>
-<p>You should add a comma on the end of the ‘extends’ line, and put a ‘css’ line below that pointing to an array of filenames (which for now will include just one file):
-.. code-block:: console</p>
-<blockquote>
-<div><p>&lt;?php
-return [</p>
-<blockquote>
-<div><blockquote>
-<div><dl class="simple">
-<dt>‘extends’ =&gt; ‘bootstrap3’,</dt><dd><p>‘css’ =&gt; [‘myinstitution.css’]</p>
-</dd>
-</dl>
-</div></blockquote>
-<p>];</p>
-</div></blockquote>
-</div></blockquote>
+<p>You should add a comma on the end of the ‘extends’ line, and put a ‘css’ line below that pointing to an array of filenames (which for now will include just one file):</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&lt;?php</span>
+<span class="go">return [</span>
+<span class="go">    &#39;extends&#39; =&gt; &#39;bootstrap3&#39;,</span>
+<span class="go">        &#39;css&#39; =&gt; [&#39;myinstitution.css&#39;]</span>
+<span class="go">  ];</span>
+</pre></div>
+</div>
 <p>This tells VuFind to add a CSS file called myinstitution.css to every page of its interface; we chose the name myinstitution.css to avoid any possible naming conflict with the core themes (of course, you could replace “myinstitution” with the actual name of your institution if you wished). You only need to specify the filename itself, not any path information; VuFind will search for this filename in your theme’s css folder, and should it fail to find it, it will also search through all of the parent themes.</p>
 <p>In order to ensure that VuFind actually finds something when it does its search, you should also create the expected file by editing $VUFIND_HOME/themes/localtheme/css/myinstitution.css. You can paste in this content:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">body {</span>
@@ -111,6 +104,9 @@ return [</p>
 <p>VuFind’s provided themes are set up so that all of the LESS files provided are compiled into a single CSS file called “compiled.css.” This setup makes adding a new LESS file a little bit complicated. Fortunately, the sample theme created by the generate command (see section 7.2) creates some example LESS files for you, providing a helpful foundation for you to build upon.</p>
 <p>If you look in $VUFIND_HOME/themes/localtheme/less after generating the theme, you will see three files: compiled.less, which is the top-level file that VuFind will use to compile the LESS into CSS, based on configuration inherited from a parent theme. All this file does is include custom.less, which is the place where you can put your own custom styles.</p>
 <p>If you edit custom.less, you will see that its first line is:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">@import “bootstrap”;</span>
+</pre></div>
+</div>
 <p>This pulls in the default Bootstrap framework styles, which you will need to take advantage of the framework and to make sure that default VuFind templates display correctly. You should leave this line alone.</p>
 <p>Everything else in this file is an example, and you are free to change or remove it. The provided example shows how to define some variables (like “&#64;active-orange” and “&#64;dark-green”) for internal use, and also how to override some core Bootstrap and VuFind variables (like &#64;brand-primary and &#64;body-bg) to change the way the theme looks without having to build CSS stanzas. There are also some more specific example styles below the variables, and the file ends by demonstrating that you can use &#64;import statements to pull in additional files if you want; the home-page.less file is an example of this capability.</p>
 <p>If you wanted to implement the same background color change that was used as an example in 8.3.1, you could accomplish it here by editing a single variable and then recompiling the LESS.</p>
@@ -171,7 +167,7 @@ return [</p>
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Styling Vufind</a><ul>
+<li><a class="reference internal" href="#">Part 3. Styling and Theming</a><ul>
 <li><a class="reference internal" href="#chapter-8-styling-vufind">Chapter 8. Styling VuFind</a><ul>
 <li><a class="reference internal" href="#learning-objectives">Learning Objectives</a></li>
 <li><a class="reference internal" href="#understanding-css-frameworks">8.1 Understanding CSS Frameworks</a></li>
@@ -199,7 +195,7 @@ return [</p>
                         title="previous chapter">Part 3. Styling and Theming</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="vufindcustom.html"
-                        title="next chapter">Customizing Record Views</a></p>
+                        title="next chapter">Part 3. Styling and Theming</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -228,13 +224,13 @@ return [</p>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="vufindcustom.html" title="Customizing Record Views"
+          <a href="vufindcustom.html" title="Part 3. Styling and Theming"
              >next</a> |</li>
         <li class="right" >
           <a href="vufindtheme.html" title="Part 3. Styling and Theming"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Vufind Documentation 0.0.1 documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Styling Vufind</a></li> 
+        <li class="nav-item nav-item-this"><a href="">Part 3. Styling and Theming</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

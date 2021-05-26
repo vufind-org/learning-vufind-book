@@ -1,5 +1,5 @@
-Controllers and actions
-***********************
+Part 6. Extending and Customizing VuFind’s Code
+***********************************************
 
 Chapter 18. Controllers and Actions
 ###################################
@@ -37,6 +37,7 @@ For example, if the user enters http://localhost/vufind/Example/Page, they will 
         ],
     ],
    ],
+
 This particular route uses a ‘type’ of ‘Laminas\Router\Http\Segment’, which means that the route definition in ‘route’ can contain “segments” that start with colons (like :controller and :action), allowing parts of the user’s URL to be extracted and passed along to other parts of the code. Some of the route definition is enclosed in brackets, making it optional. Defaults are provided to give values to the segments in case the user omits them entirely – so with this route definition, accessing simply http://localhost/vufind is effectively the same as accessing http://localhost/vufind/index/Home. 
 
 To learn about the Laminas router component in more detail, see the documentation at https://docs.laminas.dev/laminas-router/routing/.

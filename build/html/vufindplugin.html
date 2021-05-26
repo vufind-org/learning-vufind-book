@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vufind plugins &#8212; Vufind Documentation 0.0.1 documentation</title>
+    <title>Part 6. Extending and Customizing VuFind’s Code &#8212; Vufind Documentation 0.0.1 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
@@ -17,8 +17,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Controllers and actions" href="controlers.html" />
-    <link rel="prev" title="Introduction to Laminas" href="extendvufind.html" /> 
+    <link rel="next" title="Part 6. Extending and Customizing VuFind’s Code" href="controlers.html" />
+    <link rel="prev" title="Part 6. Extending and Customizing VuFind’s Code" href="extendvufind.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -27,13 +27,13 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="controlers.html" title="Controllers and actions"
+          <a href="controlers.html" title="Part 6. Extending and Customizing VuFind’s Code"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="extendvufind.html" title="Introduction to Laminas"
+          <a href="extendvufind.html" title="Part 6. Extending and Customizing VuFind’s Code"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Vufind Documentation 0.0.1 documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Vufind plugins</a></li> 
+        <li class="nav-item nav-item-this"><a href="">Part 6. Extending and Customizing VuFind’s Code</a></li> 
       </ul>
     </div>  
 
@@ -42,8 +42,8 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="vufind-plugins">
-<h1>Vufind plugins<a class="headerlink" href="#vufind-plugins" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="part-6-extending-and-customizing-vufinds-code">
+<h1>Part 6. Extending and Customizing VuFind’s Code<a class="headerlink" href="#part-6-extending-and-customizing-vufinds-code" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="chapter-17-vufind-plug-ins">
 <h2>Chapter 17. VuFind Plug-Ins<a class="headerlink" href="#chapter-17-vufind-plug-ins" title="Permalink to this headline">¶</a></h2>
 <p>After reading this chapter, you will understand:</p>
@@ -181,21 +181,21 @@ See section 9.3.2 for another example of this code generator in action.</p>
 <span class="go">       }</span>
 <span class="go">      }</span>
 
-<span class="go"> public function init($params, $request)</span>
-<span class="go"> {</span>
-<span class="go"> }</span>
+<span class="go">     public function init($params, $request)</span>
+<span class="go">     {</span>
+<span class="go">     }</span>
 
-<span class="go"> public function process($results)</span>
-<span class="go"> {</span>
-<span class="go"> }</span>
+<span class="go">     public function process($results)</span>
+<span class="go">     {</span>
+<span class="go">     }</span>
 
-<span class="go"> public function getName()</span>
-<span class="go"> {</span>
-<span class="go">     return $this-&gt;name;</span>
+<span class="go">     public function getName()</span>
+<span class="go">     {</span>
+<span class="go">         return $this-&gt;name;</span>
+<span class="go">     }</span>
 <span class="go"> }</span>
 </pre></div>
 </div>
-<p>}</p>
 <p>And change the template so that it contains this content:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&lt;p&gt;If you need more help, be sure to talk to &lt;?=$this-&gt;escapeHtml($this-&gt;recommend-&gt;getName())?&gt;!&lt;/p&gt;</span>
 </pre></div>
@@ -244,7 +244,7 @@ We also defined a public getName() method, which simply provides the current val
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Vufind plugins</a><ul>
+<li><a class="reference internal" href="#">Part 6. Extending and Customizing VuFind’s Code</a><ul>
 <li><a class="reference internal" href="#chapter-17-vufind-plug-ins">Chapter 17. VuFind Plug-Ins</a><ul>
 <li><a class="reference internal" href="#vufinds-plug-in-architecture">17.1 VuFind’s Plug-In Architecture</a></li>
 <li><a class="reference internal" href="#command-line-plug-in-generator-tools">17.2 Command Line Plug-In Generator Tools</a><ul>
@@ -268,10 +268,10 @@ We also defined a public getName() method, which simply provides the current val
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="extendvufind.html"
-                        title="previous chapter">Introduction to Laminas</a></p>
+                        title="previous chapter">Part 6. Extending and Customizing VuFind’s Code</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="controlers.html"
-                        title="next chapter">Controllers and actions</a></p>
+                        title="next chapter">Part 6. Extending and Customizing VuFind’s Code</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -300,13 +300,13 @@ We also defined a public getName() method, which simply provides the current val
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="controlers.html" title="Controllers and actions"
+          <a href="controlers.html" title="Part 6. Extending and Customizing VuFind’s Code"
              >next</a> |</li>
         <li class="right" >
-          <a href="extendvufind.html" title="Introduction to Laminas"
+          <a href="extendvufind.html" title="Part 6. Extending and Customizing VuFind’s Code"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Vufind Documentation 0.0.1 documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Vufind plugins</a></li> 
+        <li class="nav-item nav-item-this"><a href="">Part 6. Extending and Customizing VuFind’s Code</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

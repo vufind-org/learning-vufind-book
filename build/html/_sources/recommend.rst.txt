@@ -1,5 +1,5 @@
-Recommendation modules
-**********************
+Part 5. Combining and Enhancing Searches
+****************************************
 
 Chapter 14. Recommendation Modules
 ##################################

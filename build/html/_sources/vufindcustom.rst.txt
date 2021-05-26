@@ -1,5 +1,5 @@
-Customizing Record Views
-************************
+Part 3. Styling and Theming
+***************************
 
 Chapter 9. Customizing Record Views 
 ###################################

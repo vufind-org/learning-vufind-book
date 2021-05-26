@@ -1,5 +1,5 @@
-XML Indexing
-************
+Part 4. Working with XML and HTML
+*********************************
 
 Chapter 11. XML Indexing
 #########################
