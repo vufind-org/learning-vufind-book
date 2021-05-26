@@ -18,14 +18,19 @@ After reading this chapter, you will understand:
 
 VuFind relies on several other pieces of software to do its work, and you will need to have access to these in order to use it. Fortunately, all of VuFind’s dependencies are free and supported by a wide variety of operating systems. Linux is the preferred operating system for VuFind installation, but the software can also be installed successfully on Windows and MacOS.
 
-Before installing VuFind, you will need to install four key components:
+Many of the installation options described in this chapter (such as the Debian package and Vagrant methods) will automatically install VuFind’s dependencies for you, but some of the more advanced options (such as Git-based installation) may require you to install them yourself.
+
+In order to use VuFind, you will need to have access to four key components:
 
 • The PHP language.
-• A relational database for storing user and session information; MySQL or MariaDb are recommended, as they are easier to use for basic use cases, but the software also supports PostgreSQL if necessary.
+• A relational database for storing user and session information; MySQL or MariaDb are recommended, as they are easier to use for basic use cases, but the software also supports PostgreSQL.
 • A web server for exposing the VuFind interface to the Internet; Apache is strongly recommended.
 • A Java Development Kit (JDK) for running VuFind’s Solr index, and the SolrMarc software used for indexing MARC records. If you will not be working with MARC records, you can use the lighter-weight Java Resource Environment (JRE), since the JDK is only a requirement of the SolrMarc indexer. If you will not be maintaining a local index (a rare situation, but possible in some cases), you will not need Java at all.
 
-The specific versions required will depend on the VuFind version you are installing; details can be found on the requirements page of the VuFind website (https://vufind.org/wiki/installation:requirements).
+The process of installing software packages varies significantly from operating system to operating system and is thus beyond the scope of this text, but online documentation on each individual package should be available to guide you. If you stick with the basic recommendations below, however, you will not have to worry about these details.
+
+It is also important to understand that software changes and evolves over time, so not every version of VuFind is compatible with every version of PHP, MySQL, etc. Details about version compatibility can be found on the requirements page of the VuFind website
+(https://vufind.org/wiki/installation:requirements). If you use the most recent version of VuFind and the most recent stable or long-term-support version of a widely used Linux distribution (such as Fedora or Ubuntu), you are very likely to end up with a compatible set of components. However, if you are using something very old or very new, there is a possibility that something may not work due to version incompatibility. It is helpful to keep this in mind when selecting your platform for installation, and when troubleshooting problems.
 
 2.2 Basic Installation
 ----------------------
@@ -41,16 +46,16 @@ First you need to download the .deb package; you can find the URL for the latest
 
 .. code-block:: console
 
-  wget https://github.com/vufind-org/vufind/releases/download/v6.0.1/vufind_6.0.1.deb
+  wget https://github.com/vufind-org/vufind/releases/download/v7.0/vufind_7.0.deb
 
 Once the file is downloaded it, you can install it with:
 
 .. code-block:: console
 
-   sudo dpkg -i vufind_6.0.1.deb
+   sudo dpkg -i vufind_7.0.deb
 
 
-Of course, you should substitute the appropriate filename if you have downloaded a different version of VuFind than the example 6.0.1).
+Of course, you should substitute the appropriate filename if you have downloaded a different version of VuFind than the example 7.0).
 
 This process will fail with an error, but this is expected: the problem is that you have not yet installed all of the software that VuFind needs; fortunately, this can be automatically fixed with this command:
 
@@ -62,7 +67,7 @@ It will take some time to download and configure all of the components, but when
 
 Note that in many Debian-flavored distributions, a bit of extra configuration is needed to set up permissions so that VuFind can connect to the MySQL or MariaDB database software. Details vary from version to version; see the “Important Notes” in the Ubuntu installation wiki page for more details: https://vufind.org/wiki/installation:ubuntu 
 
-If you get stuck or encounter a problem that is not addressed by the documentation, remember that you can reach out the community for support. See https://vufind.org/vufind/support.html for communication options.
+If you get stuck or encounter a problem that is not addressed by the documentation, remember that you can reach out to the community for support. See https://vufind.org/vufind/support.html for communication options.
 
 Once successful, the Debian package install will have automatically done a few things for you, including building an Apache configuration to make VuFind accessible through a web browser, adjusting file permissions so that VuFind can write to its cache and update its own configuration files, and setting up some useful environment variables ($VUFIND_HOME and $VUFIND_LOCAL_DIR, which will be discussed further in section 3.3 below). There is a bit more manual work for you to do, however.
 
@@ -76,9 +81,9 @@ VuFind’s default search functionality is powered by Solr, an open source index
    cd /usr/local/vufind
    ./solr.sh start
 
-Solr can be configured to start automatically; this is discussed later in section 6.1.
+Solr can be configured to start automatically; this is discussed later in section 6.2.
 
-If you receive warning messages or have other problems, you may wish to consult the wiki page on starting and stopping Solr: https://vufind.org/wiki/administration:starting_and_stopping_solr
+If you receive warning messages or have other problems, you may wish to consult the wiki page on starting and stopping Solr (https://vufind.org/wiki/administration:starting_and_stopping_solr).
 
 2.2.3 Initial Configuration
 ___________________________
@@ -111,7 +116,7 @@ Git is distributed version control software, which is used by the VuFind communi
 The “version control” portion of “distributed version control” refers to Git’s primary function: tracking changes in software over time. As programmers add or change functionality, they “commit” these changes to Git’s history. This makes it possible to look back through the development of the software, identifying which programmers made which changes and reading their explanations of why those changes were made. When bugs are found, this makes it possible to identify which versions are affected. When mistakes are made, it is possible to roll them back. The software also supports multiple “branches” containing the code in different states of development; by “checking out” a branch, a Git user can instantly change the files on their disk to reflect a particular version of the code. Branches allow developers to work on multiple features at the same time, and test them independently; when work on a branch is completed, it can be “merged” back into the “master” branch, where the latest version of the code resides. When the code is deemed stable enough for an official release, the appropriate Git commit can be “tagged” with a version number, and these tags can be “checked out” just like branches, making it possible to quickly switch between different versions of the software for the purposes of testing and upgrading.
 
 
-The “distributed” part of “distributed version control” refers to the fact that every user of Git creates their own “clone” or “fork” of the software repository that they are working with. They end up a full copy of all of the history and changes, to which they can add their own commits, branches and tags. This is a significant difference from earlier version control systems like Subversion, which relied on a single shared server to hold all of the change history, which made it more difficult for large groups of developers to work independently of one another. Git comes with tools for “pushing” and “pulling” changes between repositories, so users can work independently with their local repositories without having to worry about what others are doing, and then they can share their work “upstream” when it is in an appropriately polished state.
+The “distributed” part of “distributed version control” refers to the fact that every user of Git creates their own “clone” or “fork” of the software repository that they are working with. They end up with a full copy of all of the history and changes, to which they can add their own commits, branches and tags. This is a significant difference from earlier version control systems like Subversion, which relied on a single shared server to hold all of the change history, which made it more difficult for large groups of developers to work independently of one another. Git comes with tools for “pushing” and “pulling” changes between repositories, so users can work independently with their local repositories without having to worry about what others are doing, and then they can share their work “upstream” when it is in an appropriately polished state.
 
 2.3.1.2 Installing VuFind with Git
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -123,6 +128,11 @@ To install VuFind using Git, you first need to clone the official VuFind Git rep
    mkdir -p /usr/local/vufind
    cd /usr/local/vufind
    git clone https://github.com/vufind-org/vufind.git 
+
+(Note that you may need to add sudo to some commands and/or change some permissions to make this
+work, depending on your Linux security configuration).
+
+This will create a local clone of the repository and automatically check out the branch used for ongoing development. This is useful if you want to try the very latest “bleeding edge” development code, but that code is not guaranteed to be 100% stable, since some of it may be very new. If you prefer to access a more reliable, well-tested release, you can instead checkout a version tag, for example: *git checkout v7.0*
 
 Git will give you all of VuFInd’s code, but nothing else; you will be responsible for installing all of the software that VuFind depends upon – both the requirements described in section 2.1, as well as the package’s Composer dependencies.
 
@@ -154,6 +164,7 @@ Also note that if you install VuFind from a Debian package, or if you download a
 There are several reasons why you may wish to consider using Git, most of which have been alluded to above:
 
 •       By creating a local Git clone, you can create a branch representing your installed version of VuFind, and you can commit your local configurations to that branch. This will allow you to document the history of your changes to your settings, identifying when decisions were made, and more easily undoing changes that cause problems.
+•       Git’s “reset” function makes it easy to restore the “last known good state” of the software. This gives you the freedom to experiment, knowing that you can easily get back to where you started if something breaks.
 •       If you plan on managing VuFind on multiple servers (for example, development, staging and production environments), you can create branches for each environment, and merge changes between them. You can use the “push” and “pull” features of Git to deploy changes between servers.
 •       You can more easily upgrade VuFind by pulling updates from the upstream repository and merging them into your local branches; once workflows are established, this can actually be easier than trying to upgrade Debian packages or manually deploy from .tar.gz or .zip files. Scripting can be used to help automatically upgrade your configurations and custom themes as well (see http://blog.library.villanova.edu/libtech/2015/07/23/automatically-updating-locally-customized-files-with-git/ for more information).
 •       If you wish to participate in VuFind’s development, using Git is almost a necessity for sharing code with the rest of the community.
@@ -202,6 +213,8 @@ You can temporarily pause the VM with this command:
 
    vagrant halt
 
+Or you can perform a full shutdown of the virtual machine with:
+
 .. code-block:: console
 
    vagrant shutdown
@@ -212,7 +225,7 @@ After either a halt or a shutdown, you can bring the machine back up by repeatin
 
    vagrant up
 
-When you are completely finished with the machine and no longer wish to use it, you can free up disk space by completely destroying it.
+When you are completely finished with the machine and no longer wish to use it, you can free up disk space by completely destroying it:
 
 .. code-block:: console
 
@@ -232,7 +245,7 @@ In general, most VuFind users will not need to use Vagrant – but when these ki
 
 Additional Resources
 --------------------
-A video covering many of the topics in this chapter is available through the VuFind website (https://vufind.org/wiki/videos). The installation page of the VuFind wiki (https://vufind.org/wiki/installation) contains more detailed and fully up-to-date, step-by-step instructions for installing VuFind in a variety of environments. If the methods described above were not appropriate for your needs, this information should prove helpful.
+A video covering many of the topics in this chapter is available through the VuFind website (https://vufind.org/wiki/videos:installation). The installation page of the VuFind wiki (https://vufind.org/wiki/installation) contains more detailed and fully up-to-date, step-by-step instructions for installing VuFind in a variety of environments. If the methods described above were not appropriate for your needs, this information should prove helpful.
 
 Summary
 -------

@@ -1,5 +1,5 @@
-Configuring Vufind
-******************
+Part 2. Configuration and Administration
+****************************************
 
 Chapter 4. Configuring VuFind
 #############################
@@ -37,9 +37,9 @@ The config.ini file is the place where VuFind looks for most of its global setti
 4.3 searches.ini
 ----------------
 
-The searches.ini file contains settings related to the way VuFind presents search options related to its Solr index. This file lists legal search options (such as author, title, subject) and sort options (such as date, title, relevance). This is also the place to configure recommendation modules, which provide context-sensitive information accompanying search results (see Chapter 14 for more details). If you want to change default behaviors, rearrange options in drop-down menus, or customize search results screens, this file is a good place to start. Users interested in customizing the way searches are constructed will also need to understand the searchspecs.yaml, which is discussed later in section 5.3.
+The searches.ini file contains settings related to the way VuFind presents search options related to its Solr index. This file lists legal search options (such as author, title, subject) and sort options (such as date, title, relevance). This is also the place to configure recommendation modules, which provide context-sensitive information accompanying search results (see Chapter 14 for more details). If you want to change default behaviors, rearrange options in drop-down menus, or customize search results screens, this file is a good place to start. Users interested in customizing the way searches are constructed will also need to understand the searchspecs.yaml, which is discussed later in section 5.2.
 
-Note that searches.ini is only important if you are using the Solr index for your searches. If you are using a different search method, such as a third-party API, there will be a different configuration file (such as Summon.ini, WorldCat.ini, etc.) which will contain similarly-structured settings that will impact searches from that environment. Most VuFind users incorporate Solr in some way, but if your use case does not require Summon, it is possible that you will never use searches.ini – but understanding its contents will still be useful because whatever backend you use probably relies on most of the same basic concepts.
+Note that searches.ini is only important if you are using the Solr index for your searches. If you are using a different search method, such as a third-party API, there will be a different configuration file (such as Summon.ini, WorldCat.ini, etc.) which will contain similarly-structured settings that will impact searches from that environment. Most VuFind users incorporate Solr in some way, but if your use case does not require Solr, it is possible that you will never use searches.ini. Even so, understanding its contents will still be useful because whatever backend you use probably relies on most of the same basic concepts.
 
 4.4 facets.ini
 --------------
@@ -77,7 +77,7 @@ The MultiILS setup is quite complicated, and is only rarely needed (in use cases
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 The NoILS driver disables some or all of VuFind’s ILS-specific behavior, and it can also replace some functionality normally delegated to an ILS with data retrieval from the Solr index. There are two different use cases for this driver:
 
-1.      By using the loadNoILSOnFailure setting in config.ini, VuFind can be configured to load the NoILS driver instead of the regularly configured driver when a problem is encountered. You can then set the NoILS.ini file into “ils-offline” mode to display a message about temporarily unavailability of ILS-related functionality. This is useful to give your users a better experience during planned or unplanned outages of your ILS.
+1.      By using the loadNoILSOnFailure setting in config.ini, VuFind can be configured to load the NoILS driver instead of the regularly configured driver when a problem is encountered. You can then set the NoILS.ini file into “ils-offline” mode to display a message about temporary unavailability of ILS-related functionality. This is useful to give your users a better experience during planned or unplanned outages of your ILS.
 2.      If you have no ILS at all, you can select NoILS as your driver and set the NoILS.ini file into “ils-none” mode, and this will ensure that VuFind hides functionality related to the ILS at all times.
 
 
@@ -97,11 +97,12 @@ The subject of search backends is discussed in greater detail in chapter 15.
 4.5.3 Feature-Oriented Configurations
 _____________________________________
 
-Some features of VuFind require especially complex configuration and/or are only used in very specialized situations, and putting all of those settings into the main config.ini files would make that file harder to read and work with. Thus, they have been split out into separate files. Some important examples include: combined.ini and searchbox.ini, which will be discussed in more detail in chapter 13; export.ini, which controls the ways in which users can download record data from the system; permissions.ini, which provides rule-based access control over some of VuFind’s features; and sitemap.ini, which controls the creation of sitemap files to assist search engine crawling (see also section 12.1).
+Some features of VuFind require especially complex configuration and/or are only used in very specialized situations, and putting all of those settings into the main config.ini files would make that file harder to read and work with. Thus, they have been split out into separate files. Some important examples include: combined.ini and searchbox.ini, which will be discussed in more detail in chapter 13; export.ini, which controls the ways in which users can download record data from the system; permissions.ini, which provides rule-based access control over some of VuFind’s features; and sitemap.ini, which controls the creation of sitemap files to assist search engine crawling (see also section 12.2).
 
 Additional Resources
 --------------------
-For a more comprehensive and up-to-date list of configuration files, see the appropriate wiki page (https://vufind.org/wiki/configuration:files).
+A video covering most of the information from this chapter is available through the VuFind website
+(https://vufind.org/wiki/videos:configuring_search_and_facet_settings). For a more comprehensive and up-to-date list of configuration files, see the appropriate wiki page (https://vufind.org/wiki/configuration:files).
 
 Summary
 -------

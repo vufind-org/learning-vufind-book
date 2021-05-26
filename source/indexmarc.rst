@@ -46,10 +46,7 @@ In section 2.2.1, it was mentioned that installing VuFind with a Debian package 
 
 Throughout the rest of this text, when referring to the VuFind home or local directories in file paths, the shorthand variables will be used – so, for example, $VUFIND_LOCAL_DIR/config means /usr/local/vufind/local/config, and $VUFIND_HOME/config means /usr/local/vufind/config. As long as you have these environment variables set on your system, you can use them in commands. This means that if you choose to install VuFind in a non-default location, you can simply redefine the variables (usually by editing the file /etc/profile.d/vufind.sh), and the commands listed in this book will still work correctly.
 
-The purpose of the local directory is to separate locally managed configuration files and data from the core VuFind code. When VuFind needs to load a configuration, it will first look for that file in the local directory; only if the file is missing from the local directory will VuFind load the default version from the home directory.
-
-
- there is a file matching $VUFIND_LOCAL_DIR/import/import.properties, it will be loaded; if not, $VUFIND_HOME/import/import.properties will be used instead.
+The purpose of the local directory is to separate locally managed configuration files and data from the core VuFind code. When VuFind needs to load a configuration, it will first look for that file in the local directory; only if the file is missing from the local directory will VuFind load the default version from the home directory. For example, some of SolrMarc’s settings (discussed in more detail below) are stored in a file called import/import.properties. When you run the import-marc.sh command described above, if there is a file matching $VUFIND_LOCAL_DIR/import/import.properties, it will be loaded; if not, $VUFIND_HOME/import/import.properties will be used instead.
 
 When configuring VuFind, you should always copy configuration files into the local directory and edit them there; you should NEVER edit core configuration files.
 
@@ -90,7 +87,7 @@ This quick summary of SolrMarc functionality is intended to help you read and un
 3.4.3 marc_local.properties
 ___________________________
 
-The import.properties file tells SolrMarc some of the most basic information it needs to function: where its other configuration files are located, the URL where Solr is running, and some advanced preferences. In most cases, the defaults created by VuFind’s installer will work correctly, and there is no need to edit this file. However, if you run Solr in a non-default way, or if you encounter problems with the processing of your MARC file, some of the settings in this file may need to be changed. The file contains comments explaining its contents.
+The marc_local.properties file is a convenient way to override settings from marc.properties without having to override the whole file. Any fields that you define in this file will replace the equivalent fields in marc.properties. The default version of the file in $VUFIND_HOME/import/marc_local.properties contains no active definitions, but it contains many commented-out examples of common customizations that you might want to consider turning on. When customizing your indexing rules, it is strongly recommended that you copy marc_local.properties into $VUFIND_LOCAL_DIR/import rather than copying and customizing the entire marc.properties file – this will make future upgrades easier, since you will be able to automatically receive updates to the default marc.properties file without having to update your local copy of it.
 
 3.5 Customizing SolrMarc
 ------------------------
@@ -145,7 +142,7 @@ Because of the special role of IDs in Solr indexing, it is also important to be 
 Additional Resources
 --------------------
 
-A video covering many of the topics in this chapter is available through the VuFind website (https://vufind.org/wiki/videos). The “Indexing MARC” page of the VuFind wiki (https://vufind.org/wiki/indexing:marc) contains additional details and advice that may be more in-depth and up-to-date than this chapter.
+A video covering many of the topics in this chapter is available through the VuFind website (https://vufind.org/wiki/videos:indexing_marc_records). The “Indexing MARC” page of the VuFind wiki (https://vufind.org/wiki/indexing:marc) contains additional details and advice that may be more in-depth and up-to-date than this chapter.
 
 Summary
 -------

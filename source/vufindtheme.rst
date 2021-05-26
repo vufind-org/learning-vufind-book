@@ -1,5 +1,5 @@
-Creating a Vufind Theme
-***********************
+Part 3. Styling and Theming
+***************************
 
 Chapter 7. Creating a VuFind Theme
 ##################################
@@ -18,7 +18,7 @@ After reading this chapter, you will understand:
 7.1 Introduction to Themes
 --------------------------
 
-VuFind is designed using a model-view-controller architecture. One of the key features of this design is that the code for how VuFind does things (the “business logic”) is separated from the code for how VuFind displays things (the “view templates”). This is a powerful separation, since it means that VuFind’s look and feel can be changed independently of its core functionality. It also means that it is possible to provide multiple presentations of the system.
+VuFind is designed using a model-view-controller architecture (as discussed further in section 16.2). One of the key features of this design is that the code for how VuFind does things (the “business logic”) is separated from the code for how VuFind displays things (the “view templates”). This is a powerful separation, since it means that VuFind’s look and feel can be changed independently of its core functionality. It also means that it is possible to provide multiple presentations of the system.
 
 VuFind includes a theme system which makes it easy to bundle all of VuFind’s user-facing pieces (view templates, Javascript code, CSS styles, images) in a single package. This theme system also supports the idea of inheritance, so you can create a “sub-theme” which can override some parts of a parent theme while inheriting other parts as-is. For example, if you like one of VuFind’s default themes but just want to override some CSS styles and the text of the footer, you can easily create a sub-theme that contains a custom CSS file and a custom footer template, and all of the other functionality will carry through from the parent theme.
 
@@ -42,7 +42,7 @@ This will create a new $VUFIND_HOME/theme/localtheme folder containing some exam
 
 Every theme in VuFind, including the one you created with the generator in 7.2, will have a theme.config.php file in its root directory. At a bare minimum, this file simply defines a parent theme through the ‘extends’ setting, establishing the aforementioned inheritance mechanism. The file can also be used to define globally-loaded resources like extra Javascript and CSS files, to set a ‘favicon’ (the small graphic that browsers associate with your site in the address bar and bookmarks), or to set up custom view helpers (discussed further in 7.5).
 
-It is worthwhile to take a look at some of the theme.config.php files included with VuFind to gain a better understanding of the available options and to see some examples of how things are formatted. The ‘root’ theme simply defines commonly-used view helpers. Other themes layer this with the necessary Javascript frameworks and CSS styles.
+It is worthwhile to take a look at some of the theme.config.php files included with VuFind to gain a better understanding of the available options and to see some examples of how things are formatted. The ‘root’ theme simply defines commonly-used view helpers. Other themes extend this with the necessary Javascript frameworks and CSS styles.
 
 Once you have established your theme, you probably won’t come back and edit theme.config.php very frequently unless you are adding new styles or building custom view helpers. These situations will be discussed in more detail later in the book.
 
@@ -78,7 +78,7 @@ Most of a template is just plain HTML. However, you may see some *<?php … ?>* 
 
    <?php if (isset($title)): ?>
      <h1><?=$title?></h1>
-     <? endif; ?>
+     <?php endif; ?>
 
  
 The *if .. endif* block checks to see if a variable called *$title* has been set. If the variable is present, the inside part of the block is triggered, creating an *<h1>* tag and displaying the value of $title within it.
@@ -88,7 +88,7 @@ This is a greatly simplified example, but it demonstrates the basic flavor of te
 7.5 Understanding View Helpers
 ------------------------------
 
-While it is possible to write large amounts of PHP logic directly into template files, this is generally discouraged, as it makes templates harder to read; the focus of a template should be on presentation rather than logic. However, sometimes there is a need to do some complex data processing on a variable before displaying it, or there may be a repetitive task (like rendering a formatted table) that is better done with code than with copy-and-paste. In these situations, a view helper may be useful.
+While it is possible to write large amounts of PHP logic directly into template files, this is generally discouraged, as it makes templates harder to read; the focus of a template should be on presentation rather than logic. However, sometimes there is a need to do some complex data processing on a variable before displaying it, or there may be a repetitive task (like rendering a formatted table) that is better done with reusable code than with copy-and-paste. In these situations, a view helper may be useful.
 
 View helpers are a feature of the laminas-view component – they provide a mechanism for hooking up PHP classes full of logic with your view templates in a concise way. The laminas-view component includes a number of useful helpers for common tasks, and VuFind adds many additional specialized options.
 
@@ -100,7 +100,7 @@ Two of the most common  view helpers you will see in VuFind’s templates are *$
 7.5.2 Escaping
 ______________
 
-It is also important to understand the difference between *$this->translate()* and *$this->transEsc():* the plain “translate” helper just looks up a string and outputs it as-is; the “transEsc” helper is the same as “translate” but adds an additional step of HTML escaping, making sure that the text is safe to output as part of an HTML document. (For example, this makes sure that text containing < and > characters does not get misinterpreted as an HTML tag). There is also a *$this->escapeHtml()* helper for escaping text without translating it first. For security and reliability, it is important to be disciplined about consistently escaping values in templates.
+It is also important to understand the difference between *$this->translate()* and *$this->transEsc():* the plain “translate” helper just looks up a string and outputs it as-is; the “transEsc” helper is the same as “translate” but adds an additional step of HTML escaping, making sure that the text is safe to output as part of an HTML document. (For example, this makes sure that text containing < and > characters does not get misinterpreted as an HTML tag). There is also a *$this->escapeHtml()* helper for escaping text without translating it first, and a *$this->escapeHtmlAttr()* helper that applies extra-strict escaping to values that will be presented as HTML attributes. For security and reliability, it is important to be disciplined about consistently escaping values in templates.
 
 
 7.6 Understanding Layouts

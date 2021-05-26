@@ -4,10 +4,10 @@ Administering a Vufind Server
 Chapter 6. Administering a VuFind Server
 ########################################
 
-Learning ObjectivesiLearning Objectives
+Learning Objectives
 ---------------------------------------
 
-Learning Objectives
+After reading this chapter, you will understand:
 
 •  How to ensure that necessary processes start up automatically after your server reboots
 •  How to manage VuFind’s Solr index updates.
@@ -37,7 +37,7 @@ To set this up, you should first create a user with the adduser command. For the
    sudo adduser solr
 
 
-One the user account exists, you should change ownership of VuFind’s Solr directory to the new user so that Solr will have appropriate read/write access to its index files.
+Once the user account exists, you should change ownership of VuFind’s Solr directory to the new user so that Solr will have appropriate read/write access to its index files.
 
 .. code-block:: console
 
@@ -56,7 +56,7 @@ Programs that can be started or stopped using systemd are known as services. Eac
    [Service]
    Type=forking
    ExecStart=/bin/sh -l -c '/usr/local/vufind/solr.sh start' -x
-   PIDFile=/usr/local/vufind/solr/vendor/bin/solr-8080.pid
+   PIDFile=/usr/local/vufind/solr/vendor/bin/solr-8983.pid
    User=solr
    ExecStop=/bin/sh -l -c "/usr/local/vufind/solr.sh stop" -x
    SuccessExitStatus=0
@@ -110,7 +110,7 @@ When you restart Solr after deleting its index files, it will automatically init
 
    systemctl stop solr
    sudo rm -rf $VUFIND_HOME/solr/vufind/biblio/index 
-   $VUFIND_HOME/solr/vufind/biblio/spell*
+   sudo rm -rf $VUFIND_HOME/solr/vufind/biblio/spell*
    systemctl start solr
 
 This will leave you with a fresh, empty index, ready for records to be indexed into it.
@@ -124,7 +124,7 @@ Solr’s index is stored as files on disk, and these files are “portable” �
 
 When you run a service in production, it is a good practice to maintain a “staging” server that you can use for testing upgrades and customizations before you deploy them to your users. Having a staging server can also be valuable for index regeneration.
 
-Imagine, for example, that you have have configured two identical VuFind servers: one for staging, and one for production. As long as both servers are running exactly the same Solr version with exactly the same schema, you could follow these steps to perform a minimal-disruption reindex process:
+Imagine, for example, that you have configured two identical VuFind servers: one for staging, and one for production. As long as both servers are running exactly the same Solr version with exactly the same schema, you could follow these steps to perform a minimal-disruption reindex process:
 
 
 1.      On the staging server, reset your index as described in 6.3.1, and reindex all of your records as described in chapters 3 and 11.
@@ -204,10 +204,15 @@ If you use Shibboleth authentication and the “single logout” feature, you ma
 
 Looking through this for additional “expire” actions should reveal whether anything new has been added since this book was written.
 
+6.6 Managing Code and Configuration
+___________________________________
+
+As you customize and configure VuFind, you will find yourself making changes to dozens of files in multiple directories – configuration files, theme templates, custom code, automation scripts, etc. It is strongly recommended that you consider using a version control system like Git to track all of these things. Git was introduced in section 2.3.1, and if you skipped that section earlier, it may be worth revisiting it now. Even a basic understanding of Git will empower you in several important ways, as detailed in section 2.3.1.3. The value of version control cannot be underestimated; taking the time to learn about it now can save you from much costlier problems down the road.
+
 Additional Resources
 --------------------
 
-As noted above, you can find more information about starting Solr automatically on the Starting and Stopping Solr page in the VuFind wiki (https://vufind.org/wiki/administration:starting_and_stopping_solr). You can learn more about automatic index updates on the Automation page of the VuFind wiki: https://vufind.org/wiki/administration:automation. Some of the topics from this chapter are demonstrated in the video available here: https://vufind.org/wiki/videos:administering_a_vufind_server.
+As noted above, you can find more information about starting Solr automatically on the Starting and Stopping Solr page in the VuFind wiki (https://vufind.org/wiki/administration:starting_and_stopping_solr). You can learn more about automatic index updates on the Automation page of the VuFind wiki (https://vufind.org/wiki/administration:automation). Some of the topics from this chapter are demonstrated in the video available here: https://vufind.org/wiki/videos:administering_a_vufind_server.
 
 Summary
 -------
