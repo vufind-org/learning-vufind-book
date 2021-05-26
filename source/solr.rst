@@ -1,5 +1,5 @@
-Understanding Solr
-******************
+Part 2. Configuration and Administration
+****************************************
 
 Chapter 5. Understanding Solr
 #############################

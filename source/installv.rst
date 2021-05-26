@@ -1,5 +1,5 @@
-Installing vufind
-*****************
+Part 1. Vufind Basics
+*********************
 
 Chapter 2. Installing VuFind
 ############################

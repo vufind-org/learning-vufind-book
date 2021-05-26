@@ -1,5 +1,5 @@
-Working with XML and HTML
-*************************
+Part 4. Working with XML and HTML
+*********************************
 
 Chapter 10. Content Harvesting
 ##############################

@@ -1,5 +1,5 @@
-Introduction to Laminas
-***********************
+Part 6. Extending and Customizing VuFind’s Code
+***********************************************
 
 Chapter 16. Introduction to Laminas
 ####################################

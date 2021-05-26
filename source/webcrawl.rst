@@ -1,6 +1,5 @@
-Web crawling with Vufind
-************************
-
+Part 4. Working with XML and HTML
+*********************************
 
 Chapter 12. Web Crawling with VuFind
 ####################################

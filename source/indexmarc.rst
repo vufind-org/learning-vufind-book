@@ -1,5 +1,5 @@
-Indexing Marc
-*************
+Part 1. Vufind Basics
+*********************
 
 Chapter 3. Indexing MARC Records
 ################################

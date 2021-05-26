@@ -1,5 +1,5 @@
-Styling Vufind
-**************
+Part 3. Styling and Theming
+***************************
 
 Chapter 8. Styling VuFind
 #########################
