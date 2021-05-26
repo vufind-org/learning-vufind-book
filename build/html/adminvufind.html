@@ -78,24 +78,23 @@
 <div class="section" id="creating-the-service-file">
 <h4>6.2.2 Creating the Service File<a class="headerlink" href="#creating-the-service-file" title="Permalink to this headline">¶</a></h4>
 <p>Programs that can be started or stopped using systemd are known as services. Each is defined by a small configuration file found in /etc/systemd/system which tells the operating system how to manage the program. To manage VuFind’s Solr instance, you can create a file called /etc/systemd/system/vufind.service, containing the following:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">  After=network.target</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">After=network.target</span>
 
-<span class="go">  [Service]</span>
-<span class="go">  Type=forking</span>
-<span class="go">  ExecStart=/bin/sh -l -c &#39;/usr/local/vufind/solr.sh start&#39; -x</span>
-<span class="go">  PIDFile=/usr/local/vufind/solr/vendor/bin/solr-8983.pid</span>
-<span class="go">  User=solr</span>
-<span class="go">  ExecStop=/bin/sh -l -c &quot;/usr/local/vufind/solr.sh stop&quot; -x</span>
-<span class="go">  SuccessExitStatus=0</span>
-<span class="go">  LimitNOFILE=65000</span>
-<span class="go">  LimitNPROC=65000</span>
+<span class="go">[Service]</span>
+<span class="go">Type=forking</span>
+<span class="go">ExecStart=/bin/sh -l -c &#39;/usr/local/vufind/solr.sh start&#39; -x</span>
+<span class="go">PIDFile=/usr/local/vufind/solr/vendor/bin/solr-8983.pid</span>
+<span class="go">User=solr</span>
+<span class="go">ExecStop=/bin/sh -l -c &quot;/usr/local/vufind/solr.sh stop&quot; -x</span>
+<span class="go">SuccessExitStatus=0</span>
+<span class="go">LimitNOFILE=65000</span>
+<span class="go">LimitNPROC=65000</span>
 
-<span class="go">  [Install]</span>
-<span class="go">  WantedBy=multi-user.target</span>
-
-<span class="go">Be sure that the file paths in ExecStart and ExecStop point to the correct command in $VUFIND_HOME. Confirm that the User line matches the user account you created in 6.2.1 above. For an explanation of the remaining settings, see the systemd.service documentation (https://www.freedesktop.org/software/systemd/man/systemd.service.html).</span>
+<span class="go">[Install]</span>
+<span class="go">WantedBy=multi-user.target</span>
 </pre></div>
 </div>
+<p>Be sure that the file paths in ExecStart and ExecStop point to the correct command in $VUFIND_HOME. Confirm that the User line matches the user account you created in 6.2.1 above. For an explanation of the remaining settings, see the systemd.service documentation (<a class="reference external" href="https://www.freedesktop.org/software/systemd/man/systemd.service.html">https://www.freedesktop.org/software/systemd/man/systemd.service.html</a>).</p>
 </div>
 <div class="section" id="starting-stopping-and-enabling-the-service">
 <h4>6.2.3 Starting, Stopping and Enabling the Service<a class="headerlink" href="#starting-stopping-and-enabling-the-service" title="Permalink to this headline">¶</a></h4>
@@ -141,8 +140,8 @@
 <p>Imagine, for example, that you have configured two identical VuFind servers: one for staging, and one for production. As long as both servers are running exactly the same Solr version with exactly the same schema, you could follow these steps to perform a minimal-disruption reindex process:</p>
 <ol class="arabic simple">
 <li><p>On the staging server, reset your index as described in 6.3.1, and reindex all of your records as described in chapters 3 and 11.</p></li>
-<li><p>Copy the $VUFIND_HOME/solr/vufind/biblio directory on the staging server to a temporary location on the production server. The rsync command is a good way to do this – e.g., on the staging server, run: <em>rsync -r $VUFIND_HOME/solr/vufind/biblio user&#64;production-server:/tmp/</em> (in this example, note that <a class="reference external" href="mailto:user&#37;&#52;&#48;production-server">user<span>&#64;</span>production-server</a> should be replaced by a valid username and valid server name).</p></li>
-<li><p>Stop Solr, move the new index into position, and then start Solr again. This will require a minimal amount of downtime, but it should be a matter of seconds or minutes rather than the longer period the full reindex process would have taken. The command for this might look something like this: <em>systemctl stop solr ; mv $VUFIND_HOME/solr/vufind/biblio /tmp/biblio_old ; mv /tmp/biblio $VUFIND_HOME/solr/vufind/ ; systemctl start solr</em> (this four-part command stops Solr, moves the current (old) Solr core directory into the /tmp directory so you can get it back if you need to, then moves the new (reindexed) Solr core directory into position from the place in /tmp where we rsynced it, and finally starts Solr again… by stringing all of the commands together with semi-colons, we ensure that they run one after another without pausing, further minimizing any downtime).</p></li>
+<li><p>Copy the $VUFIND_HOME/solr/vufind/biblio directory on the staging server to a temporary location on the production server. The rsync command is a good way to do this – e.g., on the staging server, run: <code class="code docutils literal notranslate"><span class="pre">rsync</span> <span class="pre">-r</span> <span class="pre">$VUFIND_HOME/solr/vufind/biblio</span> <span class="pre">user&#64;production-server:/tmp/</span></code> (in this example, note that <a class="reference external" href="mailto:user&#37;&#52;&#48;production-server">user<span>&#64;</span>production-server</a> should be replaced by a valid username and valid server name).</p></li>
+<li><p>Stop Solr, move the new index into position, and then start Solr again. This will require a minimal amount of downtime, but it should be a matter of seconds or minutes rather than the longer period the full reindex process would have taken. The command for this might look something like this: <code class="code docutils literal notranslate"><span class="pre">systemctl</span> <span class="pre">stop</span> <span class="pre">solr</span> <span class="pre">;</span> <span class="pre">mv</span> <span class="pre">$VUFIND_HOME/solr/vufind/biblio</span> <span class="pre">/tmp/biblio_old</span> <span class="pre">;</span> <span class="pre">mv</span> <span class="pre">/tmp/biblio</span> <span class="pre">$VUFIND_HOME/solr/vufind/</span> <span class="pre">;</span> <span class="pre">systemctl</span> <span class="pre">start</span> <span class="pre">solr</span></code> (this four-part command stops Solr, moves the current (old) Solr core directory into the /tmp directory so you can get it back if you need to, then moves the new (reindexed) Solr core directory into position from the place in /tmp where we rsynced it, and finally starts Solr again… by stringing all of the commands together with semi-colons, we ensure that they run one after another without pausing, further minimizing any downtime).</p></li>
 </ol>
 <p>This example procedure still requires a fair amount of manual effort, and is a rather crude demonstration of the possibilities of Solr. Solr has built-in replication capabilities that can be used to move indexes between servers automatically, with no downtime. The Solr Cloud feature offers even more powerful possibilities. To learn more about these features, see the Solr documentation (<a class="reference external" href="https://lucene.apache.org/solr/guide/">https://lucene.apache.org/solr/guide/</a>).</p>
 </div>
@@ -187,13 +186,11 @@
 </pre></div>
 </div>
 <p>If you use Shibboleth authentication and the “single logout” feature, you may need to periodically clean up data used to track external user sessions:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">  php $VUFIND_HOME/public/index.php util expire_external_sessions</span>
-
-<span class="go">Over time, it is possible that additional features will be introduced which will require similar cleanup actions. You can always get a summary of VuFind’s available command line utilities by running:</span>
-
-<span class="go">.. code-block:: console</span>
-
-<span class="go">   php $VUFIND_HOME/public/index.php</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">php $VUFIND_HOME/public/index.php util expire_external_sessions</span>
+</pre></div>
+</div>
+<p>Over time, it is possible that additional features will be introduced which will require similar cleanup actions. You can always get a summary of VuFind’s available command line utilities by running:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">php $VUFIND_HOME/public/index.php</span>
 </pre></div>
 </div>
 <p>Looking through this for additional “expire” actions should reveal whether anything new has been added since this book was written.</p>

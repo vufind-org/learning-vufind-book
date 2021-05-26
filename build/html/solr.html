@@ -73,18 +73,20 @@
 <div class="section" id="analyzer-chains">
 <h4>5.1.3 Analyzer Chains<a class="headerlink" href="#analyzer-chains" title="Permalink to this headline">¶</a></h4>
 <p>A lot of Solr’s power comes from the ability to define processing rules, or “analyzer chains,” for different data types. There are several reasons why the ability to process different types of data with different rules is important. Just as in a spreadsheet program, dates, numeric values, and text values need to be treated differently from one another when being used for sorting or filtering. For text fields, different degrees of precision may be desired for matching fields, depending on whether they are intended for keyword searching or faceting. Sometimes, special kinds of text require special rules; for example, if your documents contain the same information in different languages.</p>
-<p>Solr uses its analyzer chains at two points in time:
-•  When documents are added to its index (for example, with the use of SolrMarc, as described in chapter 3), all of their content is analyzed, and the results are saved in the index.
-•  When users perform searches by submitting queries, the query content is also analyzed, and the results are compared against the index to find matches.</p>
+<p>Solr uses its analyzer chains at two points in time:</p>
+<ul class="simple">
+<li><p>When documents are added to its index (for example, with the use of SolrMarc, as described in chapter 3), all of their content is analyzed, and the results are saved in the index.</p></li>
+<li><p>When users perform searches by submitting queries, the query content is also analyzed, and the results are compared against the index to find matches.</p></li>
+</ul>
 <p>Because the same rules can be applied to both the search being performed and the contents being searched, it is possible to clean up minor irregularities and increase the probability of finding a useful match.</p>
 <p>An example should make this more clear. Imagine that we have a title field designed for full text searching. We want to allow users to match individual keywords within a title rather than having to type the whole thing, so we start our analyzer chain with a “tokenizer” to break text apart into individual words. We don’t want to force the user to match the case of the original text, so we apply a lower-case filter to normalize all text to lower-case. We want to treat different forms of the same word (e.g. work/works/working) as the same word for matching purposes, so we apply a type of filter called a stemmer to simplify words with common suffixes.</p>
 <p>Now suppose we index a book with the title “Working with Solr.” As Solr loads the data into its index, it will apply the rules we defined.</p>
 <p>Step 1: Tokenize – “Working with Solr” will become a set of tokens, broken apart on whitespace:
-Working, with and Solr.</p>
-<p>Step 2: Lower-case filter – Working, with and Solr will now become working, with and solr.</p>
-<p>Step 3: Stemmer – Our hypothetical stemmer will remove common suffixes, so “working” will become “work” and our tokens now become work, with and solr. These values are stored in the index.</p>
-<p>Now, a user comes along with their Caps Lock turned on, and performs the search “SOLR” against our index. The analyzer chain is applied again, but it won’t have much to do; there’s only one token, and no stemming is necessary, but the lower-case rule will change “SOLR” to “solr,” and then the index will find that this token matches one of the tokens found in the title field of the “Working with Solr” document.</p>
-<p>Sometimes, the side effects of analyzer chains can be unintuitive. For example, you should be able to see how a search for “SOLR WORKS” would reduce down to solr and work and thus match the tokenized results of “Working with Solr” on two tokens. Some users might not think this is a good match. It will sometimes be up to you to determine why a given query matches a given result, and to make decisions about whether configurations need to be adjusted to change the rules.</p>
+<em>Working</em>, <em>with</em> and <em>Solr</em>.</p>
+<p>Step 2: Lower-case filter – <em>Working</em>, <em>with</em> and <em>Solr</em> will now become <em>working</em>, <em>with</em> and <em>solr</em>.</p>
+<p>Step 3: Stemmer – Our hypothetical stemmer will remove common suffixes, so <em>working</em> will become <em>work</em> and our tokens now become <em>work</em>, <em>with</em> and <em>solr</em>. These values are stored in the index.</p>
+<p>Now, a user comes along with their Caps Lock turned on, and performs the search “SOLR” against our index. The analyzer chain is applied again, but it won’t have much to do; there’s only one token, and no stemming is necessary, but the lower-case rule will change <em>SOLR</em> to <em>solr</em>, and then the index will find that this token matches one of the tokens found in the title field of the “Working with Solr” document.</p>
+<p>Sometimes, the side effects of analyzer chains can be unintuitive. For example, you should be able to see how a search for “SOLR WORKS” would reduce down to <em>solr</em> and <em>work</em> and thus match the tokenized results of “Working with Solr” on two tokens. Some users might not think this is a good match. It will sometimes be up to you to determine why a given query matches a given result, and to make decisions about whether configurations need to be adjusted to change the rules.</p>
 <p>Of course, this example is an extreme simplification of how Solr works, but the point is this: Solr applies rules to reduce inputs into tokens, and then it provides search results by matching tokens. This core idea is quite simple; the power and flexibility in the system comes from the ability to define an infinite variety of rules controlling how inputs turn into tokens.</p>
 </div>
 <div class="section" id="relevance-ranking">
@@ -201,14 +203,33 @@ Working, with and Solr.</p>
 </pre></div>
 </div>
 <p>This is a fairly intimidating block of text, but if you break it apart into chunks, you will see that it is just a long list of parameters being passed to Solr. If you split the URL apart around the ampersand (&amp;) characters, you will see many of the individual settings are fairly straightforward. Some examples:</p>
-<p><em>q=SOLR</em>                          Set the query to “SOLR”
-<em>rows=20</em>                         Return twenty results
-<em>facet.field=topic_facet</em>         Include values from the “topic_facet” field as one of the facet options
-<em>sort=score+desc</em>                 Sort by relevance score in descending order</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 70%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">q=SOLR</span></code></p></td>
+<td><p>Set the query to “SOLR”</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">rows=20</span></code></p></td>
+<td><p>Return twenty results</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">facet.field=topic_facet</span></code></p></td>
+<td><p>Include values from the “topic_facet” field as one of the facet options,</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">sort=score+desc</span></code></p></td>
+<td><p>Sort by relevance score in descending order</p></td>
+</tr>
+</tbody>
+</table>
 <p>All of these parameters (and many others) are documented in the online Solr documentation (<a class="reference external" href="https://lucene.apache.org/solr/">https://lucene.apache.org/solr/</a>) and clarification can usually be found with the help of the search engine of your choice.</p>
 <p>You should be able to copy the URL from this message directly into your web browser to see the Solr response, as well as a more readable summary of the input parameters. (Note that, if the URL starts with <a class="reference external" href="http://localhost">http://localhost</a>, you may have to replace “localhost” with the name of the Solr/VuFind server if you are trying to review the results from a different machine – and, of course, access from another machine will only work if firewalls are set up to allow it. For security reasons, cross-machine access to Solr should generally be restricted except when needed for development or troubleshooting).</p>
-<p>In any case, once you have access to Solr query results, you can see exactly what details are coming out of Solr, and you can edit the parameters in the URL to try different searches, sorts, etc. You can add a &amp;debugQuery=true parameter on the end of the URL to activate a debug mode that adds an extra section to the Solr response that provides a breakdown of how Solr is processing text and how long each step of the analyzer chain is taking, which can be useful for identifying performance problems.</p>
-<p>Figure: Web browser displaying Solr response including debugQuery details</p>
+<p>In any case, once you have access to Solr query results, you can see exactly what details are coming out of Solr, and you can edit the parameters in the URL to try different searches, sorts, etc. You can add a <code class="code docutils literal notranslate"><span class="pre">&amp;debugQuery=true</span></code> parameter on the end of the URL to activate a debug mode that adds an extra section to the Solr response that provides a breakdown of how Solr is processing text and how long each step of the analyzer chain is taking, which can be useful for identifying performance problems.</p>
+<div class="align-center figure" id="id1">
+<img alt="alternate text" src="_images/figure_1.jpg" />
+<p class="caption"><span class="caption-text">Figure 1: Web browser displaying Solr response including debugQuery details</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
 <p>You will also find that if you access just the base part of the URL (which will usually be something like  <a class="reference external" href="http://localhost:8983/solr">http://localhost:8983/solr</a>), you will find a useful Solr administration panel which lets you explore some of the features of the platform; this also includes a helpful form for building your own queries. If you decide to learn more about Solr using the “Additional Resources” below, you will likely spend a lot of time in this interface.</p>
 <p>Note that turning on debug mode can prevent some features of VuFind from working correctly, so it is not a good idea to leave it turned on all the time; it is just intended as a quick-and-easy way to access some technical details like Solr queries. For some more robust alternatives, including logging to files, see the troubleshooting page in VuFind’s wiki (<a class="reference external" href="https://vufind.org/wiki/development:troubleshooting">https://vufind.org/wiki/development:troubleshooting</a>).</p>
 </div>

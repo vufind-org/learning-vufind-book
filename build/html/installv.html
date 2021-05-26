@@ -136,9 +136,11 @@
 <span class="go">git clone https://github.com/vufind-org/vufind.git</span>
 </pre></div>
 </div>
-<p>(Note that you may need to add sudo to some commands and/or change some permissions to make this
-work, depending on your Linux security configuration).</p>
-<p>This will create a local clone of the repository and automatically check out the branch used for ongoing development. This is useful if you want to try the very latest “bleeding edge” development code, but that code is not guaranteed to be 100% stable, since some of it may be very new. If you prefer to access a more reliable, well-tested release, you can instead checkout a version tag, for example: <em>git checkout v7.0</em></p>
+<p>(Note that you may need to add sudo to some commands and/or change some permissions to make this work, depending on your Linux security configuration).</p>
+<p>This will create a local clone of the repository and automatically check out the branch used for ongoing development. This is useful if you want to try the very latest “bleeding edge” development code, but that code is not guaranteed to be 100% stable, since some of it may be very new. If you prefer to access a more reliable, well-tested release, you can instead checkout a version tag, for example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">git checkout v7.0</span>
+</pre></div>
+</div>
 <p>Git will give you all of VuFInd’s code, but nothing else; you will be responsible for installing all of the software that VuFind depends upon – both the requirements described in section 2.1, as well as the package’s Composer dependencies.</p>
 <p>One simple way to install VuFind’s software requirements is to install the Debian package as described above. After the package and its dependencies have been installed, you can empty out the /usr/local/vufind directory and use Git to recreate the files (or you can leave the Debian installation alone, and use Git to install a separate copy of VuFind elsewhere on your system).</p>
 <p>To install VuFind’s Composer dependencies, first install Composer (see <a class="reference external" href="https://getcomposer.org">https://getcomposer.org</a> for instructions) and then, making sure you are in the directory where VuFind was cloned, run:</p>

@@ -72,16 +72,15 @@ ____________________________
 
 The more you understand about both HTML and PHP, the more comfortable you will be working with VuFind’s templates, and the more powerfully you can modify them. However, even if your understanding of these things is fairly limited, you should still be able to recognize patterns and make simple changes like rearranging content, adding labels, etc.
 
-Most of a template is just plain HTML. However, you may see some *<?php … ?>* blocks containing PHP logic, and some *<?= … ?>* blocks used for displaying variables inline. For example, you might see something like this:
+Most of a template is just plain HTML. However, you may see some :code:`<?php … ?>` blocks containing PHP logic, and some :code:`<?= … ?>` blocks used for displaying variables inline. For example, you might see something like this:
 
 .. code-block:: console
 
    <?php if (isset($title)): ?>
      <h1><?=$title?></h1>
-     <?php endif; ?>
+   <?php endif; ?>
 
- 
-The *if .. endif* block checks to see if a variable called *$title* has been set. If the variable is present, the inside part of the block is triggered, creating an *<h1>* tag and displaying the value of $title within it.
+The :code:`if .. endif` block checks to see if a variable called :code:`$title` has been set. If the variable is present, the inside part of the block is triggered, creating an :code:`<h1>` tag and displaying the value of :code:`$title` within it.
 
 This is a greatly simplified example, but it demonstrates the basic flavor of templates.
 
@@ -95,18 +94,18 @@ View helpers are a feature of the laminas-view component – they provide a mech
 7.5.1 Internationalization
 __________________________
 
-Two of the most common  view helpers you will see in VuFind’s templates are *$this->translate()* and *$this->transEsc()*. These are part of VuFInd’s internationalization system – they make it possible for users to experience the VuFind user interface in a variety of languages. Any text that is passed to these functions is looked up in the language files found under $VUFIND_HOME/languages, and the equivalent text from the user’s selected language is displayed in place of the input. Understanding this is important for several reasons. First of all, if you are searching through templates trying to find a particular piece of text and cannot find it, it may be because the text actually comes from one of the language files, and is represented in the templates as an abbreviated token. Secondly, if you operate a VuFind instance that supports multiple languages, you will need to use these view helpers and populate custom language files (under $VUFIND_LOCAL_DIR/languages) to ensure a correct experience for users of all languages. Finally, when reading templates, it’s important to understand what the translate helpers are doing.
+Two of the most common  view helpers you will see in VuFind’s templates are :code:`$this->translate()` and :code:`$this->transEsc()`. These are part of VuFInd’s internationalization system – they make it possible for users to experience the VuFind user interface in a variety of languages. Any text that is passed to these functions is looked up in the language files found under $VUFIND_HOME/languages, and the equivalent text from the user’s selected language is displayed in place of the input. Understanding this is important for several reasons. First of all, if you are searching through templates trying to find a particular piece of text and cannot find it, it may be because the text actually comes from one of the language files, and is represented in the templates as an abbreviated token. Secondly, if you operate a VuFind instance that supports multiple languages, you will need to use these view helpers and populate custom language files (under $VUFIND_LOCAL_DIR/languages) to ensure a correct experience for users of all languages. Finally, when reading templates, it’s important to understand what the translate helpers are doing.
 
 7.5.2 Escaping
 ______________
 
-It is also important to understand the difference between *$this->translate()* and *$this->transEsc():* the plain “translate” helper just looks up a string and outputs it as-is; the “transEsc” helper is the same as “translate” but adds an additional step of HTML escaping, making sure that the text is safe to output as part of an HTML document. (For example, this makes sure that text containing < and > characters does not get misinterpreted as an HTML tag). There is also a *$this->escapeHtml()* helper for escaping text without translating it first, and a *$this->escapeHtmlAttr()* helper that applies extra-strict escaping to values that will be presented as HTML attributes. For security and reliability, it is important to be disciplined about consistently escaping values in templates.
+It is also important to understand the difference between :code:`$this->translate()` and :code:`$this->transEsc():` the plain “translate” helper just looks up a string and outputs it as-is; the “transEsc” helper is the same as “translate” but adds an additional step of HTML escaping, making sure that the text is safe to output as part of an HTML document. (For example, this makes sure that text containing < and > characters does not get misinterpreted as an HTML tag). There is also a :code:`$this->escapeHtml()` helper for escaping text without translating it first, and a :code:`$this->escapeHtmlAttr()` helper that applies extra-strict escaping to values that will be presented as HTML attributes. For security and reliability, it is important to be disciplined about consistently escaping values in templates.
 
 
 7.6 Understanding Layouts
 --------------------------
 
-One of VuFind’s most important templates can be found in layout/layout.phtml under the templates directory. This layout template is used to provide the overall structure of every page in VuFind’s interface. The other templates are used to fill in the “content” block at the center of this template. If you need to change the overall structure of pages displayed on your VuFind instance, this is the template you will want to customize. It is also important to understand that the layout template is always rendered last. VuFind first processes the inner content template, then inserts it into the layout. The *$this->layout()* view helper can be used to share information between the layout and the inner templates, but of course this sharing can only happen in one direction: values set inside the layout helper by inner templates can be accessed by the layout, but the reverse is not possible. By the time the layout sets a value, the inner template has already been fully rendered and is no longer in a position to receive that information.
+One of VuFind’s most important templates can be found in layout/layout.phtml under the templates directory. This layout template is used to provide the overall structure of every page in VuFind’s interface. The other templates are used to fill in the “content” block at the center of this template. If you need to change the overall structure of pages displayed on your VuFind instance, this is the template you will want to customize. It is also important to understand that the layout template is always rendered last. VuFind first processes the inner content template, then inserts it into the layout. The :code:`$this->layout()` view helper can be used to share information between the layout and the inner templates, but of course this sharing can only happen in one direction: values set inside the layout helper by inner templates can be accessed by the layout, but the reverse is not possible. By the time the layout sets a value, the inner template has already been fully rendered and is no longer in a position to receive that information.
 
 7.7 Configuring Multiple Themes
 -------------------------------
@@ -119,7 +118,7 @@ There is also a “mobile_theme” setting which can be used to load a different
 
 The “alternate_themes” setting allows you to create a list of themes that can be accessed by passing a ?ui= parameter on the end of your VuFind URL. This is a comma-separated list of themes, which are represented as colon-separated pairs. In each of these pairs, the first value is the text that can be passed in as the ui parameter, and the second value is the name of the actual theme to load when that value is passed in. For example:
 
-alternate_themes=my1:MyTheme1,my2:MyTheme2
+:code:`alternate_themes=my1:MyTheme1,my2:MyTheme2`
 
 would load MyTheme1 if a user added ?ui=my1 to the default VuFind URL, and would load MyTheme2 if they instead passed ?ui=my2.
 
@@ -140,7 +139,7 @@ VuFind themes allow you to put all of your presentation-related resources in a s
 Review Questions
 
 1.      What are three things you can change or add through the theme.config.php file?
-2.      In a template file, what does a *<?php … ?>* tag mean?
+2.      In a template file, what does a :code:`<?php … ?>` tag mean?
 3.      What can go wrong if you forget to escape text from a variable in a template?
 4.      What is the difference between the “alternate_themes” and “selectable_themes” configuration settings?
 

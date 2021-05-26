@@ -17,8 +17,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Understanding Solr" href="solr.html" />
-    <link rel="prev" title="Indexing Marc" href="indexmarc.html" /> 
+    <link rel="next" title="Part 2. Configuration and Administration" href="solr.html" />
+    <link rel="prev" title="Part 1. Vufind Basics" href="indexmarc.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -27,10 +27,10 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="solr.html" title="Understanding Solr"
+          <a href="solr.html" title="Part 2. Configuration and Administration"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="indexmarc.html" title="Indexing Marc"
+          <a href="indexmarc.html" title="Part 1. Vufind Basics"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Vufind Documentation 0.0.1 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Part 2. Configuration and Administration</a></li> 
@@ -59,7 +59,7 @@
 <div class="section" id="introduction-and-review">
 <h3>4.1 Introduction and Review<a class="headerlink" href="#introduction-and-review" title="Permalink to this headline">¶</a></h3>
 <p>VuFind is designed to be highly configurable. The software tries to offer many options through configuration, so that you can integrate with other systems and adjust functionality and appearance with a minimum of extra coding.</p>
-<p>VuFind’s default configurations can be found in the $VUFIND_HOME/config/vufind directory and can be overridden through VuFind’s local directory. If you are not yet comfortable with the way VuFind’s local directory works, please review section 3.3 before continuing. Remember that files found under $VUFIND_LOCAL_DIR/config/vufind will be loaded when they are present; otherwise, default versions from $VUFIND_HOME/config/vufind will be loaded instead. You should NEVER edit the files under $VUFIND_HOME; always copy them to $VUFIND_LOCAl_DIR first.</p>
+<p>VuFind’s default configurations can be found in the $VUFIND_HOME/config/vufind directory and can be overridden through VuFind’s local directory. If you are not yet comfortable with the way VuFind’s local directory works, please review section 3.3 before continuing. Remember that files found under $VUFIND_LOCAL_DIR/config/vufind will be loaded when they are present; otherwise, default versions from $VUFIND_HOME/config/vufind will be loaded instead. You should NEVER edit the files under $VUFIND_HOME; always copy them to $VUFIND_LOCAL_DIR first.</p>
 <p>The majority of VuFind’s configuration files use the .ini format, in which settings are divided into bracketed [Sections] containing “key = value” pairs. All of these files can be edited with a regular text editor, and they are full of comments explaining the meanings of settings and providing examples. Browsing through them to get a sense of available options may help you discover useful features you were not previously aware of.</p>
 <p>Comments in .ini files are similar to comments in the SolrMarc properties files (described in section 3.5.1) except that .ini comments start with a semi-colon (;) instead of a pound sign (#). As a result, watch out for settings that start with a semi-colon; these are examples, and will not actually have any effect on VuFind until they are uncommented through the removal of the semi-colon.</p>
 </div>
@@ -177,10 +177,10 @@
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="indexmarc.html"
-                        title="previous chapter">Indexing Marc</a></p>
+                        title="previous chapter">Part 1. Vufind Basics</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="solr.html"
-                        title="next chapter">Understanding Solr</a></p>
+                        title="next chapter">Part 2. Configuration and Administration</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -209,10 +209,10 @@
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="solr.html" title="Understanding Solr"
+          <a href="solr.html" title="Part 2. Configuration and Administration"
              >next</a> |</li>
         <li class="right" >
-          <a href="indexmarc.html" title="Indexing Marc"
+          <a href="indexmarc.html" title="Part 1. Vufind Basics"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Vufind Documentation 0.0.1 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Part 2. Configuration and Administration</a></li> 
