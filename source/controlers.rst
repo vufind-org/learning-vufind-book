@@ -1,6 +1,4 @@
-Part 6. Extending and Customizing VuFind’s Code
-***********************************************
-
+###################################
 Chapter 18. Controllers and Actions
 ###################################
 

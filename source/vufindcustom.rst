@@ -1,7 +1,5 @@
-Part 3. Styling and Theming
-***************************
-
-Chapter 9. Customizing Record Views 
+###################################
+Chapter 9. Customizing Record Views
 ###################################
 
 Learning Objectives

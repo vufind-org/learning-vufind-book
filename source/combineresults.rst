@@ -1,6 +1,4 @@
-Part 5. Combining and Enhancing Searches
-****************************************
-
+#######################################################
 Chapter 13. Combining Different Types of Search Results
 #######################################################
 

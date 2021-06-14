@@ -1,9 +1,6 @@
-Part 6. Extending and Customizing VuFind’s Code
-***********************************************
-
+####################################
 Chapter 16. Introduction to Laminas
 ####################################
-
 
 After reading this chapter, you will understand:
 

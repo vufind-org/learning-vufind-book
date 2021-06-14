@@ -1,6 +1,4 @@
-Part 2. Configuration and Administration
-****************************************
-
+#############################
 Chapter 4. Configuring VuFind
 #############################
 

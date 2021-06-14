@@ -1,6 +1,4 @@
-Part 5. Combining and Enhancing Searches
-****************************************
-
+#################################
 Chapter 15. Other Search Backends
 #################################
 
