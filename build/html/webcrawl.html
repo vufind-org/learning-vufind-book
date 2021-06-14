@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Part 4. Working with XML and HTML &#8212; Vufind Documentation 0.0.1 documentation</title>
+    <title>Chapter 12. Web Crawling with VuFind &#8212; Vufind Documentation 0.0.1 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
@@ -17,8 +17,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Part 5. Combining and Enhancing Searches" href="combineresults.html" />
-    <link rel="prev" title="Part 4. Working with XML and HTML" href="xmlindex.html" /> 
+    <link rel="next" title="Chapter 13. Combining Different Types of Search Results" href="combineresults.html" />
+    <link rel="prev" title="Chapter 11. XML Indexing" href="xmlindex.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -27,13 +27,13 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="combineresults.html" title="Part 5. Combining and Enhancing Searches"
+          <a href="combineresults.html" title="Chapter 13. Combining Different Types of Search Results"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="xmlindex.html" title="Part 4. Working with XML and HTML"
+          <a href="xmlindex.html" title="Chapter 11. XML Indexing"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Vufind Documentation 0.0.1 documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Part 4. Working with XML and HTML</a></li> 
+        <li class="nav-item nav-item-this"><a href="">Chapter 12. Web Crawling with VuFind</a></li> 
       </ul>
     </div>  
 
@@ -42,48 +42,46 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="part-4-working-with-xml-and-html">
-<h1>Part 4. Working with XML and HTML<a class="headerlink" href="#part-4-working-with-xml-and-html" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="chapter-12-web-crawling-with-vufind">
-<h2>Chapter 12. Web Crawling with VuFind<a class="headerlink" href="#chapter-12-web-crawling-with-vufind" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="chapter-12-web-crawling-with-vufind">
+<h1>Chapter 12. Web Crawling with VuFind<a class="headerlink" href="#chapter-12-web-crawling-with-vufind" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="learning-objectives">
-<h3>Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permalink to this headline">¶</a></h3>
+<h2>Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permalink to this headline">¶</a></h2>
 <p>After reading this chapter, you will understand:
 •       The XML sitemap standard.
 •       VuFind’s full text indexing capabilities.
 •       Configuration options for website search.</p>
 </div>
 <div class="section" id="understanding-xml-sitemaps">
-<h3>12.1 Understanding XML Sitemaps<a class="headerlink" href="#understanding-xml-sitemaps" title="Permalink to this headline">¶</a></h3>
+<h2>12.1 Understanding XML Sitemaps<a class="headerlink" href="#understanding-xml-sitemaps" title="Permalink to this headline">¶</a></h2>
 <p>Search engines are a critical component of the Internet’s infrastructure, making it possible for users to locate the resources that they need. When first developed, search engines found content by “crawling” from link to link; this technique is still used and can be effective, but it has some limitations, especially for sites that are themselves more search-oriented than browse-oriented. It is very helpful for search engines to be able to easily get a list of all pages on a site without crawling so that they can more efficiently and effectively index the available content. The XML sitemap standard was developed to meet this need.</p>
-<p>An XML sitemap is a document that lives on a web server – frequently using the standard path of /sitemap.xml – which contains a structured list of URLs available for crawling, supplemented with some additional metadata about frequency of updates, indexing priority, etc. Very large and complex sites may split their sitemaps into several files, which are all referenced from a top-level /sitemapIndex.xml file. The sitemap standard also interacts with the robots.txt standard (used to regulate the behavior of search engine crawlers) by providing a robots.txt directive to specify the location of any or all XML sitemaps. All of the details of the specification can be found at the standard’s website, <a class="reference external" href="https://www.sitemaps.org">https://www.sitemaps.org</a>.</p>
+<p>An XML sitemap is a document that lives on a web server – frequently using the standard path of /sitemap.xml – which contains a structured list of URLs available for crawling, supplemented with some additional metadata about frequency of updates, indexing priority, etc. Very large and complex sites may split their sitemaps into several files, which are all referenced from a top-level /sitemapIndex.xml file. The sitemap standard also interacts with the robots.txt standard (used to regulate the behavior of search engine crawlers) by providing a robots.txt directive to specify the location of any or all XML sitemaps. All of the details of the specification can be found at the standard’s website (<a class="reference external" href="https://www.sitemaps.org">https://www.sitemaps.org</a>).</p>
 <p>Many search engines will try to automatically locate XML sitemaps, but some also provide mechanisms for specifically reporting sitemaps to them; for example, Google’s Webmaster Tools can be used to request that Google crawls your sitemaps.</p>
 <p>VuFind can serve as both a producer and consumer of XML sitemaps. This chapter will address both use cases.</p>
 </div>
 <div class="section" id="generating-sitemaps-in-vufind">
-<h3>12.2 Generating Sitemaps in VuFind<a class="headerlink" href="#generating-sitemaps-in-vufind" title="Permalink to this headline">¶</a></h3>
+<h2>12.2 Generating Sitemaps in VuFind<a class="headerlink" href="#generating-sitemaps-in-vufind" title="Permalink to this headline">¶</a></h2>
 <p>As mentioned in section 4.5.3, there is a sitemap.ini file in VuFind’s standard configuration directory which can be used to configure where and how VuFind builds XML sitemaps. VuFind can, for example, build XML sitemaps documenting all of the records in your index, plus a top-level sitemap index that links to the VuFind-generated sitemap as well as additional sitemaps you specify (useful, for example, if you integrate VuFind with another content management system to build your overall website).</p>
 <p>To create XML sitemaps for your VuFind instance, follow these steps:</p>
-<p>1.)     If you have not already done so, copy $VUFIND_HOME/config/vufind/sitemap.ini to $VUFIND_LOCAL_DIR/config/vufind/ and edit the file to specify your preferences. The detailed comments included in the .ini file document the purpose and meaning of all of the options.
-2.)     Run <em>php $VUFIND_HOME/util/sitemap.php</em> to generate the sitemaps.</p>
+<p>1.)      If you have not already done so, copy $VUFIND_HOME/config/vufind/sitemap.ini to $VUFIND_LOCAL_DIR/config/vufind/ and edit the file to specify your preferences. The detailed comments included in the .ini file document the purpose and meaning of all of the options.</p>
+<p>2.)     Run <em>php $VUFIND_HOME/util/sitemap.php</em> to generate the sitemaps.</p>
 <p>As records are added or removed from your system, you will need to re-run the sitemap generator command to update the files; this is a good candidate for automation through a cron job, or as part of your regular indexing processes.</p>
 <p>Be sure that the user running the sitemap generation process has appropriate permissions to write files into the directory where your sitemaps will be served from.</p>
 </div>
 <div class="section" id="vufinds-web-crawler">
-<h3>12.3 VuFind’s Web Crawler<a class="headerlink" href="#vufinds-web-crawler" title="Permalink to this headline">¶</a></h3>
-<p>VuFind is often used in combination with a content management system like Drupal or Concrete5; VuFind provides the search capabilities while the CMS provides static content. For example, a library might use VuFind for catalog searching, but have a CMS for providing lists of online resources, guides for researching particular topics, etc. In this kind of scenario, it is useful to be able to make all of the web content searchable through VuFind, so users can perform a full text search across the entire site. To support this use case, VuFind includes a separate Solr core designed for searching web pages. The default tool for populating this index relies on XML sitemaps to retrieve content. Fortunately, most commonly used platforms already support sitemap generation, and the format is so simple that it is possible to build them by hand (for a small number of pages) or develop tools to help build them (if you have some basic experience with script-writing).</p>
+<h2>12.3 VuFind’s Web Crawler<a class="headerlink" href="#vufinds-web-crawler" title="Permalink to this headline">¶</a></h2>
+<p>VuFind is often used in combination with a content management system like WordPress, Drupal or Concrete5; VuFind provides the search capabilities while the CMS provides static content. For example, a library might use VuFind for catalog searching, but have a CMS for providing lists of online resources, guides for researching particular topics, etc. In this kind of scenario, it is useful to be able to make all of the web content searchable through VuFind, so users can perform a full text search across the entire site. To support this use case, VuFind includes a separate Solr core designed for searching web pages. The default tool for populating this index relies on XML sitemaps to retrieve content. Fortunately, most commonly used platforms already support sitemap generation, and the format is so simple that it is possible to build them by hand (for a small number of pages) or develop tools to help build them (if you have some basic experience with script-writing).</p>
 <p>Setting up web indexing in VuFind is a two-step process: first, you must configure a tool to extract searchable text from web pages; then, you need to configure VuFind’s web crawling tool. The following two sections discuss these steps in more detail.</p>
 <div class="section" id="setting-up-full-text-indexing">
-<h4>12.3.1 Setting Up Full Text Indexing<a class="headerlink" href="#setting-up-full-text-indexing" title="Permalink to this headline">¶</a></h4>
+<h3>12.3.1 Setting Up Full Text Indexing<a class="headerlink" href="#setting-up-full-text-indexing" title="Permalink to this headline">¶</a></h3>
 <p>In order to perform full-text searching of a web page, VuFind needs a way to extract all of the searchable text from the HTML document. Fortunately, several tools exist for extracting text from documents, and VuFind provides built-in support for integrating with two of these: Apache Tika, one of the most popular options, as well as Aperture, an older and lesser-used tool. Most users will want to use Tika, as it is better-maintained and supported.</p>
 <p>To get set up, follow these steps:</p>
-<p>1.)     Download the latest version of Tika’s runnable jar from <a class="reference external" href="https://tika.apache.org/download.html">https://tika.apache.org/download.html</a> and put it somewhere on your server; for this example, we will assume you have chosen /usr/local/tika/
-2.)     Copy $VUFIND_HOME/config/vufind/fulltext.ini to $VUFIND_LOCAL_DIR/config/vufind/.
-3.)     Edit the new local copy of fulltext.ini. Uncomment the [General] section header and the “parser = Tika” lines to activate Tika support, and set the “path” setting under the [Tika] section to the full path to your downloaded jar file – e.g. /usr/local/tika/tika-app-1.24.jar.</p>
+<p>1.) Download the latest version of Tika’s runnable jar from <a class="reference external" href="https://tika.apache.org/download.html">https://tika.apache.org/download.html</a> and put it somewhere on your server; for this example, we will assume you have chosen /usr/local/tika/
+2.) Copy $VUFIND_HOME/config/vufind/fulltext.ini to $VUFIND_LOCAL_DIR/config/vufind/.
+3.) Edit the new local copy of fulltext.ini. Uncomment the [General] section header and the “parser=Tika” lines to activate Tika support, and set the “path” setting under the [Tika] section to the full path to your downloaded jar file – e.g. /usr/local/tika/tika-app-1.24.jar.</p>
 <p>Now, when VuFind needs to extract full text from a document, it will use Tika to do so. This is useful not only for website indexing, but also for extracting full text from documents referenced in metadata files indexed into your main biblio core. Tika supports many document formats, so it is useful not just for HTML documents but also for Microsoft Word files, PDFs, etc. For example, if you want to index the content of documents referenced in 856 fields in MARC records, you can now use SolrMarc’s custom getFulltext method (see example in $VUFIND_HOME/import/marc_local.properties). Similarly, if you want to index linked content in XML metadata, you can use VuFind’s custom harvestWithParser() method, as demonstrated by the example in $VUFIND_HOME/import/xsl/nlm_ojs.xsl.</p>
 </div>
 <div class="section" id="configuring-and-running-the-web-crawler">
-<h4>12.3.2 Configuring and Running the Web Crawler<a class="headerlink" href="#configuring-and-running-the-web-crawler" title="Permalink to this headline">¶</a></h4>
+<h3>12.3.2 Configuring and Running the Web Crawler<a class="headerlink" href="#configuring-and-running-the-web-crawler" title="Permalink to this headline">¶</a></h3>
 <p>Once full text indexing is configured, setting up VuFind’s web crawler is quite simple. Copy $VUFIND_HOME/config/vufind/webcrawl.ini to $VUFIND_LOCAL_DIR/config/vufind/ and edit the file. Simply add a “url[] =” line to the [Sitemaps] section for every sitemap URL that you wish to crawl. If your site has a sitemapIndex.xml, you can point to this single file and VuFind’s crawler will follow all of the links within it. You can turn on the “verbose” setting in the [General] section if you want to see more detailed output while the indexing process is running.</p>
 <p>Once the configuration is set up, you can initiate the crawling process with the command:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">php $VUFIND_HOME/import/webcrawl.php</span>
@@ -94,32 +92,31 @@
 </div>
 </div>
 <div class="section" id="accessing-and-customizing-vufinds-web-search">
-<h3>12.4 Accessing and Customizing VuFind’s Web Search<a class="headerlink" href="#accessing-and-customizing-vufinds-web-search" title="Permalink to this headline">¶</a></h3>
+<h2>12.4 Accessing and Customizing VuFind’s Web Search<a class="headerlink" href="#accessing-and-customizing-vufinds-web-search" title="Permalink to this headline">¶</a></h2>
 <p>Once you have finished indexing content, you can search your web index through VuFind’s separate Web search; the URL will be something like <a class="reference external" href="http://localhost/vufind/Web">http://localhost/vufind/Web</a>, assuming that <a class="reference external" href="http://localhost/vufind/">http://localhost/vufind/</a> is your VuFind base URL.</p>
 <p>If you wish to customize the behavior of the web search, there are several files that you can override as needed:</p>
 <ul class="simple">
 <li><p>$VUFIND_HOME/config/vufind/website.ini – This file contains settings equivalent to the contents of searches.ini and facets.ini, but applied to the website index instead of the main biblio core. See sections 4.3 and 4.4 for more detail.</p></li>
-<li><p>$VUFIND_HOME/config/vufind/websearchspecs.yaml – This file contains rules used for managing relevance ranking of search results, following the same format as the main searchspecs.yaml used by the biblio core. See section 5.3 for more detail.</p></li>
+<li><p>$VUFIND_HOME/config/vufind/websearchspecs.yaml – This file contains rules used for managing relevance ranking of search results, following the same format as the main searchspecs.yaml used by the biblio core. See section 5.2 for more detail.</p></li>
 <li><p>templates/RecordDriver/SolrWeb/result-list.phtml – This template file can be overridden within your theme to change the way individual web results are displayed in the search result list; the VuFindRecordDriverSolrWeb class can also be extended to add functionality as needed. For more on customizing record views, see chapter 9.</p></li>
 </ul>
 <p>Unless you are planning on using VuFind exclusively for web searching, you will likely want to make it convenient for users to seamlessly search across both the web index and the main bibliographic record index. See chapter 13 for more on how to combine different types of searches using VuFind.</p>
 </div>
 <div class="section" id="additional-resources">
-<h3>Additional Resources<a class="headerlink" href="#additional-resources" title="Permalink to this headline">¶</a></h3>
-<p>Notes on VuFind’s web crawling tools can be found on this wiki page: <a class="reference external" href="https://vufind.org/wiki/indexing:websites">https://vufind.org/wiki/indexing:websites</a>.</p>
+<h2>Additional Resources<a class="headerlink" href="#additional-resources" title="Permalink to this headline">¶</a></h2>
+<p>Notes on VuFind’s web crawling tools can be found on this wiki page: <a class="reference external" href="https://vufind.org/wiki/indexing:websites">https://vufind.org/wiki/indexing:websites</a>. A video discussing sitemaps and web crawling can be found here: <a class="reference external" href="https://vufind.org/wiki/videos:sitemaps_and_web_indexing">https://vufind.org/wiki/videos:sitemaps_and_web_indexing</a>.</p>
 </div>
 <div class="section" id="summary">
-<h3>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h3>
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
 <p>XML sitemaps provide a useful way to publish lists of web pages for consumption by search engines. VuFind can produce its own sitemaps to make indexed content more visible in search engines, and it can consume external sitemaps to build its own searchable web page index as a complement to its core bibliographic record index.</p>
 </div>
 <div class="section" id="review-questions">
-<h3>Review Questions<a class="headerlink" href="#review-questions" title="Permalink to this headline">¶</a></h3>
+<h2>Review Questions<a class="headerlink" href="#review-questions" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
 <li><p>What is the difference between sitemap.xml and sitemapIndex.xml?</p></li>
 <li><p>What configuration files do you need to edit in order to set up web indexing in VuFind?</p></li>
 <li><p>What URL is used to perform searches of VuFind’s web index?</p></li>
 </ol>
-</div>
 </div>
 </div>
 
@@ -132,8 +129,7 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Part 4. Working with XML and HTML</a><ul>
-<li><a class="reference internal" href="#chapter-12-web-crawling-with-vufind">Chapter 12. Web Crawling with VuFind</a><ul>
+<li><a class="reference internal" href="#">Chapter 12. Web Crawling with VuFind</a><ul>
 <li><a class="reference internal" href="#learning-objectives">Learning Objectives</a></li>
 <li><a class="reference internal" href="#understanding-xml-sitemaps">12.1 Understanding XML Sitemaps</a></li>
 <li><a class="reference internal" href="#generating-sitemaps-in-vufind">12.2 Generating Sitemaps in VuFind</a></li>
@@ -149,15 +145,13 @@
 </ul>
 </li>
 </ul>
-</li>
-</ul>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="xmlindex.html"
-                        title="previous chapter">Part 4. Working with XML and HTML</a></p>
+                        title="previous chapter">Chapter 11. XML Indexing</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="combineresults.html"
-                        title="next chapter">Part 5. Combining and Enhancing Searches</a></p>
+                        title="next chapter">Chapter 13. Combining Different Types of Search Results</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -186,13 +180,13 @@
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="combineresults.html" title="Part 5. Combining and Enhancing Searches"
+          <a href="combineresults.html" title="Chapter 13. Combining Different Types of Search Results"
              >next</a> |</li>
         <li class="right" >
-          <a href="xmlindex.html" title="Part 4. Working with XML and HTML"
+          <a href="xmlindex.html" title="Chapter 11. XML Indexing"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Vufind Documentation 0.0.1 documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Part 4. Working with XML and HTML</a></li> 
+        <li class="nav-item nav-item-this"><a href="">Chapter 12. Web Crawling with VuFind</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

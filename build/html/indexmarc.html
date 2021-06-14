@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Part 1. Vufind Basics &#8212; Vufind Documentation 0.0.1 documentation</title>
+    <title>Chapter 3. Indexing MARC Records &#8212; Vufind Documentation 0.0.1 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
@@ -17,8 +17,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Part 2. Configuration and Administration" href="confvufind.html" />
-    <link rel="prev" title="Part 1. Vufind Basics" href="installv.html" /> 
+    <link rel="next" title="Chapter 4. Configuring VuFind" href="confvufind.html" />
+    <link rel="prev" title="Chapter 2. Installing VuFind" href="installv.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -27,13 +27,13 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="confvufind.html" title="Part 2. Configuration and Administration"
+          <a href="confvufind.html" title="Chapter 4. Configuring VuFind"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="installv.html" title="Part 1. Vufind Basics"
+          <a href="installv.html" title="Chapter 2. Installing VuFind"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Vufind Documentation 0.0.1 documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Part 1. Vufind Basics</a></li> 
+        <li class="nav-item nav-item-this"><a href="">Chapter 3. Indexing MARC Records</a></li> 
       </ul>
     </div>  
 
@@ -42,12 +42,10 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="part-1-vufind-basics">
-<h1>Part 1. Vufind Basics<a class="headerlink" href="#part-1-vufind-basics" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="chapter-3-indexing-marc-records">
-<h2>Chapter 3. Indexing MARC Records<a class="headerlink" href="#chapter-3-indexing-marc-records" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="chapter-3-indexing-marc-records">
+<h1>Chapter 3. Indexing MARC Records<a class="headerlink" href="#chapter-3-indexing-marc-records" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="learning-objectives">
-<h3>Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permalink to this headline">¶</a></h3>
+<h2>Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permalink to this headline">¶</a></h2>
 <p>After reading this chapter, you will understand:</p>
 <ul class="simple">
 <li><p>How to load MARC records into VuFind’s Solr index.</p></li>
@@ -56,13 +54,13 @@
 </ul>
 </div>
 <div class="section" id="obtaining-marc-records">
-<h3>3.1 Obtaining MARC Records<a class="headerlink" href="#obtaining-marc-records" title="Permalink to this headline">¶</a></h3>
+<h2>3.1 Obtaining MARC Records<a class="headerlink" href="#obtaining-marc-records" title="Permalink to this headline">¶</a></h2>
 <p>The MARC record has been a long-enduring data exchange format for library records. Discussing MARC records in detail is beyond the scope of this text, but the Library of Congress’ Understanding MARC Bibliographic (<a class="reference external" href="https://www.loc.gov/marc/umb/">https://www.loc.gov/marc/umb/</a>) provides a good introduction. For the purposes of this text, suffice it to say that the format arranges data into numeric fields which are divided into alphanumeric subfields.</p>
 <p>VuFind ships with powerful tools for indexing MARC records, making MARC one of the easiest formats to begin working with. Since most library systems are capable of exporting MARC records, if you have an integrated library system, there should be a straightforward way to extract all of its records for loading into VuFind. The details of this process will vary from system to system, but notes for a variety of commonly-used platforms can be found in the wiki (<a class="reference external" href="https://vufind.org/wiki/indexing:marc:export_notes">https://vufind.org/wiki/indexing:marc:export_notes</a>).</p>
 <p>If you do not have easy access to your own MARC records but wish to experiment with VuFind, there are also a variety of sample records included with the software under the tests/data directory. These sample records will be used in the examples throughout this chapter.</p>
 </div>
 <div class="section" id="running-solrmarc">
-<h3>3.2 Running SolrMarc<a class="headerlink" href="#running-solrmarc" title="Permalink to this headline">¶</a></h3>
+<h2>3.2 Running SolrMarc<a class="headerlink" href="#running-solrmarc" title="Permalink to this headline">¶</a></h2>
 <p>SolrMarc is an open source project for loading MARC records into Solr (a topic which will be discussed in much more detail in chapter 5). Every VuFind release includes a copy of SolrMarc and scripts for running it, so there is no need to install anything extra to get started. To load records into VuFind, you simply need to run the import-marc.sh script and specify the file containing MARC records (which may be either binary MARC format or MARCXML, as long as its filename ends in an appropriate .mrc or .xml extension). For example:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd /usr/local/vufind</span>
 <span class="go">./import-marc.sh tests/data/journals.mrc</span>
@@ -73,7 +71,7 @@
 <p>SolrMarc maps MARC records into Solr using configuration files, and the defaults that ship with VuFind should meet most needs. However, most users will want to customize at least some fields, and in some situations, customizations will be necessary for successful record loading. Before getting into the details of SolrMarc customization, however, it is important to understand how VuFind stores and loads its configuration files.</p>
 </div>
 <div class="section" id="understanding-vufinds-local-directory">
-<h3>3.3 Understanding VuFind’s “Local Directory”<a class="headerlink" href="#understanding-vufinds-local-directory" title="Permalink to this headline">¶</a></h3>
+<h2>3.3 Understanding VuFind’s “Local Directory”<a class="headerlink" href="#understanding-vufinds-local-directory" title="Permalink to this headline">¶</a></h2>
 <p>In section 2.2.1, it was mentioned that installing VuFind with a Debian package sets up two environment variables on your system: $VUFIND_HOME and $VUFIND_LOCAL_DIR. $VUFIND_HOME contains the full path to the directory containing the VuFind software (/usr/local/vufind by default); $VUFIND_LOCAL_DIR contains the full path to VuFind’s “local directory” (by default, /usr/local/vufind/local).</p>
 <p>Throughout the rest of this text, when referring to the VuFind home or local directories in file paths, the shorthand variables will be used – so, for example, $VUFIND_LOCAL_DIR/config means /usr/local/vufind/local/config, and $VUFIND_HOME/config means /usr/local/vufind/config. As long as you have these environment variables set on your system, you can use them in commands. This means that if you choose to install VuFind in a non-default location, you can simply redefine the variables (usually by editing the file /etc/profile.d/vufind.sh), and the commands listed in this book will still work correctly.</p>
 <p>The purpose of the local directory is to separate locally managed configuration files and data from the core VuFind code. When VuFind needs to load a configuration, it will first look for that file in the local directory; only if the file is missing from the local directory will VuFind load the default version from the home directory. For example, some of SolrMarc’s settings (discussed in more detail below) are stored in a file called import/import.properties. When you run the import-marc.sh command described above, if there is a file matching $VUFIND_LOCAL_DIR/import/import.properties, it will be loaded; if not, $VUFIND_HOME/import/import.properties will be used instead.</p>
@@ -87,14 +85,14 @@
 <p>The local directory can be a source of confusion for new VuFind users, since it is easy to accidentally edit the wrong version of a file if you are not careful. If you edit a configuration file and changes do not appear to take effect, make sure you are in $VUFIND_LOCAL_DIR and not in $VUFIND_HOME. Fortunately, VuFind does not require you to remember too many rules, but the rule of never editing core files is an important one that, if followed consistently, will make your VuFind experience run smoothly.</p>
 </div>
 <div class="section" id="about-solrmarcs-configuration-files">
-<h3>3.4 About SolrMarc’s Configuration Files<a class="headerlink" href="#about-solrmarcs-configuration-files" title="Permalink to this headline">¶</a></h3>
+<h2>3.4 About SolrMarc’s Configuration Files<a class="headerlink" href="#about-solrmarcs-configuration-files" title="Permalink to this headline">¶</a></h2>
 <p>VuFind’s installation of SolrMarc relies on three key configuration files, all of which have default versions in the $VUFIND_HOME/import directory which you can override in $VUFIND_LOCAL_DIR/import. The first of them, import.properties, will be automatically customized for you with some important file paths as part of the VuFind installation process, so do not be surprised when you find your local import directory already populated with a file.</p>
 <div class="section" id="import-properties">
-<h4>3.4.1 import.properties<a class="headerlink" href="#import-properties" title="Permalink to this headline">¶</a></h4>
+<h3>3.4.1 import.properties<a class="headerlink" href="#import-properties" title="Permalink to this headline">¶</a></h3>
 <p>The import.properties file tells SolrMarc some of the most basic information it needs to function: where its other configuration files are located, the URL where Solr is running, and some advanced preferences. In most cases, the defaults created by VuFind’s installer will work correctly, and there is no need to edit this file. However, if you run Solr in a non-default way, or if you encounter problems with the processing of your MARC file, some of the settings in this file may need to be changed. The file contains comments explaining its contents.</p>
 </div>
 <div class="section" id="marc-properties">
-<h4>3.4.2 marc.properties<a class="headerlink" href="#marc-properties" title="Permalink to this headline">¶</a></h4>
+<h3>3.4.2 marc.properties<a class="headerlink" href="#marc-properties" title="Permalink to this headline">¶</a></h3>
 <p>The marc.properties file is the key to SolrMarc’s behavior. It provides rules for extracting data elements from MARC records and storing them in named fields in the Solr index. These fields are used by VuFind for searching, faceting and record display; Solr will be displayed in much more detail in chapter 5, but the file should be understandable without detailed knowledge of Solr.</p>
 <p>SolrMarc supports several different types of mappings:</p>
 <ul class="simple">
@@ -106,15 +104,15 @@
 <p>This quick summary of SolrMarc functionality is intended to help you read and understand VuFind’s default configurations, but it only scratches the surface of the available functionality. For a much more detailed description of available options and their meanings, you can read the documentation available through SolrMarc’s wiki (<a class="reference external" href="https://github.com/solrmarc/solrmarc/wiki">https://github.com/solrmarc/solrmarc/wiki</a>).</p>
 </div>
 <div class="section" id="marc-local-properties">
-<h4>3.4.3 marc_local.properties<a class="headerlink" href="#marc-local-properties" title="Permalink to this headline">¶</a></h4>
+<h3>3.4.3 marc_local.properties<a class="headerlink" href="#marc-local-properties" title="Permalink to this headline">¶</a></h3>
 <p>The marc_local.properties file is a convenient way to override settings from marc.properties without having to override the whole file. Any fields that you define in this file will replace the equivalent fields in marc.properties. The default version of the file in $VUFIND_HOME/import/marc_local.properties contains no active definitions, but it contains many commented-out examples of common customizations that you might want to consider turning on. When customizing your indexing rules, it is strongly recommended that you copy marc_local.properties into $VUFIND_LOCAL_DIR/import rather than copying and customizing the entire marc.properties file – this will make future upgrades easier, since you will be able to automatically receive updates to the default marc.properties file without having to update your local copy of it.</p>
 </div>
 </div>
 <div class="section" id="customizing-solrmarc">
-<h3>3.5 Customizing SolrMarc<a class="headerlink" href="#customizing-solrmarc" title="Permalink to this headline">¶</a></h3>
+<h2>3.5 Customizing SolrMarc<a class="headerlink" href="#customizing-solrmarc" title="Permalink to this headline">¶</a></h2>
 <p>Most users of SolrMarc will want to make a few simple customizations; this section describes how to perform some of the most commonly needed changes.</p>
 <div class="section" id="overriding-default-collection-institution-and-building-values">
-<h4>3.5.1 Overriding Default Collection, Institution and Building Values<a class="headerlink" href="#overriding-default-collection-institution-and-building-values" title="Permalink to this headline">¶</a></h4>
+<h3>3.5.1 Overriding Default Collection, Institution and Building Values<a class="headerlink" href="#overriding-default-collection-institution-and-building-values" title="Permalink to this headline">¶</a></h3>
 <p>As noted above under 3.4.2, VuFind’s default indexing configuration includes some made-up values like “Library A” in the building field. “Catalog” in the collection field and “MyInstitution” in the institution field are other hard-coded values that most users will want to override with more appropriate values. Doing this is quite simple. First, if you do not already have a marc_local.properties file, create one by copying the default version into your local directory:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cp $VUFIND_HOME/import/marc_local.properties $VUFIND_LOCAL_DIR/import/</span>
 </pre></div>
@@ -136,7 +134,7 @@
 <p>Once you have adjusted the settings to meet your needs, you must reindex all of your records (by re-running the import-marc.sh command as described in section 3.2). Remember, SolrMarc transforms records and loads them into Solr. Changing its configuration file will not have any effect on records that you loaded in the past; it will only change the way new records are loaded. Every change you make will require a full rebuild of the index.</p>
 </div>
 <div class="section" id="loading-id-values">
-<h4>3.5.2 Loading ID Values<a class="headerlink" href="#loading-id-values" title="Permalink to this headline">¶</a></h4>
+<h3>3.5.2 Loading ID Values<a class="headerlink" href="#loading-id-values" title="Permalink to this headline">¶</a></h3>
 <p>When indexing records, it is very important to make sure that the “id” field is filled in correctly. Every record in VuFind needs to have its own unique ID, and this should correspond with the bibliographic record identifier in your Integrated Library System, assuming that you are using one. This value will be used by VuFind to retrieve availability from your ILS and to construct unique record URLs, and by Solr to tell records apart. If you index two records with the same ID into Solr, the second record will overwrite the first one. This mechanism is what makes reindexing existing records behave correctly, but it can cause strange problems if the “id” field is not set up correctly.</p>
 <p>In VuFind’s default configuration, the MARC 001 field is used to populate “id.” This will work correctly for many systems, but there are some that place the bibliographic identifier in a different place. For example, some methods of exporting records from the Koha ILS will put the appropriate identifier in field 999, subfield c. Thus, to index these records correctly into VuFind, you would have to establish and edit a local copy of marc_local.properties (as described under 3.5.1 above), and then add the line:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">id = 999c, first</span>
@@ -147,15 +145,15 @@
 </div>
 </div>
 <div class="section" id="additional-resources">
-<h3>Additional Resources<a class="headerlink" href="#additional-resources" title="Permalink to this headline">¶</a></h3>
+<h2>Additional Resources<a class="headerlink" href="#additional-resources" title="Permalink to this headline">¶</a></h2>
 <p>A video covering many of the topics in this chapter is available through the VuFind website (<a class="reference external" href="https://vufind.org/wiki/videos:indexing_marc_records">https://vufind.org/wiki/videos:indexing_marc_records</a>). The “Indexing MARC” page of the VuFind wiki (<a class="reference external" href="https://vufind.org/wiki/indexing:marc">https://vufind.org/wiki/indexing:marc</a>) contains additional details and advice that may be more in-depth and up-to-date than this chapter.</p>
 </div>
 <div class="section" id="summary">
-<h3>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h3>
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
 <p>SolrMarc provides a fast and powerful way of loading MARC records into your VuFind system, making them searchable by your users. It uses VuFind’s “local directory” mechanism to manage its configuration files. SolrMarc has a flexible built-in language that you can use to specify exactly how your records are mapped into VuFind’s index, and VuFind provides a reasonable default configuration that should provide a solid foundation to build upon.</p>
 </div>
 <div class="section" id="review-questions">
-<h3>Review Questions<a class="headerlink" href="#review-questions" title="Permalink to this headline">¶</a></h3>
+<h2>Review Questions<a class="headerlink" href="#review-questions" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
 <li><p>What is VuFind’s “local directory,” and why should you use it?</p></li>
 <li><p>What is the difference between marc.properties and marc_local.properties?</p></li>
@@ -164,7 +162,6 @@
 <li><p>What do $VUFIND_HOME and $VUFIND_LOCAL_DIR mean?</p></li>
 <li><p>Your ILS places bibliographic identifiers in MARC field 997, subfield c. How do you tell SolrMarc to use this as Solr’s unique ID?</p></li>
 </ol>
-</div>
 </div>
 </div>
 
@@ -177,8 +174,7 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Part 1. Vufind Basics</a><ul>
-<li><a class="reference internal" href="#chapter-3-indexing-marc-records">Chapter 3. Indexing MARC Records</a><ul>
+<li><a class="reference internal" href="#">Chapter 3. Indexing MARC Records</a><ul>
 <li><a class="reference internal" href="#learning-objectives">Learning Objectives</a></li>
 <li><a class="reference internal" href="#obtaining-marc-records">3.1 Obtaining MARC Records</a></li>
 <li><a class="reference internal" href="#running-solrmarc">3.2 Running SolrMarc</a></li>
@@ -200,15 +196,13 @@
 </ul>
 </li>
 </ul>
-</li>
-</ul>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="installv.html"
-                        title="previous chapter">Part 1. Vufind Basics</a></p>
+                        title="previous chapter">Chapter 2. Installing VuFind</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="confvufind.html"
-                        title="next chapter">Part 2. Configuration and Administration</a></p>
+                        title="next chapter">Chapter 4. Configuring VuFind</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -237,13 +231,13 @@
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="confvufind.html" title="Part 2. Configuration and Administration"
+          <a href="confvufind.html" title="Chapter 4. Configuring VuFind"
              >next</a> |</li>
         <li class="right" >
-          <a href="installv.html" title="Part 1. Vufind Basics"
+          <a href="installv.html" title="Chapter 2. Installing VuFind"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Vufind Documentation 0.0.1 documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Part 1. Vufind Basics</a></li> 
+        <li class="nav-item nav-item-this"><a href="">Chapter 3. Indexing MARC Records</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

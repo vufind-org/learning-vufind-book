@@ -1,7 +1,5 @@
-Part 3. Styling and Theming
-***************************
-
-Chapter 9. Customizing Record Views 
+###################################
+Chapter 9. Customizing Record Views
 ###################################
 
 Learning Objectives
@@ -26,7 +24,7 @@ Every record driver in VuFind inherits from a top-level class called AbstractBas
 
 Inside your theme’s templates directory (assuming you are looking at a theme that contains templates), there is a RecordDrivers directory. This contains subdirectories that correspond to the names of record drivers. When VuFind needs to display record-related content, it will search this directory for a template matching the relevant record driver. If no match is found, the parent record driver’s directory will be searched, and so on. In the default VuFind themes, the majority of templates are found in the DefaultRecord driver’s folder, with only a few special overrides being defined for more specific drivers. When record driver templates are rendered, VuFind automatically sets them up with a property called $this->driver, which points to the actual record driver object, making all of its data readily available for display.
 
-Many VuFind users never need to create their own record drivers, and many customizations can be accomplished by modifying or extending existing drivers. However, understanding the role of record drivers in VuFind’s design will make it easier to understand the platform as a whole. Additionally, VuFind users with more complex use cases (like an index of records representing substantially different metadata formats or material types) can leverage this system to create a powerful and specialized user experience. 
+Many VuFind users never need to create their own record drivers, and many customizations can be accomplished by modifying or extending existing drivers. However, understanding the role of record drivers in VuFind’s design will make it easier to understand the platform as a whole. Additionally, VuFind users with more complex use cases (like an index of records representing substantially different metadata formats or material types) can leverage this system to create a powerful and specialized user experience.
 
 9.2 Understanding the Record Data Formatter
 -------------------------------------------
@@ -35,7 +33,8 @@ Prior to release 4.0, many of VuFind’s record driver templates were long and r
 
 To address these issues, VuFind 4.0 introduced a new view helper called the RecordDataFormatter, whose job is to extract a collection of data from a record driver following a configurable set of rules. This change does make VuFind’s learning curve a bit steeper, since making the most of the RecordDataFormatter’s configuration requires some understanding of PHP, and there are quite a few configuration options to navigate. However, the learning cost is counterbalanced by a solution which resolves the template length, readability and maintenance challenges of the old approach. Additionally, for users who do not like the RecordDataFormatter, there is no mandate to use it; it is a view helper used in VuFind’s default templates, but there is nothing preventing you from building a custom template using the older, simpler approach if you prefer having total control over how things are retrieved and laid out.
 
-To see how the RecordDataFormatter is configured, you can look at the factory code which builds the view helper, which is found in $VUFIND_HOME/module/VuFind/src/VuFind/View/Helper/Root/RecordDataFormatterFactory.php. If you are not familiar with PHP, this file will be quite intimidating at first glance, but once you recognize some basic patterns, most of it should make sense even if you do not fully understand the programming language behind it. At the top of the file, there is a method named __invoke(), which does the high-level work of building the view helper. You will notice several “setDefaults” lines, which establish default rules for which fields should be retrieved on particular templates. For example:
+To see how the RecordDataFormatter is configured, you can look at the factory code which builds the view helper, which is found in $VUFIND_HOME/module/VuFind/src/VuFind/View/Helper/Root/RecordDataFormatterFactory.php. If you are not familiar with PHP, this file will be quite intimidating at first glance, but once you recognize some basic patterns, most of it should make sense even if you do not fully understand the programming language behind it. At the top of the file, there is a method named __invoke(), which does the high-level
+work of building the view helper. You will notice several “setDefaults” lines, which establish default rules for which fields should be retrieved on particular templates. For example:
 
 .. code-block:: console
 
@@ -43,7 +42,7 @@ To see how the RecordDataFormatter is configured, you can look at the factory co
 
 Indicates that when rendering the core.phtml record driver template, the RecordDataFormatter should use the configuration defined in the *getDefaultCoreSpecs()* method.
 
-If you scroll down through the file, you will eventually find the definition of the getDefaultCoreSpecs method, which begins with function *getDefaultCoreSpecs()*. You will see that this method, like all of the others written to establish default configurations, makes use of a utility called *RecordDataFormatter\SpecBuilder*, which is a PHP class containing code which helps build up the configuration array expected by the RecordDataFormatter. You don’t have to use the SpecBuilder, but it makes the configuration code more concise, and it will also help you extend and rearrange the configuration if you wish to make customizations. An example of this will be shown below in section 9.3.
+If you scroll down through the file, you will eventually find the definition of the getDefaultCoreSpecs method, which begins with *function getDefaultCoreSpecs()*. You will see that this method, like all of the others written to establish default configurations, makes use of a utility called *RecordDataFormatter\SpecBuilder*, which is a PHP class containing code which helps build up the configuration array expected by the RecordDataFormatter. You don’t have to use the SpecBuilder, but it makes the configuration code more concise, and it will also help you extend and rearrange the configuration if you wish to make customizations. An example of this will be shown below in section 9.3.
 
 The SpecBuilder has several methods, including *setLine, setMultiLine*, and *setTemplateLine*. Each of these are shorthand for different types of configuration that the RecordDataFormatter can understand, and each sets up the display of some of the data in the final output. The difference is simply how the details are retrieved and formatted.
 
@@ -51,11 +50,14 @@ The *setLine* method offers the absolute simplest example. For example, take a l
 
 .. code-block:: console
 
+   getDefaultDescriptionSpecs():
    $spec->setLine('Physical Description', 'getPhysicalDescriptions');
 
 This simply says “retrieve any values from the record driver’s *getPhysicalDescriptions()* method, and display them with a label of ‘Physical Description:’.”
 
-This simple case, taking only two parameters (label and method) takes advantage of the SpecBuilder’s defaults. The *setLine()* method can accept up to four parameters, with the third (render type) and fourth (options array) opening up a lot of advanced features and behaviors. You should refer to the VuFind wiki (see Additional Resources below) for more details; new options are added from time to time, and the documentation will give you the most up-to-date possibilitiesThe other two methods (*setTemplateLine()* and *setMultiLine()*)  are actually wrappers around *setLine()* which make it more convenient to set up some commonly-used advanced configurations. The *setTemplateLine()* method is by far the most commonly-used option; this retrieves data from a record driver method, but instead of displaying it “raw,” it instead passes it to its own record driver template for additional formatting. This is useful for data fields that need to be linked or labeled in special ways. This method is used to display many of VuFind’s default fields, which also means that if you want to change the way those fields are displayed, you can simply override the relevant template in your custom theme without having to touch the RecordDataFormatter configuration. Here is an example:.
+This simple case, taking only two parameters (label and method) takes advantage of the SpecBuilder’s defaults. The *setLine()* method can accept up to four parameters, with the third (render type) and fourth (options array) opening up a lot of advanced features and behaviors. You should refer to the VuFind wiki (see Additional Resources below) for more details; new options are added from time to time, and the documentation will give you the most up-to-date possibilities.
+
+The other two methods(*setTemplateLine()* and *setMultiLine()*) are actually wrappers around *setLine()* which make it more convenient to set up some commonly-used advanced configurations. The *setTemplateLine()* method is by far the most commonly-used option; this retrieves data from a record driver method, but instead of displaying it “raw,” it instead passes it to its own record driver template for additional formatting. This is useful for data fields that need to be linked or labeled in special ways. This method is used to display many of VuFind’s default fields, which also means that if you want to change the way those fields are displayed, you can simply override the relevant template in your custom theme without having to touch the RecordDataFormatter configuration. Here is an example:
 
 .. code-block:: console
 
@@ -83,7 +85,7 @@ The easiest way to display a new field is to store that data in a field of the S
 To index the new field, you should:
 
 1.      Create a marc_local.properties file in your $VUFIND_LOCAL_DIR/import directory if you don’t already have one (see section 3.4.3).
-2.      Add this line to the marc_local.properties file: donor_str_mv = 597a
+2.      Add this line to the marc_local.properties file: *donor_str_mv = 597a*
 3.      Reindex all of your records as described in section 3.2.
 
 Note that the “donor_str_mv” field name in the example above takes advantage of the “dynamic field suffixes” configured in VuFind’s default schema. While adding a new field to Solr usually requires an edit to the schema file (see section 5.1.2), it is possible to define fields based on patterns, so that, for example, any field name ending with “_str_mv” is recognized as a multi-valued string field. VuFind’s wiki (https://vufind.org/wiki/development:architecture:solr_index_schema#dynamic_field_suffixes) details all of the available dynamic field suffixes.
@@ -95,7 +97,7 @@ Now that your index contains data in the donor_str_mv field, you need to tell Vu
 
 Depending on how you installed VuFind, you may or may not already have a local module set up; if you do not, or if you are not sure, you can read ahead to section 16.3.3 for more details. For the purposes of this example, we will assume that you have a local module called MyModule. You should substitute “MyModule” with your actual module name in all of the subsequent example commands.
 
-VuFind contains a code generator tool called “extendclass” which can be used to override any core service or plugin with code in your local module. This saves a lot of time setting up files and configurations. To create our local custom record driver, we simply run these commands:
+As discussed further in section 17.2.1, VuFind contains a code generator tool called “extendclass” which can be used to override any core service or plug-in with code in your local module. This saves a lot of time setting up files and configurations. To create the local custom record driver, these commands can be run:
 
 .. code-block:: console
 
@@ -155,11 +157,11 @@ After making any changes or additions to module.config.php, it is also a good id
 9.3.3 Step 3: Create a Custom RecordDataFormatter Configuration
 ---------------------------------------------------------------
 
-Now that the data is indexed and the record driver can retrieve it, we simply need to tell the RecordDataFormatter view helper to make use of the new record driver method. To do this, we need to extend the RecordDataFormatter’s factory. As of this writing, there is not a code generator to automate this process, but it is simple enough that a generator should not be necessary.
+Now that the data is indexed and the record driver can retrieve it, you simply need to tell the RecordDataFormatter view helper to make use of the new record driver method. To do this, you need to extend the RecordDataFormatter’s factory. As of this writing, there is not a code generator to automate this process, but it is simple enough that a generator should not be necessary.
 
 First, make sure you have a custom theme set up, since you will need to register your custom factory in your theme configuration. See section 7.2 for details on creating a new theme. For this example, we assume that your theme is named localtheme.
 
-Next, create a file for your custom factory, called $VUFIND_HOME/module/MyModule/src/MyModule/View/Helper/Root/RecordDataFormatterFactory.php. Note that you will have to create a directory to hold this file first, which you can do with:
+Next, create a file for your custom factory, called $VUFIND_HOME/module/MyModule/src/MyModule/View/Helper/Root/RecordDataFormatterFactory.p hp. Note that you will have to create a directory to hold this file first, which you can do with:
 
 .. code-block:: console
 
@@ -185,13 +187,11 @@ You should fill in the file with this code:
            }
    }
 
+This code takes advantage of PHP inheritance – it calls the core code’s getDefaultCoreSpecs() method to get default configurations, then adds an additional line to display the donors. This way, even if the core code changes in a future VuFind release to add more fields, we can benefit from those improvements while still adding our additional local field.
 
+By passing additional options, and by manipulating the array inherited from the parent code, it is also possible to change the order of fields, remove unwanted fields, etc. This example is designed to be as simple as possible; see the links under “Additional Resources” for some more advanced discussion and examples.
 
-This code takes advantage of PHP inheritance – it calls the core code’s *getDefaultCoreSpecs()* method to get default configurations, then adds an additional line to display the donors. This way, even if the core code changes in a future VuFind release to add more fields, we can benefit from those improvements while still adding our additional local field.
-
- By passing additional options, and by manipulating the array inherited from the parent code, it is also possible to change the order of fields, remove unwanted fields, etc. This example is designed to be as simple as possible; see the links under “Additional Resources” for some more advanced discussion and examples.
-
- In any case, now that the factory is built, the last step is to register it in our theme configuration. Edit your $VUFIND_HOME/themes/localtheme/theme.config.php file, and edit it so it looks something like this:
+In any case, now that the factory is built, the last step is to register it in our theme configuration. Edit your $VUFIND_HOME/themes/localtheme/theme.config.php file, and edit it so it looks something like this:
 
 .. code-block:: console
 
@@ -226,6 +226,3 @@ Review Questions
 2.      What is special about the way VuFind loads record drivers representing Solr records?
 3.      What problems inspired the creation of the RecordDataFormatter?
 4.      What are the three main methods of the RecordDataFormatter\SpecBuilder, and how do they differ from one another?
-
-
-

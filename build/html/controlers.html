@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Part 6. Extending and Customizing VuFind’s Code &#8212; Vufind Documentation 0.0.1 documentation</title>
+    <title>Chapter 18. Controllers and Actions &#8212; Vufind Documentation 0.0.1 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
@@ -18,7 +18,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Vufind Configuration options" href="conf_files.html" />
-    <link rel="prev" title="Part 6. Extending and Customizing VuFind’s Code" href="vufindplugin.html" /> 
+    <link rel="prev" title="Chapter 17. VuFind Plug-Ins" href="vufindplugin.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -30,10 +30,10 @@
           <a href="conf_files.html" title="Vufind Configuration options"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="vufindplugin.html" title="Part 6. Extending and Customizing VuFind’s Code"
+          <a href="vufindplugin.html" title="Chapter 17. VuFind Plug-Ins"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Vufind Documentation 0.0.1 documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Part 6. Extending and Customizing VuFind’s Code</a></li> 
+        <li class="nav-item nav-item-this"><a href="">Chapter 18. Controllers and Actions</a></li> 
       </ul>
     </div>  
 
@@ -42,12 +42,10 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="part-6-extending-and-customizing-vufinds-code">
-<h1>Part 6. Extending and Customizing VuFind’s Code<a class="headerlink" href="#part-6-extending-and-customizing-vufinds-code" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="chapter-18-controllers-and-actions">
-<h2>Chapter 18. Controllers and Actions<a class="headerlink" href="#chapter-18-controllers-and-actions" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="chapter-18-controllers-and-actions">
+<h1>Chapter 18. Controllers and Actions<a class="headerlink" href="#chapter-18-controllers-and-actions" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="learning-objectives">
-<h3>Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permalink to this headline">¶</a></h3>
+<h2>Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permalink to this headline">¶</a></h2>
 <p>After reading this chapter, you will understand:</p>
 <ul class="simple">
 <li><p>The purpose of routes and controllers.</p></li>
@@ -85,12 +83,12 @@ As discussed in section 16.2, VuFind uses the laminas-mvc package to implement a
 <p>Most of VuFind’s controllers extend the VuFindControllerAbstractBase class, which provides some helpful convenience methods for common VuFind-related activities. For example, there is a createViewModel() method which constructs a ViewModel object with some useful pre-populated values. In general, when adding new functionality to VuFind, it is useful to examine existing controllers and actions providing similar functionality, as there may be some patterns observed there that can be usefully emulated.</p>
 </div>
 <div class="section" id="example-adding-a-page-to-vufind">
-<h3>18.2 Example: Adding a Page to VuFind<a class="headerlink" href="#example-adding-a-page-to-vufind" title="Permalink to this headline">¶</a></h3>
+<h2>18.2 Example: Adding a Page to VuFind<a class="headerlink" href="#example-adding-a-page-to-vufind" title="Permalink to this headline">¶</a></h2>
 <p>The <a class="reference external" href="http://localhost/vufind/Example/Page">http://localhost/vufind/Example/Page</a> action from the previous section would lead to a 404 error in most VuFind instances, since that page is not defined as part of the core VuFind package. However, with the help of code generators, it would be easy to define such a page. Since controllers are just another plug-in (as described in chapter 17), some parts of the process should seem familiar by now. This section will show all of the steps involved.</p>
 <p>For the purposes of this example, we will assume that you have a local code module called MyModule (see section 16.3.3 for more on local code modules) and a local theme called localtheme (see section 7.2 for more on theme generation). This example also assumes you are using VuFind 7.0 or later; earlier releases of VuFind did not support automatic generation of controllers, though of course the same effect could be achieved by manually creating files and editing configurations.</p>
 </div>
 <div class="section" id="creating-the-examplecontroller">
-<h3>18.2.1 Creating the ExampleController<a class="headerlink" href="#creating-the-examplecontroller" title="Permalink to this headline">¶</a></h3>
+<h2>18.2.1 Creating the ExampleController<a class="headerlink" href="#creating-the-examplecontroller" title="Permalink to this headline">¶</a></h2>
 <p>VuFind’s plugin generator can create controllers starting with VuFind 7.0, so this command will establish the ExampleController and configure it to be built using the standard VuFindControllerAbstractBaseFactory:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">php $VUFIND_HOME/public/index.php generate plugin MyModule\\Controller\\ExampleController VuFind\\Controller\\AbstractBaseFactory</span>
 </pre></div>
@@ -115,7 +113,7 @@ As discussed in section 16.2, VuFind uses the laminas-mvc package to implement a
 </div>
 <p>All the pageAction does is return an empty view model, which will simply cause a view template to be rendered. And that leads to the next step</p>
 <div class="section" id="create-the-view-template">
-<h4>18.2.2 Create the View Template<a class="headerlink" href="#create-the-view-template" title="Permalink to this headline">¶</a></h4>
+<h3>18.2.2 Create the View Template<a class="headerlink" href="#create-the-view-template" title="Permalink to this headline">¶</a></h3>
 <p>By convention, the template file displayed by the pageAction of the ExampleController should be named example/page.phtml, so you should create the file $VUFIND_HOME/themes/localtheme/templates/example/page.phtml. You can put any HTML and/or PHP logic in here that you like. For example:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&lt;p&gt;Hello, world!&lt;/p&gt;</span>
 </pre></div>
@@ -123,7 +121,7 @@ As discussed in section 16.2, VuFind uses the laminas-mvc package to implement a
 <p>At this point, if you add “Example/Page” to your VuFind home URL, you should see “Hello, world!” in your browser. This is because of the default route definition discussed in the previous section. However, there are some advantages to defining a specific route for this action, so there’s one more step to go…</p>
 </div>
 <div class="section" id="defining-a-route">
-<h4>18.2.3 Defining a Route<a class="headerlink" href="#defining-a-route" title="Permalink to this headline">¶</a></h4>
+<h3>18.2.3 Defining a Route<a class="headerlink" href="#defining-a-route" title="Permalink to this headline">¶</a></h3>
 <p>For simple routes like this one, VuFind has a “staticroute” generator you can call:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">php $VUFIND_HOME/public/index.php generate staticroute Example/Page MyModule</span>
 </pre></div>
@@ -137,21 +135,20 @@ As discussed in section 16.2, VuFind uses the laminas-mvc package to implement a
 </div>
 </div>
 <div class="section" id="additional-resources">
-<h3>Additional Resources<a class="headerlink" href="#additional-resources" title="Permalink to this headline">¶</a></h3>
+<h2>Additional Resources<a class="headerlink" href="#additional-resources" title="Permalink to this headline">¶</a></h2>
 <p>As noted earlier, the Laminas documentation provides more detail on controllers and routing; see <a class="reference external" href="https://docs.laminas.dev/laminas-mvc/">https://docs.laminas.dev/laminas-mvc/</a> and <a class="reference external" href="https://docs.laminas.dev/laminas-router/">https://docs.laminas.dev/laminas-router/</a> in particular. The VuFind wiki page on controllers also contains some VuFind-specific details and up-to-date examples: <a class="reference external" href="https://vufind.org/wiki/development:plugins:controllers">https://vufind.org/wiki/development:plugins:controllers</a>.</p>
 </div>
 <div class="section" id="summary">
-<h3>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h3>
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
 <p>VuFind leverages the laminas-mvc system for model-view-controller architecture. The laminas-router component helps turn user request URLs into calls to action methods on controller classes. These methods process user input and help turn it into user output, either by generating HTTP responses or by delegating work to the view template system. Controllers are plug-ins, just like many other parts of VuFind, so they can be easily created and extended.</p>
 </div>
 <div class="section" id="review-questions">
-<h3>Review Questions<a class="headerlink" href="#review-questions" title="Permalink to this headline">¶</a></h3>
+<h2>Review Questions<a class="headerlink" href="#review-questions" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
 <li><p>How does the router impact which controller action gets called?</p></li>
 <li><p>Why would a controller action return an HTTP response object instead of a view model?</p></li>
 <li><p>What class do most VuFind controllers extend from?</p></li>
 </ol>
-</div>
 </div>
 </div>
 
@@ -164,8 +161,7 @@ As discussed in section 16.2, VuFind uses the laminas-mvc package to implement a
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Part 6. Extending and Customizing VuFind’s Code</a><ul>
-<li><a class="reference internal" href="#chapter-18-controllers-and-actions">Chapter 18. Controllers and Actions</a><ul>
+<li><a class="reference internal" href="#">Chapter 18. Controllers and Actions</a><ul>
 <li><a class="reference internal" href="#learning-objectives">Learning Objectives</a></li>
 <li><a class="reference internal" href="#example-adding-a-page-to-vufind">18.2 Example: Adding a Page to VuFind</a></li>
 <li><a class="reference internal" href="#creating-the-examplecontroller">18.2.1 Creating the ExampleController</a><ul>
@@ -179,12 +175,10 @@ As discussed in section 16.2, VuFind uses the laminas-mvc package to implement a
 </ul>
 </li>
 </ul>
-</li>
-</ul>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="vufindplugin.html"
-                        title="previous chapter">Part 6. Extending and Customizing VuFind’s Code</a></p>
+                        title="previous chapter">Chapter 17. VuFind Plug-Ins</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="conf_files.html"
                         title="next chapter">Vufind Configuration options</a></p>
@@ -219,10 +213,10 @@ As discussed in section 16.2, VuFind uses the laminas-mvc package to implement a
           <a href="conf_files.html" title="Vufind Configuration options"
              >next</a> |</li>
         <li class="right" >
-          <a href="vufindplugin.html" title="Part 6. Extending and Customizing VuFind’s Code"
+          <a href="vufindplugin.html" title="Chapter 17. VuFind Plug-Ins"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Vufind Documentation 0.0.1 documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Part 6. Extending and Customizing VuFind’s Code</a></li> 
+        <li class="nav-item nav-item-this"><a href="">Chapter 18. Controllers and Actions</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

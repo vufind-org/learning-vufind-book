@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Part 3. Styling and Theming &#8212; Vufind Documentation 0.0.1 documentation</title>
+    <title>Chapter 8. Styling VuFind &#8212; Vufind Documentation 0.0.1 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
@@ -17,8 +17,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Part 3. Styling and Theming" href="vufindcustom.html" />
-    <link rel="prev" title="Part 3. Styling and Theming" href="vufindtheme.html" /> 
+    <link rel="next" title="Chapter 9. Customizing Record Views" href="vufindcustom.html" />
+    <link rel="prev" title="Chapter 7. Creating a VuFind Theme" href="vufindtheme.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -27,13 +27,13 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="vufindcustom.html" title="Part 3. Styling and Theming"
+          <a href="vufindcustom.html" title="Chapter 9. Customizing Record Views"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="vufindtheme.html" title="Part 3. Styling and Theming"
+          <a href="vufindtheme.html" title="Chapter 7. Creating a VuFind Theme"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Vufind Documentation 0.0.1 documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Part 3. Styling and Theming</a></li> 
+        <li class="nav-item nav-item-this"><a href="">Chapter 8. Styling VuFind</a></li> 
       </ul>
     </div>  
 
@@ -42,12 +42,10 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="part-3-styling-and-theming">
-<h1>Part 3. Styling and Theming<a class="headerlink" href="#part-3-styling-and-theming" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="chapter-8-styling-vufind">
-<h2>Chapter 8. Styling VuFind<a class="headerlink" href="#chapter-8-styling-vufind" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="chapter-8-styling-vufind">
+<h1>Chapter 8. Styling VuFind<a class="headerlink" href="#chapter-8-styling-vufind" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="learning-objectives">
-<h3>Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permalink to this headline">¶</a></h3>
+<h2>Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permalink to this headline">¶</a></h2>
 <p>After reading this chapter, you will understand:</p>
 <ul class="simple">
 <li><p>How to apply custom styles to your VuFind theme.</p></li>
@@ -56,23 +54,23 @@
 </ul>
 </div>
 <div class="section" id="understanding-css-frameworks">
-<h3>8.1 Understanding CSS Frameworks<a class="headerlink" href="#understanding-css-frameworks" title="Permalink to this headline">¶</a></h3>
-<p>Since its very earliest releases, VuFind has relied on CSS frameworks to provide a unified look and feel and to simplify some common layout tasks. As of this writing (when VuFind 6.1 was the most recent release), the Bootstrap framework is used as the foundation for VuFind’s default themes; in earlier releases, Blueprint and YUI were used. Regardless of which framework is used, its purpose is the same: to establish some core CSS classes that enable useful functionality like responsive design, grid layout, etc.</p>
+<h2>8.1 Understanding CSS Frameworks<a class="headerlink" href="#understanding-css-frameworks" title="Permalink to this headline">¶</a></h2>
+<p>Since its very earliest releases, VuFind has relied on CSS frameworks to provide a unified look and feel and to simplify some common layout tasks. As of this writing (when VuFind 7.0 was the most recent release), the Bootstrap framework (<a class="reference external" href="https://getbootstrap.com/">https://getbootstrap.com/</a>) is used as the foundation for VuFind’s default themes; in earlier releases, Blueprint (<a class="reference external" href="http://www.blueprintcss.org/">http://www.blueprintcss.org/</a>) and YUI (<a class="reference external" href="https://yuilibrary.com/">https://yuilibrary.com/</a>) were used. Regardless of which framework is used, its purpose is the same: to establish some core CSS classes that enable useful functionality like responsive design, grid layout, etc.</p>
 <p>Going in depth on any particular framework is beyond the scope of this book; however, understanding the framework you are working with will help you to read and customize the templates in your theme. It should be easy to find a primer for any major framework using the search engine of your choice; just be sure to read about the same version of the framework that VuFind is using, since some frameworks can introduce significant changes when they introduce major new versions. (For example, Bootstrap 3 and Bootstrap 4 are quite different from one another; VuFind still uses Bootstrap 3 as of this writing, but it is possible that Bootstrap 4 may be adopted in the future).</p>
 <p>If you are not sure what framework your VuFind theme is using, the theme name (or the name of a parent theme) may help to clarify this. (For example, VuFind’s bootstrap3 theme is the basic implementation using the Bootstrap 3 framework; there are some more heavily styled sub-themes of bootstrap3, such as bootprint3 and sandal, but if you examine the theme.config.php file in either of these themes, you will see that it extends bootstrap3).</p>
 </div>
 <div class="section" id="understanding-css-preprocessors">
-<h3>8.2 Understanding CSS Preprocessors<a class="headerlink" href="#understanding-css-preprocessors" title="Permalink to this headline">¶</a></h3>
+<h2>8.2 Understanding CSS Preprocessors<a class="headerlink" href="#understanding-css-preprocessors" title="Permalink to this headline">¶</a></h2>
 <p>While CSS is a very powerful language for applying styles to web pages, maintaining CSS files can sometimes be labor intensive and error-prone. Due to limitations in the language, some tasks require the creation of extremely verbose selectors or extensive copying-and-pasting of values (such as color definitions). CSS Preprocessors were created to address some of these limitations.</p>
 <p>A CSS Preprocessor defines a new language (usually a superset of CSS itself) which adds new features like nested blocks, variables, etc. The preprocessor also includes a tool (called a compiler) which interprets files in the new language and translates them into regular CSS so that they can be used on the web. Using a preprocessor introduces a small trade-off: you have a more powerful language for styling your website, but you have to remember to run the compiler to build your CSS when you want to deploy changes.</p>
-<p>As of this writing, VuFind’s default themes make use of the LESS preprocessor, and VuFind includes tools for compiling LESS into CSS using either pure PHP (which is slower, but has fewer dependencies) or Javascript (which is faster but requires installation of the Node.js environment on your server). All of VuFind’s LESS files are also distributed in SCSS format (a different, but very similar, preprocessor) to accommodate users who already use that format in their development workflows. Because front-end development is a fast-evolving area, it is possible that additional preprocessors may be supported in the future, and that some of the currently-supported formats may eventually be abandoned.</p>
+<p>As of this writing, VuFind’s default themes make use of the LESS preprocessor, and VuFind includes tools for compiling LESS into CSS using either pure PHP (which is slower, but has fewer dependencies) or Javascript (which is faster but requires installation of the Node.js environment on your server). All of VuFind’s LESS files are also distributed in SASS/SCSS format (a different, but very similar, preprocessor) to accommodate users who already use that format in their development workflows. Because front-end development is a fast-evolving area, it is possible that additional preprocessors may be supported in the future, and that some of the currently-supported formats may eventually be abandoned.</p>
 <p>As with CSS frameworks, going in depth on CSS preprocessors is beyond the scope of this text, but tutorials should be available online for LESS and other popular formats.</p>
 </div>
 <div class="section" id="custom-css-vs-custom-less">
-<h3>8.3 Custom CSS vs. Custom LESS<a class="headerlink" href="#custom-css-vs-custom-less" title="Permalink to this headline">¶</a></h3>
+<h2>8.3 Custom CSS vs. Custom LESS<a class="headerlink" href="#custom-css-vs-custom-less" title="Permalink to this headline">¶</a></h2>
 <p>If you want to add some custom styles to your local theme, you should consider whether you wish to add a custom CSS file or a custom LESS file. Adding a custom CSS file has the advantage of simplicity; you simply create and register a file, and changes to that file will automatically take effect. Adding a custom LESS file lets you take advantage of the power of CSS preprocessing, but it has a more complicated setup process and will require you to remember to compile CSS when making changes. This section describes both approaches.</p>
 <div class="section" id="adding-a-custom-css-file">
-<h4>8.3.1 Adding a Custom CSS File<a class="headerlink" href="#adding-a-custom-css-file" title="Permalink to this headline">¶</a></h4>
+<h3>8.3.1 Adding a Custom CSS File<a class="headerlink" href="#adding-a-custom-css-file" title="Permalink to this headline">¶</a></h3>
 <p>To add a custom CSS file to your theme, you can simply edit your theme’s theme.config.php file, and add a new CSS filename to the ‘css’ element of the configuration. All CSS files listed in this array will be loaded on every page of VuFind’s interface, so this is the best way to make global changes. Because of VuFind’s theme inheritance, it is important to give your CSS file a unique name; if you give it the same name as one of the CSS files in a parent theme, it will completely replace that existing file rather than being added to it.</p>
 <p>As an example, assume that you have created a custom theme named “localtheme” as described in section 7.2 above, and you want to change the body background color to a pale gray color.</p>
 <p>First, you should edit your $VUFIND_HOME/themes/localtheme/theme.config.php file; by default, it should look like this:</p>
@@ -100,7 +98,7 @@
 <p>Now if you refresh VuFind in your browser, you should see that the local theme’s default background color has changed.</p>
 </div>
 <div class="section" id="adding-a-custom-less-file">
-<h4>8.3.2 Adding a Custom LESS File<a class="headerlink" href="#adding-a-custom-less-file" title="Permalink to this headline">¶</a></h4>
+<h3>8.3.2 Adding a Custom LESS File<a class="headerlink" href="#adding-a-custom-less-file" title="Permalink to this headline">¶</a></h3>
 <p>VuFind’s provided themes are set up so that all of the LESS files provided are compiled into a single CSS file called “compiled.css.” This setup makes adding a new LESS file a little bit complicated. Fortunately, the sample theme created by the generate command (see section 7.2) creates some example LESS files for you, providing a helpful foundation for you to build upon.</p>
 <p>If you look in $VUFIND_HOME/themes/localtheme/less after generating the theme, you will see three files: compiled.less, which is the top-level file that VuFind will use to compile the LESS into CSS, based on configuration inherited from a parent theme. All this file does is include custom.less, which is the place where you can put your own custom styles.</p>
 <p>If you edit custom.less, you will see that its first line is:</p>
@@ -108,21 +106,20 @@
 </pre></div>
 </div>
 <p>This pulls in the default Bootstrap framework styles, which you will need to take advantage of the framework and to make sure that default VuFind templates display correctly. You should leave this line alone.</p>
-<p>Everything else in this file is an example, and you are free to change or remove it. The provided example shows how to define some variables (like “&#64;active-orange” and “&#64;dark-green”) for internal use, and also how to override some core Bootstrap and VuFind variables (like &#64;brand-primary and &#64;body-bg) to change the way the theme looks without having to build CSS stanzas. There are also some more specific example styles below the variables, and the file ends by demonstrating that you can use &#64;import statements to pull in additional files if you want; the home-page.less file is an example of this capability.</p>
+<p>Everything else in custom.less is an example, and you are free to change or remove it. The provided example shows how to define some variables (like “&#64;active-orange” and “&#64;dark-green”) for internal use, and also how to override some core Bootstrap and VuFind variables (like &#64;brand-primary and &#64;body-bg) to change the way the theme looks without having to build CSS stanzas. There are also some more specific example styles below the variables, and the file ends by demonstrating that you can use &#64;import statements to pull in additional files if you want; the home-page.less file is an example of this capability.</p>
 <p>If you wanted to implement the same background color change that was used as an example in 8.3.1, you could accomplish it here by editing a single variable and then recompiling the LESS.</p>
 <p>First, edit $VUFIND_HOME/themes/localtheme/less/custom.less, and change this line:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">@body-bg: #5ab48a;</span>
 </pre></div>
 </div>
-<p>to
-.. code-block:: console</p>
-<blockquote>
-<div><p>&#64;body-bg: #d0d0d8;</p>
-</div></blockquote>
+<p>to</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">@body-bg: #d0d0d8;</span>
+</pre></div>
+</div>
 <p>This will have exactly the same effect as the CSS file override described earlier; however, rather than adding a new CSS rule to override an earlier rule, changing this variable enables you to actually change the CSS output created when the LESS compiler processes the files found in the parent themes.</p>
 <p>Before you will see the results of your change, you must compile the LESS into CSS. You have two options for this: the slow PHP compiler, or the faster Javascript compiler.</p>
 <div class="section" id="compiling-less-using-php">
-<h5>8.3.2.1 Compiling LESS Using PHP<a class="headerlink" href="#compiling-less-using-php" title="Permalink to this headline">¶</a></h5>
+<h4>8.3.2.1 Compiling LESS Using PHP<a class="headerlink" href="#compiling-less-using-php" title="Permalink to this headline">¶</a></h4>
 <p>To use the PHP-based compiler, simply run these commands:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd $VUFIND_HOME</span>
 <span class="go">php util/cssBuilder.php</span>
@@ -130,9 +127,15 @@
 </div>
 </div>
 <div class="section" id="compiling-less-using-javascript">
-<h5>8.3.2.1 Compiling LESS Using Javascript<a class="headerlink" href="#compiling-less-using-javascript" title="Permalink to this headline">¶</a></h5>
+<h4>8.3.2.1 Compiling LESS Using Javascript<a class="headerlink" href="#compiling-less-using-javascript" title="Permalink to this headline">¶</a></h4>
 <p>To use the Javascript-based compiler, you will need to install Node.js and grunt on your system. This is usually a matter of installing the nodejs package with your platform’s package manager, and then running:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">npm install -g grunt-cli</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd $VUFIND_HOME</span>
+<span class="go">npm install -g grunt-cli</span>
+<span class="go">grunt less</span>
+</pre></div>
+</div>
+<p>Once grunt is installed, you can compile your LESS with:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd $VUFIND_HOME</span>
 <span class="go">grunt less</span>
 </pre></div>
 </div>
@@ -140,21 +143,20 @@
 </div>
 </div>
 <div class="section" id="additional-resources">
-<h3>Additional Resources<a class="headerlink" href="#additional-resources" title="Permalink to this headline">¶</a></h3>
+<h2>Additional Resources<a class="headerlink" href="#additional-resources" title="Permalink to this headline">¶</a></h2>
 <p>The Bootstrap 3 documentation is available at <a class="reference external" href="https://getbootstrap.com/docs/3.3/">https://getbootstrap.com/docs/3.3/</a>. You can learn more about LESS at the language’s official website (<a class="reference external" href="http://lesscss.org/">http://lesscss.org/</a>). VuFind’s use of CSS preprocessing is discussed in more detail on this wiki page: <a class="reference external" href="https://vufind.org/wiki/development:architecture:less">https://vufind.org/wiki/development:architecture:less</a>.</p>
 </div>
 <div class="section" id="summary">
-<h3>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h3>
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
 <p>VuFind’s themes are built using popular CSS frameworks, establishing useful conventions and basic functionality. VuFind also uses CSS preprocessing to work around some of the limitations of CSS when designing its styles. When building your own theme, you can choose to add simple CSS files, or you can do a bit more work to access the full power of preprocessing.</p>
 </div>
 <div class="section" id="review-questions">
-<h3>Review Questions<a class="headerlink" href="#review-questions" title="Permalink to this headline">¶</a></h3>
+<h2>Review Questions<a class="headerlink" href="#review-questions" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Why does VuFind use CSS frameworks?</p></li>
 <li><p>Why does VuFind use a CSS preprocessor?</p></li>
 <li><p>What are the advantages and disadvantages of using custom CSS vs. using custom LESS?</p></li>
 </ol>
-</div>
 </div>
 </div>
 
@@ -167,8 +169,7 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Part 3. Styling and Theming</a><ul>
-<li><a class="reference internal" href="#chapter-8-styling-vufind">Chapter 8. Styling VuFind</a><ul>
+<li><a class="reference internal" href="#">Chapter 8. Styling VuFind</a><ul>
 <li><a class="reference internal" href="#learning-objectives">Learning Objectives</a></li>
 <li><a class="reference internal" href="#understanding-css-frameworks">8.1 Understanding CSS Frameworks</a></li>
 <li><a class="reference internal" href="#understanding-css-preprocessors">8.2 Understanding CSS Preprocessors</a></li>
@@ -187,15 +188,13 @@
 </ul>
 </li>
 </ul>
-</li>
-</ul>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="vufindtheme.html"
-                        title="previous chapter">Part 3. Styling and Theming</a></p>
+                        title="previous chapter">Chapter 7. Creating a VuFind Theme</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="vufindcustom.html"
-                        title="next chapter">Part 3. Styling and Theming</a></p>
+                        title="next chapter">Chapter 9. Customizing Record Views</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -224,13 +223,13 @@
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="vufindcustom.html" title="Part 3. Styling and Theming"
+          <a href="vufindcustom.html" title="Chapter 9. Customizing Record Views"
              >next</a> |</li>
         <li class="right" >
-          <a href="vufindtheme.html" title="Part 3. Styling and Theming"
+          <a href="vufindtheme.html" title="Chapter 7. Creating a VuFind Theme"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Vufind Documentation 0.0.1 documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Part 3. Styling and Theming</a></li> 
+        <li class="nav-item nav-item-this"><a href="">Chapter 8. Styling VuFind</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

@@ -1,6 +1,4 @@
-Part 4. Working with XML and HTML
-*********************************
-
+#########################
 Chapter 11. XML Indexing
 #########################
 
@@ -34,9 +32,11 @@ VuFind’s XSLT indexing tool is found at $VUFIND_HOME/import/import-xsl.php. It
 
    php $VUFIND_HOME/import/import-xsl.php <XML_file> <properties_file>
 
-In this command, <XML_file> is the path to an XML file to index, and <properties_file> is the name of a indexing configuration file. For <properties_file>, you only need to specify a filename, not a full path; that filename will be searched for first in $VUFIND_LOCAL_DIR/import, and then in $VUFIND_HOME/import, allowing you to override configuration files through your local configuration directory following VuFind’s usual conventions.
+In this command, <XML_file> is the path to an XML file to index, and <properties_file> is the name of an indexing configuration file. For <properties_file>, you only need to specify a filename, not a full path; that filename will be searched for first in $VUFIND_LOCAL_DIR/import, and then in $VUFIND_HOME/import, allowing you to override configuration files through your local configuration directory following VuFind’s usual conventions.
 
-The properties file specifies which XSLT sheet will be used to perform the transformation; example XSLTs are found in $VUFIND_HOME/import/xsl and can be overridden in the equivalent $VUFIND_LOCAL_DIR subdirectory as needed. The file also specifies which custom PHP functions will be made accessible to the XSLT code, and sets up parameters (like your institution name) that will be passed along to the XSLT. All of the example properties files found in $VUFIND_HOME/import contain detailed comments explaining the various settings; you should look at one of these to find the latest up-to-date information on available options.
+The properties file specifies which XSLT sheet will be used to perform the transformation; example XSLTs are found in $VUFIND_HOME/import/xsl and can be overridden in the equivalent $VUFIND_LOCAL_DIR subdirectory as needed. The file also specifies which custom PHP functions will be made accessible to the XSLT code, and sets up parameters (like your institution name) that will be passed along to the XSLT.
+
+All of the example properties files found in $VUFIND_HOME/import contain detailed comments explaining the various settings; you should look at one of these to find the latest up-to-date information on available options.
 
 The import-xsl.php command accepts an optional --test-only switch, which puts it into test mode. In test mode, the result of the XSLT transformation is displayed on screen, and no data is sent to Solr. This is extremely useful for troubleshooting, testing and developing XSLT without potentially loading bad data into your index. For example, if you wanted to see what would happen if you applied the default OJS transformations to an XML record found in $VUFIND_LOCAL_DIR/harvest/ojs/record1.xml, you could run this command:
 
@@ -89,10 +89,12 @@ If you performed an OAI-PMH harvest, you may also have a number of files in your
 Additional Resources
 --------------------
 
-The XSLT 1.0 standard used by VuFind can be found at https://www.w3.org/TR/xslt-10/. VuFind’s wiki page discussing XML indexing can be found at https://vufind.org/wiki/indexing:xml.
+The XSLT 1.0 standard used by VuFind can be found at https://www.w3.org/TR/xslt-10/. VuFind’s wiki page discussing XML indexing can be found at https://vufind.org/wiki/indexing:xml. A video about XML indexing can be found at https://vufind.org/wiki/videos:indexing_xml_records.
 
 Summary
 -------
+
+VuFind includes tools to leverage XSLT 1.0 to index XML records into Solr. Separate configuration files and XSLT definitions can be created for importing different XML formats. A “test-only” mode makes it possible to preview transformations without modifying Solr prematurely. A batch loading script makes it possible to process folders filled with XML files (such as those produced by the OAI-PMH harvest tool discussed in chapter 10).
 
 Review Questions
 ----------------
@@ -100,4 +102,3 @@ Review Questions
 1.      What is XSLT and how does VuFind use it?
 2.      How can you see the result of a record’s XSLT transformation without actually indexing that record into Solr?
 3.      What command is used for batch-loading harvested XML records, and what parameters does it need?
-

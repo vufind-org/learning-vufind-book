@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Part 2. Configuration and Administration &#8212; Vufind Documentation 0.0.1 documentation</title>
+    <title>Chapter 6. Administering a VuFind Server &#8212; Vufind Documentation 0.0.1 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
@@ -17,8 +17,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Part 3. Styling and Theming" href="vufindtheme.html" />
-    <link rel="prev" title="Part 2. Configuration and Administration" href="solr.html" /> 
+    <link rel="next" title="Chapter 7. Creating a VuFind Theme" href="vufindtheme.html" />
+    <link rel="prev" title="Chapter 5. Understanding Solr" href="solr.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -27,13 +27,13 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="vufindtheme.html" title="Part 3. Styling and Theming"
+          <a href="vufindtheme.html" title="Chapter 7. Creating a VuFind Theme"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="solr.html" title="Part 2. Configuration and Administration"
+          <a href="solr.html" title="Chapter 5. Understanding Solr"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Vufind Documentation 0.0.1 documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Part 2. Configuration and Administration</a></li> 
+        <li class="nav-item nav-item-this"><a href="">Chapter 6. Administering a VuFind Server</a></li> 
       </ul>
     </div>  
 
@@ -42,12 +42,10 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="part-2-configuration-and-administration">
-<h1>Part 2. Configuration and Administration<a class="headerlink" href="#part-2-configuration-and-administration" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="chapter-6-administering-a-vufind-server">
-<h2>Chapter 6. Administering a VuFind Server<a class="headerlink" href="#chapter-6-administering-a-vufind-server" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="chapter-6-administering-a-vufind-server">
+<h1>Chapter 6. Administering a VuFind Server<a class="headerlink" href="#chapter-6-administering-a-vufind-server" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="learning-objectives">
-<h3>Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permalink to this headline">¶</a></h3>
+<h2>Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permalink to this headline">¶</a></h2>
 <p>After reading this chapter, you will understand:</p>
 <ul class="simple">
 <li><p>How to ensure that necessary processes start up automatically after your server reboots</p></li>
@@ -55,16 +53,16 @@
 <li><p>Which maintenance tasks to set up for smooth operation of a VuFind instance</p></li>
 </ul>
 <div class="section" id="introduction">
-<h4>6.1 Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h4>
+<h3>6.1 Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h3>
 <p>It is fairly easy to get a VuFind instance up and running, but there are some potential problems that only become apparent with time. How do you ensure that Solr starts automatically each time you reboot your server? How do you manage rebuilds of your index when you want to change something? How do you keep your index up to date automatically? How do you ensure that VuFind cleans up after itself properly and doesn’t fill up your disk? This chapter answers these and other questions relating to running a production VuFind server for the long term.</p>
 </div>
 </div>
 <div class="section" id="starting-solr-automatically">
-<h3>6.2 Starting Solr Automatically<a class="headerlink" href="#starting-solr-automatically" title="Permalink to this headline">¶</a></h3>
+<h2>6.2 Starting Solr Automatically<a class="headerlink" href="#starting-solr-automatically" title="Permalink to this headline">¶</a></h2>
 <p>As discussed in 2.2.2, VuFind relies on a running Solr index to allow users to search locally-stored information. While it is simple to manually start the Solr process for testing and development purposes, once you deploy VuFind to production, you will want to ensure that Solr is always running so that users do not experience an interruption to service. An important part of this is ensuring that Solr always starts running when your server boots up, so the service is always available after planned or unplanned server restarts.</p>
 <p>This chapter describes how to set up Solr to start automatically using systemd, the startup system found in the latest releases of most Linux distributions as of this writing. The process is significantly different in Windows and on older Linux distributions; for help with those, see the Starting and Stopping Solr page in the VuFind wiki (<a class="reference external" href="https://vufind.org/wiki/administration:starting_and_stopping_solr">https://vufind.org/wiki/administration:starting_and_stopping_solr</a>).</p>
 <div class="section" id="creating-a-solr-user">
-<h4>6.2.1 Creating a Solr User<a class="headerlink" href="#creating-a-solr-user" title="Permalink to this headline">¶</a></h4>
+<h3>6.2.1 Creating a Solr User<a class="headerlink" href="#creating-a-solr-user" title="Permalink to this headline">¶</a></h3>
 <p>The first thing you will need to do is to decide on a Linux user account that will be used to run Solr. For security reasons, it is best to run Solr using its own dedicated user account; this way, you can limit which parts of the file system Solr is allowed to read and write, which will limit the amount of damage that can be done if the security of your Solr process is ever compromised.</p>
 <p>To set this up, you should first create a user with the adduser command. For the purposes of this chapter, we will call the user “solr,” but you can use whatever name you like.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo adduser solr</span>
@@ -76,7 +74,7 @@
 </div>
 </div>
 <div class="section" id="creating-the-service-file">
-<h4>6.2.2 Creating the Service File<a class="headerlink" href="#creating-the-service-file" title="Permalink to this headline">¶</a></h4>
+<h3>6.2.2 Creating the Service File<a class="headerlink" href="#creating-the-service-file" title="Permalink to this headline">¶</a></h3>
 <p>Programs that can be started or stopped using systemd are known as services. Each is defined by a small configuration file found in /etc/systemd/system which tells the operating system how to manage the program. To manage VuFind’s Solr instance, you can create a file called /etc/systemd/system/vufind.service, containing the following:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">After=network.target</span>
 
@@ -97,7 +95,7 @@
 <p>Be sure that the file paths in ExecStart and ExecStop point to the correct command in $VUFIND_HOME. Confirm that the User line matches the user account you created in 6.2.1 above. For an explanation of the remaining settings, see the systemd.service documentation (<a class="reference external" href="https://www.freedesktop.org/software/systemd/man/systemd.service.html">https://www.freedesktop.org/software/systemd/man/systemd.service.html</a>).</p>
 </div>
 <div class="section" id="starting-stopping-and-enabling-the-service">
-<h4>6.2.3 Starting, Stopping and Enabling the Service<a class="headerlink" href="#starting-stopping-and-enabling-the-service" title="Permalink to this headline">¶</a></h4>
+<h3>6.2.3 Starting, Stopping and Enabling the Service<a class="headerlink" href="#starting-stopping-and-enabling-the-service" title="Permalink to this headline">¶</a></h3>
 <p>Once you have created your vufind.service file in the appropriate place, you can manage the service using the systemctl command. To start Solr, you can now run:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo systemctl start solr</span>
 </pre></div>
@@ -113,10 +111,10 @@
 </div>
 </div>
 <div class="section" id="rebuilding-resetting-the-solr-index">
-<h3>6.3 Rebuilding/Resetting the Solr Index<a class="headerlink" href="#rebuilding-resetting-the-solr-index" title="Permalink to this headline">¶</a></h3>
+<h2>6.3 Rebuilding/Resetting the Solr Index<a class="headerlink" href="#rebuilding-resetting-the-solr-index" title="Permalink to this headline">¶</a></h2>
 <p>There are a variety of reasons that you may eventually want to rebuild your Solr index. When upgrading to a new version of VuFind, it will sometimes be necessary to reindex to reflect changes to VuFind’s Solr schema or updates to the included version of Solr. You may accidentally load bad data into the index and need to create a fresh copy. After months or years of automated synchronization (see 6.4 below), your index may get out of sync with the system that you use to manage your records, and you may wish to rebuild to be sure everything is accurate and up to date. Whatever the reason for rebuilding the index, this section will show you how to do it safely and easily.</p>
 <div class="section" id="resetting-the-solr-index">
-<h4>6.3.1 Resetting the Solr Index<a class="headerlink" href="#resetting-the-solr-index" title="Permalink to this headline">¶</a></h4>
+<h3>6.3.1 Resetting the Solr Index<a class="headerlink" href="#resetting-the-solr-index" title="Permalink to this headline">¶</a></h3>
 <p>If you simply want to empty out your Solr index and start over, this is very simple. Each Solr core stores data in a directory called “index,” possibly supplemented by one or more spell-check directories with names beginning with “spell.” Resetting a core is a three-step process:</p>
 <ol class="arabic simple">
 <li><p>Stop the Solr service</p></li>
@@ -133,7 +131,7 @@
 <p>This will leave you with a fresh, empty index, ready for records to be indexed into it.</p>
 </div>
 <div class="section" id="rebuilding-a-solr-index-with-minimal-service-interruption">
-<h4>6.3.2 Rebuilding a Solr Index with Minimal Service Interruption<a class="headerlink" href="#rebuilding-a-solr-index-with-minimal-service-interruption" title="Permalink to this headline">¶</a></h4>
+<h3>6.3.2 Rebuilding a Solr Index with Minimal Service Interruption<a class="headerlink" href="#rebuilding-a-solr-index-with-minimal-service-interruption" title="Permalink to this headline">¶</a></h3>
 <p>Indexing large collections can take a significant amount of time. If you are running a production system, you do not want to cut off your users’ access to search capabilities for long periods of time just because you need to rebuild your index. Fortunately, if you have access to another system, you can take advantage of the way Solr stores its index to rebuild your index with a minimum of service disruption.</p>
 <p>Solr’s index is stored as files on disk, and these files are “portable” – all you have to do to copy a Solr index from one server to another is to copy the core directory containing the index.</p>
 <p>When you run a service in production, it is a good practice to maintain a “staging” server that you can use for testing upgrades and customizations before you deploy them to your users. Having a staging server can also be valuable for index regeneration.</p>
@@ -147,7 +145,7 @@
 </div>
 </div>
 <div class="section" id="automating-the-indexing-process">
-<h3>6.4 Automating the Indexing Process<a class="headerlink" href="#automating-the-indexing-process" title="Permalink to this headline">¶</a></h3>
+<h2>6.4 Automating the Indexing Process<a class="headerlink" href="#automating-the-indexing-process" title="Permalink to this headline">¶</a></h2>
 <p>If you are using VuFind with an Integrated Library System, it is likely that your records will be changing regularly as new items are cataloged and old ones are weeded. You will want to keep your VuFind index up to date. Unfortunately, every ILS is different, and documenting the automation process for all of them in this book would be impractical. However, this section highlights some of the common tasks and steps you will need to understand to support automation.</p>
 <p>Many VuFind libraries run a daily cron job which updates the index in the middle of the night, when activity is low. This cron job script should accomplish a few things:</p>
 <ol class="arabic simple">
@@ -160,10 +158,10 @@
 <p>For more details and some real-world examples, see the Automation page of the VuFind wiki: <a class="reference external" href="https://vufind.org/wiki/administration:automation">https://vufind.org/wiki/administration:automation</a>.</p>
 </div>
 <div class="section" id="other-important-automated-tasks">
-<h3>6.5 Other Important Automated Tasks<a class="headerlink" href="#other-important-automated-tasks" title="Permalink to this headline">¶</a></h3>
+<h2>6.5 Other Important Automated Tasks<a class="headerlink" href="#other-important-automated-tasks" title="Permalink to this headline">¶</a></h2>
 <p>During the course of day-to-day operation, VuFind generates a significant amount of data that is needed for the short term but which should be cleaned up periodically to save storage space. This information includes user session data, search histories, and authentication tokens. The sections below explain the purpose of this data and how to clean it up when it is no longer needed.</p>
 <div class="section" id="expiring-searches">
-<h4>6.5.1 Expiring Searches<a class="headerlink" href="#expiring-searches" title="Permalink to this headline">¶</a></h4>
+<h3>6.5.1 Expiring Searches<a class="headerlink" href="#expiring-searches" title="Permalink to this headline">¶</a></h3>
 <p>Every time a user performs a search in VuFind, a row is written to a search table in VuFind’s database. This table allows users to view their search history, and to save some of their searches for long-term use. However, when user sessions expire, many of these search history rows become orphaned and are no longer useful. If left unchecked, these obsolete database rows can grow significantly, wasting large amounts of disk space and impacting system performance. Fortunately, VuFind ships with a simple utility to clear them out. You can simply run:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">php $VUFIND_HOME/public/index.php util expire_searches</span>
 </pre></div>
@@ -171,7 +169,7 @@
 <p>to clear out old searches. It is strongly recommended that you run this command as part of a regular cron job to keep things under control.</p>
 </div>
 <div class="section" id="expiring-sessions">
-<h4>6.5.2 Expiring Sessions<a class="headerlink" href="#expiring-sessions" title="Permalink to this headline">¶</a></h4>
+<h3>6.5.2 Expiring Sessions<a class="headerlink" href="#expiring-sessions" title="Permalink to this headline">¶</a></h3>
 <p>VuFind also uses PHP sessions to store short-term user data (such as their login status). VuFind offers several options for where to store user sessions, such as on disk, in the database, or in a system like Memcached or Redis. The [Session] section of $VUFIND_LOCAL_DIR/config/vufind/config.ini documents all of the options and related settings.</p>
 <p>Like stored searches, session data can build up over time, and while PHP is supposed to help clean this up for you, you may need to supplement PHP’s efforts with some work of your own to be sure things remain under control. If you are using file-based sessions, for example, you may wish to write a cron job to monitor the directory containing the session files and delete those that have not changed in a few days. If you are using database-based sessions, there is a command-line utility similar to the “expire_searches” tool that you can use:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">php $VUFIND_HOME/public/index.php util expire_sessions</span>
@@ -179,7 +177,7 @@
 </div>
 </div>
 <div class="section" id="other-expiry-tools">
-<h4>6.5.3 Other Expiry Tools<a class="headerlink" href="#other-expiry-tools" title="Permalink to this headline">¶</a></h4>
+<h3>6.5.3 Other Expiry Tools<a class="headerlink" href="#other-expiry-tools" title="Permalink to this headline">¶</a></h3>
 <p>VuFind includes a couple of optional features that may require additional cleanup.</p>
 <p>If you use the optional “email authentication” feature (which allows users to log in by clicking on a link in an email sent to them), you may need to periodically clean up the table of pending authentication hashes:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">php $VUFIND_HOME/public/index.php util expire_auth_hashes</span>
@@ -196,26 +194,25 @@
 <p>Looking through this for additional “expire” actions should reveal whether anything new has been added since this book was written.</p>
 </div>
 <div class="section" id="managing-code-and-configuration">
-<h4>6.6 Managing Code and Configuration<a class="headerlink" href="#managing-code-and-configuration" title="Permalink to this headline">¶</a></h4>
+<h3>6.6 Managing Code and Configuration<a class="headerlink" href="#managing-code-and-configuration" title="Permalink to this headline">¶</a></h3>
 <p>As you customize and configure VuFind, you will find yourself making changes to dozens of files in multiple directories – configuration files, theme templates, custom code, automation scripts, etc. It is strongly recommended that you consider using a version control system like Git to track all of these things. Git was introduced in section 2.3.1, and if you skipped that section earlier, it may be worth revisiting it now. Even a basic understanding of Git will empower you in several important ways, as detailed in section 2.3.1.3. The value of version control cannot be underestimated; taking the time to learn about it now can save you from much costlier problems down the road.</p>
 </div>
 </div>
 <div class="section" id="additional-resources">
-<h3>Additional Resources<a class="headerlink" href="#additional-resources" title="Permalink to this headline">¶</a></h3>
+<h2>Additional Resources<a class="headerlink" href="#additional-resources" title="Permalink to this headline">¶</a></h2>
 <p>As noted above, you can find more information about starting Solr automatically on the Starting and Stopping Solr page in the VuFind wiki (<a class="reference external" href="https://vufind.org/wiki/administration:starting_and_stopping_solr">https://vufind.org/wiki/administration:starting_and_stopping_solr</a>). You can learn more about automatic index updates on the Automation page of the VuFind wiki (<a class="reference external" href="https://vufind.org/wiki/administration:automation">https://vufind.org/wiki/administration:automation</a>). Some of the topics from this chapter are demonstrated in the video available here: <a class="reference external" href="https://vufind.org/wiki/videos:administering_a_vufind_server">https://vufind.org/wiki/videos:administering_a_vufind_server</a>.</p>
 </div>
 <div class="section" id="summary">
-<h3>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h3>
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
 <p>Reliably running a VuFind server in production requires some additional configuration and maintenance. By utilizing operating system auto-start features, intelligently managing your Solr indexing processes, and regularly cleaning up expired data, you can ensure that your users have a reliable and uninterrupted search experience.</p>
 </div>
 <div class="section" id="review-questions">
-<h3>Review Questions<a class="headerlink" href="#review-questions" title="Permalink to this headline">¶</a></h3>
+<h2>Review Questions<a class="headerlink" href="#review-questions" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
 <li><p>What is the difference between the “systemctl start” and “systemctl enable” commands?</p></li>
 <li><p>What are two reasons why you might want to rebuild your Solr index?</p></li>
 <li><p>Name four different types of data that may require automated cleanup processes.</p></li>
 </ol>
-</div>
 </div>
 </div>
 
@@ -228,8 +225,7 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Part 2. Configuration and Administration</a><ul>
-<li><a class="reference internal" href="#chapter-6-administering-a-vufind-server">Chapter 6. Administering a VuFind Server</a><ul>
+<li><a class="reference internal" href="#">Chapter 6. Administering a VuFind Server</a><ul>
 <li><a class="reference internal" href="#learning-objectives">Learning Objectives</a><ul>
 <li><a class="reference internal" href="#introduction">6.1 Introduction</a></li>
 </ul>
@@ -259,15 +255,13 @@
 </ul>
 </li>
 </ul>
-</li>
-</ul>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="solr.html"
-                        title="previous chapter">Part 2. Configuration and Administration</a></p>
+                        title="previous chapter">Chapter 5. Understanding Solr</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="vufindtheme.html"
-                        title="next chapter">Part 3. Styling and Theming</a></p>
+                        title="next chapter">Chapter 7. Creating a VuFind Theme</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -296,13 +290,13 @@
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="vufindtheme.html" title="Part 3. Styling and Theming"
+          <a href="vufindtheme.html" title="Chapter 7. Creating a VuFind Theme"
              >next</a> |</li>
         <li class="right" >
-          <a href="solr.html" title="Part 2. Configuration and Administration"
+          <a href="solr.html" title="Chapter 5. Understanding Solr"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Vufind Documentation 0.0.1 documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Part 2. Configuration and Administration</a></li> 
+        <li class="nav-item nav-item-this"><a href="">Chapter 6. Administering a VuFind Server</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

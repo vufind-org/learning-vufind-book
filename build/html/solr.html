@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Part 2. Configuration and Administration &#8212; Vufind Documentation 0.0.1 documentation</title>
+    <title>Chapter 5. Understanding Solr &#8212; Vufind Documentation 0.0.1 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
@@ -17,8 +17,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Part 2. Configuration and Administration" href="adminvufind.html" />
-    <link rel="prev" title="Part 2. Configuration and Administration" href="confvufind.html" /> 
+    <link rel="next" title="Chapter 6. Administering a VuFind Server" href="adminvufind.html" />
+    <link rel="prev" title="Chapter 4. Configuring VuFind" href="confvufind.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -27,13 +27,13 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="adminvufind.html" title="Part 2. Configuration and Administration"
+          <a href="adminvufind.html" title="Chapter 6. Administering a VuFind Server"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="confvufind.html" title="Part 2. Configuration and Administration"
+          <a href="confvufind.html" title="Chapter 4. Configuring VuFind"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Vufind Documentation 0.0.1 documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Part 2. Configuration and Administration</a></li> 
+        <li class="nav-item nav-item-this"><a href="">Chapter 5. Understanding Solr</a></li> 
       </ul>
     </div>  
 
@@ -42,12 +42,10 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="part-2-configuration-and-administration">
-<h1>Part 2. Configuration and Administration<a class="headerlink" href="#part-2-configuration-and-administration" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="chapter-5-understanding-solr">
-<h2>Chapter 5. Understanding Solr<a class="headerlink" href="#chapter-5-understanding-solr" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="chapter-5-understanding-solr">
+<h1>Chapter 5. Understanding Solr<a class="headerlink" href="#chapter-5-understanding-solr" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="learning-objectives">
-<h3>Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permalink to this headline">¶</a></h3>
+<h2>Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permalink to this headline">¶</a></h2>
 <p>After reading this chapter, you will understand:</p>
 <ul class="simple">
 <li><p>The purpose of Solr, and how it differs from other related tools like databases.</p></li>
@@ -57,21 +55,21 @@
 </ul>
 </div>
 <div class="section" id="solr-overview">
-<h3>5.1 Solr Overview<a class="headerlink" href="#solr-overview" title="Permalink to this headline">¶</a></h3>
+<h2>5.1 Solr Overview<a class="headerlink" href="#solr-overview" title="Permalink to this headline">¶</a></h2>
 <p>Apache Solr is an open source search platform, designed to support fast and flexible full text searching. Since VuFind is primarily concerned with searching, Solr is an ideal engine to drive most of its functionality. While VuFind provides reasonable default settings and tools that save users from having to work directly with Solr, an understanding of how the tool works can be helpful when troubleshooting problems and customizing search behavior. Describing Solr in detail is beyond the scope of this book, but this chapter will provide high-level overviews of some key features; see the “Additional Resources” at the end for some suggestions if you wish to learn more.</p>
 <div class="section" id="indexes-vs-databases">
-<h4>5.1.1 Indexes vs. Databases<a class="headerlink" href="#indexes-vs-databases" title="Permalink to this headline">¶</a></h4>
+<h3>5.1.1 Indexes vs. Databases<a class="headerlink" href="#indexes-vs-databases" title="Permalink to this headline">¶</a></h3>
 <p>There are many different types of computer systems for storing and retrieving data, and different systems are better suited to different tasks. In fact, while VuFind uses Solr for searching, it also uses a relational database (usually MySQL/MariaDB or PostgreSQL) for storing persistent data like user accounts. Users who have a strong background in databases can find working with Solr confusing at first, so it is important to explain how an index like Solr differs from a relational database like MySQL.</p>
 <p>In a relational database, data is stored in a collection of rigidly-structured tables which aim to break content down into the smallest possible pieces. Tables can define relationships with one another so that the small pieces can be recomposed into more complex wholes through querying. This allows data to be stored with very little duplication, which makes maintenance easier. The enforcement of rules helps to prevent certain types of common data entry errors. The clear expression of data types and relationships makes it possible to query the data in complex ways. A relational database is an excellent tool for managing highly structured data. However, it may not be as useful when dealing with extremely heterogeneous information, and searching across many fields and many tables can be slow due to the work involved in fitting all the pieces back together again.</p>
 <p>An index like Solr differs from a relational database in many significant ways. While it imposes some structure on data, that structure is much less complex: a collection of documents containing named fields. There are fewer rules, and no safeguards to enforce data integrity, because data integrity is not a major concern of an index. Its job is simply to accept queries and find documents that match those queries as quickly and accurately as possible. To meet this goal, it makes a useful trade-off between resource consumption and performance, using significant amounts of memory and disk space to create data structures that help it to very rapidly identify matches. Solr is very good at searching, but it is most powerful when it is used to add search capabilities to data that is created and managed in some other system; while Solr can be used for end-to-end data management, doing so can be problematic, especially when upgrading to a new version of Solr or making changes to the structure of your documents.</p>
 <p>In the real world, distinctions between relational databases and indexes can sometimes be blurry; most major relational databases have added full text searching capabilities that resemble Solr, and over time, Solr has made it more feasible (though still not necessarily desirable) to manage data directly in the index. However, even with these caveats, it remains true that each type of system has strengths and weaknesses, and VuFind has been designed to play to the strengths of its components. This is why VuFind only uses Solr for searching, and other tools are used for managing persistent data.</p>
 </div>
 <div class="section" id="solrs-data-model">
-<h4>5.1.2 Solr’s Data Model<a class="headerlink" href="#solrs-data-model" title="Permalink to this headline">¶</a></h4>
+<h3>5.1.2 Solr’s Data Model<a class="headerlink" href="#solrs-data-model" title="Permalink to this headline">¶</a></h3>
 <p>As noted earlier, the key idea of Solr is that it builds an index of documents, each of which is split into named fields (like title, author, subject, etc.). The fields allowed in each document are defined by a configuration file, referred to as a schema (see, for example, $VUFIND_HOME/solr/vufind/biblio/conf/schema.xml), which specifies the type of data each field may contain, and the rules for processing each data type.</p>
 </div>
 <div class="section" id="analyzer-chains">
-<h4>5.1.3 Analyzer Chains<a class="headerlink" href="#analyzer-chains" title="Permalink to this headline">¶</a></h4>
+<h3>5.1.3 Analyzer Chains<a class="headerlink" href="#analyzer-chains" title="Permalink to this headline">¶</a></h3>
 <p>A lot of Solr’s power comes from the ability to define processing rules, or “analyzer chains,” for different data types. There are several reasons why the ability to process different types of data with different rules is important. Just as in a spreadsheet program, dates, numeric values, and text values need to be treated differently from one another when being used for sorting or filtering. For text fields, different degrees of precision may be desired for matching fields, depending on whether they are intended for keyword searching or faceting. Sometimes, special kinds of text require special rules; for example, if your documents contain the same information in different languages.</p>
 <p>Solr uses its analyzer chains at two points in time:</p>
 <ul class="simple">
@@ -90,20 +88,20 @@
 <p>Of course, this example is an extreme simplification of how Solr works, but the point is this: Solr applies rules to reduce inputs into tokens, and then it provides search results by matching tokens. This core idea is quite simple; the power and flexibility in the system comes from the ability to define an infinite variety of rules controlling how inputs turn into tokens.</p>
 </div>
 <div class="section" id="relevance-ranking">
-<h4>5.1.4 Relevance Ranking<a class="headerlink" href="#relevance-ranking" title="Permalink to this headline">¶</a></h4>
+<h3>5.1.4 Relevance Ranking<a class="headerlink" href="#relevance-ranking" title="Permalink to this headline">¶</a></h3>
 <p>Another powerful aspect of Solr is the ability to rank documents by relevance in search results. When performing a query, it is possible to provide rules for relevance-ranking the results; for example, when performing an “all fields” search, you might decide that a token match in a title field is more important than a token match in an author field. When searching very large collections of documents, the ability to adjust relevance to suit your audience and documents can make the difference between success and failure in searching. Users rarely navigate past the first screen of search results, so getting the best results to the top of the list is very important. Relevance ranking is discussed in more detail in the next section.</p>
 </div>
 </div>
 <div class="section" id="customizing-search-behavior-with-searchspecs-yaml">
-<h3>5.2 Customizing Search Behavior with searchspecs.yaml<a class="headerlink" href="#customizing-search-behavior-with-searchspecs-yaml" title="Permalink to this headline">¶</a></h3>
+<h2>5.2 Customizing Search Behavior with searchspecs.yaml<a class="headerlink" href="#customizing-search-behavior-with-searchspecs-yaml" title="Permalink to this headline">¶</a></h2>
 <p>As described in section 4.3, the searches.ini file gives you control over which search options are presented to the user, and the order in which they are presented. However, a different configuration file, searchspecs.yaml, gives you fine-grained control over how these search options actually behave: which Solr fields they search, how they determine relevance, and what special parameters they send along to Solr.</p>
 <div class="section" id="working-with-yaml">
-<h4>5.2.1 Working with YAML<a class="headerlink" href="#working-with-yaml" title="Permalink to this headline">¶</a></h4>
+<h3>5.2.1 Working with YAML<a class="headerlink" href="#working-with-yaml" title="Permalink to this headline">¶</a></h3>
 <p>As the filename suggests, searchspecs.yaml is a YAML file. YAML is a format designed for storing complex data in a human-readable format. When search configuration functionality was added to VuFind, the .ini format used for most of VuFind’s other configuration files was too simplistic to easily represent the complexity of the available options. Of other commonly-used file formats, XML seemed too verbose, and JSON did not support the ability to insert human-readable comments. Thus, YAML was chosen as a best-of-all-worlds solution.</p>
 <p>YAML does have some drawbacks, most particularly a sensitivity to misplaced whitespace. If you edit the searchspecs.yaml file, be very careful that you follow the existing indentation and alignment conventions, since a line out of place can cause the file to be misinterpreted. Fortunately, many of the changes you may wish to make are simply a matter of changing numbers and following existing examples, so it should be possible to avoid pitfalls with a bit of caution.</p>
 </div>
 <div class="section" id="anatomy-of-searchspecs-yaml">
-<h4>5.2.2 Anatomy of searchspecs.yaml<a class="headerlink" href="#anatomy-of-searchspecs-yaml" title="Permalink to this headline">¶</a></h4>
+<h3>5.2.2 Anatomy of searchspecs.yaml<a class="headerlink" href="#anatomy-of-searchspecs-yaml" title="Permalink to this headline">¶</a></h3>
 <p>The searchspecs.yaml file (found in $VUFIND_HOME/config/vufind along with VuFind’s other configuration files) begins with a long block of comments summarizing the available settings and options; this comment block should always be treated as the most up-to-date documentation on the behavior of the file.</p>
 <p>Under the documentation comment, there are a number of sections defining VuFind’s “search handlers” – the options that can be configured in searches.ini, which define different types of searches (title, author, subject, etc.) that users can perform. Here is an example, defining VuFind’s “Author” search:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Author:</span>
@@ -122,12 +120,12 @@
 <p>The top-level “Author:” begins the block. Everything beneath that is indented by two spaces to show that it is contained within the section – it is this type of indentation that must be carefully maintained to ensure the file is read correctly by the software. Within the block, there are two main settings: “DismaxFields,” which controls relevance ranking (see 5.2.4 below), and DismaxHandler, which in this instance tells VuFind to use Solr’s “Extended DisMax” search functionality. Quite a few other options are supported, some of which will be described in more detail below, and the rest of which can be found described in the aforementioned documentation comment embedded in the searchspecs.yaml file.</p>
 </div>
 <div class="section" id="lucene-dismax-and-extended-dismax">
-<h4>5.2.3 Lucene, DisMax and Extended DisMax<a class="headerlink" href="#lucene-dismax-and-extended-dismax" title="Permalink to this headline">¶</a></h4>
+<h3>5.2.3 Lucene, DisMax and Extended DisMax<a class="headerlink" href="#lucene-dismax-and-extended-dismax" title="Permalink to this headline">¶</a></h3>
 <p>You will see the word “DisMax” a lot when reading the file, so it is worth taking a moment to explain it. “DisMax” is short for “Disjunction Max,” which is a powerful Solr query mode which allows the same term to be searched across a number of different fields, with relevance ranking rules applied to bring the “best” matches to the top of the list (see <a class="reference external" href="https://cwiki.apache.org/confluence/display/SOLR/DisMax">https://cwiki.apache.org/confluence/display/SOLR/DisMax</a> for more details).</p>
 <p>Before “DisMax” was introduced, VuFind relied on a much more complicated (and less accurate/reliable) method of generating search queries using the Boolean-based syntax of Solr’s underlying index engine, Lucene. For many years, VuFind operated in a hybrid mode, using DisMax for most searches but switching over to the old method for queries that used features unsupported by DisMax. This old method is still used in VuFind for some very specialized types of searches (see 5.2.6 below for more details), but since the introduction of Solr’s “Extended DisMax” mode, which allows a “best of both worlds” approach combining both DisMax behavior and traditional Boolean logic, VuFind’s search configurations have been significantly streamlined and simplified. Understanding the differences between all of these different search methods is not critical to making the most of VuFind, but knowing a little of this history may make some of the documentation easier to understand.</p>
 </div>
 <div class="section" id="adjusting-relevance">
-<h4>5.2.4 Adjusting Relevance<a class="headerlink" href="#adjusting-relevance" title="Permalink to this headline">¶</a></h4>
+<h3>5.2.4 Adjusting Relevance<a class="headerlink" href="#adjusting-relevance" title="Permalink to this headline">¶</a></h3>
 <p>Whenever VuFind performs a DisMax search, it looks for user search terms across a set of fields, then does some mathematical analysis on the matches it finds to calculate which documents have the best matches, for the purpose of putting the result set in a useful order. This relevance calculation is informed to a large extent by relative weights applied to the fields being searched. In searchspecs.yaml, the DismaxFields section serves the dual purposes of defining which fields Solr should search across and assigning relative weights to those fields. To return to the Author example from above:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">DismaxFields:</span>
 <span class="go">    - author^100</span>
@@ -145,11 +143,11 @@
 <p>When adjusting relevance numbers, it is helpful to keep in mind that the numbers themselves don’t really mean very much; it’s their relative size to one another that matters the most. Is one field twice as important as another one? Ten times more important? A hundred times more important? It may take some trial and error to find the right balance that yields the most useful results. Sometimes compromises will have to be made. When tuning relevance ranking, it is wise to keep notes about the reasons for your changes, and some important search queries that informed decision-making. That way, in the future, as more changes are made, you can repeat old searches and find out how they are impacted.</p>
 </div>
 <div class="section" id="passing-extra-parameters">
-<h4>5.2.5 Passing Extra Parameters<a class="headerlink" href="#passing-extra-parameters" title="Permalink to this headline">¶</a></h4>
+<h3>5.2.5 Passing Extra Parameters<a class="headerlink" href="#passing-extra-parameters" title="Permalink to this headline">¶</a></h3>
 <p>As you will see in section 5.3, Solr accepts a wide variety of parameters that impact search behavior. There is a generic section in searchspecs.yaml called DismaxParams that can be used to add arbitrary parameters to all searches performed using a particular search handler. There are a couple of common reasons you might want to take advantage of this:</p>
 </div>
 <div class="section" id="relevance-boosting">
-<h4>5.2.5.1 Relevance Boosting<a class="headerlink" href="#relevance-boosting" title="Permalink to this headline">¶</a></h4>
+<h3>5.2.5.1 Relevance Boosting<a class="headerlink" href="#relevance-boosting" title="Permalink to this headline">¶</a></h3>
 <p>Sometimes, when calculating relevance, ranking documents on which fields match the query is not enough. Perhaps you want to emphasize documents of a particular format. Perhaps you would like to boost more recently-published documents. Fortunately, Solr provides mechanisms to support both of these types of scenarios.</p>
 <p>Boost queries are the simplest to use. You simply provide a bq parameter whose value is a Solr search query. Any documents that match the boost query will receive a relevance boost. For example, if you wanted to boost documents with a format field value of “Book,” you could add this configuration to the relevant searchspecs.yaml section:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">DismaxParams</span>
@@ -163,7 +161,7 @@
 </div>
 <p>Finally, an advanced option is to provide a boost function using the bf parameter. Solr provides several mathematical functions which can be applied to data in the Solr index and used to adjust relevance rankings. This is useful for the “boost recently published documents” scenario, as well as for situations where you have access to a numeric score that you can index directly into Solr. You will probably want to gain a deeper familiarity with Solr before attempting to work with boost functions, but when you are ready, you will find a whole chapter about them in Solr’s reference manual.</p>
 <div class="section" id="minimum-matching">
-<h5>5.2.5.2 Minimum Matching<a class="headerlink" href="#minimum-matching" title="Permalink to this headline">¶</a></h5>
+<h4>5.2.5.2 Minimum Matching<a class="headerlink" href="#minimum-matching" title="Permalink to this headline">¶</a></h4>
 <p>VuFind is configured that, by default, when a user enters multiple search terms to perform a DisMax search, only records that match ALL of those terms will be returned. However, DisMax can be more tolerant of partial matching – for example, if you want to return records that match 75% of search terms, even if no records match 100% of terms. This extra level of tolerance can be useful, especially when dealing with very long queries. Solr’s mm (“minimum should match”) parameter controls this behavior, and it supports a variety of different scenarios. You can set minimum matching requirements, or you can allow tolerance for certain levels of unmatched clauses. You can even specify different rules for different numbers of incoming terms. See the Solr documentation for a full explanation of how these settings work. Here is a simple example, ensuring that at least 75% of search terms must match:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">DismaxParams:</span>
 <span class="go">    - [mm, 75%]</span>
@@ -172,7 +170,7 @@
 </div>
 </div>
 <div class="section" id="munging">
-<h4>5.2.6 Munging<a class="headerlink" href="#munging" title="Permalink to this headline">¶</a></h4>
+<h3>5.2.6 Munging<a class="headerlink" href="#munging" title="Permalink to this headline">¶</a></h3>
 <p>“Munging” is a slang term for data manipulation, often implying a somewhat crude or rudimentary approach. When working with Solr, it is usually a good idea to let Solr do most of the data manipulation. However, there are rare occasions where it may be useful to have VuFind manipulate user input before submitting it to Solr. For these situations, the searchspecs.yaml “munging” system exists.</p>
 <p>This is probably best explained with another example:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">oclc_num:</span>
@@ -194,7 +192,7 @@
 </div>
 </div>
 <div class="section" id="troubleshooting-solr-with-vufinds-debug-mode">
-<h3>5.3 Troubleshooting Solr with VuFind’s Debug Mode<a class="headerlink" href="#troubleshooting-solr-with-vufinds-debug-mode" title="Permalink to this headline">¶</a></h3>
+<h2>5.3 Troubleshooting Solr with VuFind’s Debug Mode<a class="headerlink" href="#troubleshooting-solr-with-vufinds-debug-mode" title="Permalink to this headline">¶</a></h2>
 <p>As mentioned earlier, VuFind does the hard work of interacting with Solr for you, and exposes most of the options you will need through configuration files. When you perform a search in VuFind, it translates your query into a Solr query according to the rules defined in its configuration files, then uses that query to retrieve search results, and finally formats those results into the web page that you end up seeing.</p>
 <p>Sometimes, if VuFind does not seem to be finding the results that you think it should, it may be helpful to see exactly what is happening behind the scenes. Fortunately, VuFind includes a debug mode which allows you to see more information about what it is doing. To turn this on, simply edit your local config.ini file, look for the “debug = false” line near the top, and change it to “debug = true.”</p>
 <p>When debug mode is turned on, you will see information boxes scattered around VuFind’s interface full of detailed technical information. When you perform a search, some of these boxes will include full Solr query URLs. Note that, because of the way VuFind’s spell checking feature works, a single search can actually trigger multiple queries against Solr; generally speaking, when looking at VuFind debug output, the first Solr URL is the most important one.</p>
@@ -234,21 +232,20 @@
 <p>Note that turning on debug mode can prevent some features of VuFind from working correctly, so it is not a good idea to leave it turned on all the time; it is just intended as a quick-and-easy way to access some technical details like Solr queries. For some more robust alternatives, including logging to files, see the troubleshooting page in VuFind’s wiki (<a class="reference external" href="https://vufind.org/wiki/development:troubleshooting">https://vufind.org/wiki/development:troubleshooting</a>).</p>
 </div>
 <div class="section" id="additional-resources">
-<h3>Additional Resources<a class="headerlink" href="#additional-resources" title="Permalink to this headline">¶</a></h3>
+<h2>Additional Resources<a class="headerlink" href="#additional-resources" title="Permalink to this headline">¶</a></h2>
 <p>There are several book-length introductions to Solr currently in print as of this writing, many published by Packt Publishing. For a shorter introduction, the official “Solr Quick Start” tutorial at <a class="reference external" href="https://lucene.apache.org/solr/guide/solr-tutorial.html">https://lucene.apache.org/solr/guide/solr-tutorial.html</a> provides a useful place to begin. For reference, the full Solr documentation can be found at <a class="reference external" href="https://lucene.apache.org/solr/resources.html#documentation">https://lucene.apache.org/solr/resources.html#documentation</a>.</p>
 </div>
 <div class="section" id="summary">
-<h3>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h3>
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
 <p>Solr is an index engine optimized for searching, which is why it serves as the foundation for VuFind’s default search functionality. It provides access to documents by providing field-based searching. A highly configurable search schema and a wealth of search parameters give the administrator a great deal of control over how searches are performed; VuFind exposes much of this functionality through its own configuration files, and its debug mode can help you troubleshoot problems. With a basic understandingof how Solr works and where VuFind’s configuration options can be changed, it should be possible to tune VuFind to meet the needs of local user communities.</p>
 </div>
 <div class="section" id="review-questions">
-<h3>Review Questions<a class="headerlink" href="#review-questions" title="Permalink to this headline">¶</a></h3>
+<h2>Review Questions<a class="headerlink" href="#review-questions" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Why does VuFind use both a relational database and an index? What is the role of each?</p></li>
 <li><p>What is the benefit of applying the same analyzer chain to indexed text and user search queries?</p></li>
 <li><p>Name three parameters that VuFind passes to Solr when performing searches, and what their purposes are.</p></li>
 </ol>
-</div>
 </div>
 </div>
 
@@ -261,8 +258,7 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Part 2. Configuration and Administration</a><ul>
-<li><a class="reference internal" href="#chapter-5-understanding-solr">Chapter 5. Understanding Solr</a><ul>
+<li><a class="reference internal" href="#">Chapter 5. Understanding Solr</a><ul>
 <li><a class="reference internal" href="#learning-objectives">Learning Objectives</a></li>
 <li><a class="reference internal" href="#solr-overview">5.1 Solr Overview</a><ul>
 <li><a class="reference internal" href="#indexes-vs-databases">5.1.1 Indexes vs. Databases</a></li>
@@ -291,15 +287,13 @@
 </ul>
 </li>
 </ul>
-</li>
-</ul>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="confvufind.html"
-                        title="previous chapter">Part 2. Configuration and Administration</a></p>
+                        title="previous chapter">Chapter 4. Configuring VuFind</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="adminvufind.html"
-                        title="next chapter">Part 2. Configuration and Administration</a></p>
+                        title="next chapter">Chapter 6. Administering a VuFind Server</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -328,13 +322,13 @@
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="adminvufind.html" title="Part 2. Configuration and Administration"
+          <a href="adminvufind.html" title="Chapter 6. Administering a VuFind Server"
              >next</a> |</li>
         <li class="right" >
-          <a href="confvufind.html" title="Part 2. Configuration and Administration"
+          <a href="confvufind.html" title="Chapter 4. Configuring VuFind"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Vufind Documentation 0.0.1 documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Part 2. Configuration and Administration</a></li> 
+        <li class="nav-item nav-item-this"><a href="">Chapter 5. Understanding Solr</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

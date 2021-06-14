@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Part 1. Vufind Basics &#8212; Vufind Documentation 0.0.1 documentation</title>
+    <title>Chapter 1. Introduction to VuFind &#8212; Vufind Documentation 0.0.1 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
@@ -17,7 +17,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Part 1. Vufind Basics" href="installv.html" />
+    <link rel="next" title="Chapter 2. Installing VuFind" href="installv.html" />
     <link rel="prev" title="Preface" href="preface.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
@@ -27,13 +27,13 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="installv.html" title="Part 1. Vufind Basics"
+          <a href="installv.html" title="Chapter 2. Installing VuFind"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="preface.html" title="Preface"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Vufind Documentation 0.0.1 documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Part 1. Vufind Basics</a></li> 
+        <li class="nav-item nav-item-this"><a href="">Chapter 1. Introduction to VuFind</a></li> 
       </ul>
     </div>  
 
@@ -42,12 +42,10 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="part-1-vufind-basics">
-<h1>Part 1. Vufind Basics<a class="headerlink" href="#part-1-vufind-basics" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="chapter-1-introduction-to-vufind">
-<h2>Chapter 1. Introduction to VuFind<a class="headerlink" href="#chapter-1-introduction-to-vufind" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="chapter-1-introduction-to-vufind">
+<h1>Chapter 1. Introduction to VuFind<a class="headerlink" href="#chapter-1-introduction-to-vufind" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="learning-objectives">
-<h3>Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permalink to this headline">¶</a></h3>
+<h2>Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permalink to this headline">¶</a></h2>
 <p>After reading this chapter, you will understand:</p>
 <ol class="arabic simple">
 <li><p>Why the VuFind project was created.</p></li>
@@ -56,25 +54,25 @@
 </ol>
 </div>
 <div class="section" id="what-is-and-isnt-vufind">
-<h3>1.1 What is (and isn’t) VuFind?<a class="headerlink" href="#what-is-and-isnt-vufind" title="Permalink to this headline">¶</a></h3>
+<h2>1.1 What is (and isn’t) VuFind?<a class="headerlink" href="#what-is-and-isnt-vufind" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="history">
-<h4>1.1.1 History<a class="headerlink" href="#history" title="Permalink to this headline">¶</a></h4>
+<h3>1.1.1 History<a class="headerlink" href="#history" title="Permalink to this headline">¶</a></h3>
 <p>In 2007, libraries faced a problem: their mission was to help their users find information, but the information landscape and user expectations were changing. The Google search engine had already been around for a decade, and its single search box approach was becoming ubiquitous. At the same time, many common library search applications were still built around assumptions inherited from the days of card catalogs and featured user interfaces designed during the very earliest days of the World Wide Web. There was a strong need to provide a more user-friendly search experience for library resources.</p>
 <p>A group of software developers and designers at Villanova University decided to address this problem through the creation of a search application built using commonly-available, free, open source components. A prototype was built, and this sparked interest from other libraries around the world. A community of software developers quickly grew around the software, collaboratively growing and improving it. After a few years of experimentation, the first stable release was unveiled in early 2010, and enhanced versions have been released every year since then. While members have come and gone, VuFind’s community still exists today, continuing to develop, update and improve the software.</p>
 </div>
 <div class="section" id="features">
-<h4>1.1.2 Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h4>
+<h3>1.1.2 Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h3>
 <p>VuFind’s primary purpose is to provide a user-friendly search experience for diverse resources. The most common application of VuFind is as a library catalog, but it is also frequently used to search collections of journal articles, archival holdings, and even websites. VuFind offers options for searching locally-managed records and also for connecting to third-party search services, such as OCLC’s WorldCat union catalog, and many commercial “web-scale discovery” services. In cases where many different types of resources are available for searching, VuFind offers multiple options for combining and organizing search results. The common denominator is that, wherever the records come from, VuFind presents them in a consistent user interface, reducing user confusion and centralizing the search experience.</p>
 <p>In addition to providing robust search functionality, VuFind is also designed to provide easy access to library users’ accounts. Users can renew books, place holds, and view their fines. As with search, VuFind is designed to provide a simple and consistent user experience; while many different staff-facing systems may be used to actually store and manage this information, VuFind provides a single interface for public consumption. This can be especially valuable for institutions planning on changing their back-end software systems; once VuFind is established as the user interface, changes can be made “behind the scenes” without users noticing any significant difference.</p>
 <p>The VuFind software is designed to be extremely configurable and customizable. In addition to interoperating with a wide range of other systems, most of its behaviors can be adjusted through the editing of text-based configuration files. While it contains a wide range of features, most can be turned on or off to suit local needs. The high level of configurability is designed to minimize the need to write local code, but in cases where deep customization is needed, the software’s architecture is designed to make it easy to override components and add functionality by building small plug-ins.</p>
 </div>
 <div class="section" id="limitations">
-<h4>1.1.3 Limitations<a class="headerlink" href="#limitations" title="Permalink to this headline">¶</a></h4>
+<h3>1.1.3 Limitations<a class="headerlink" href="#limitations" title="Permalink to this headline">¶</a></h3>
 <p>While VuFind is extremely powerful and flexible, it is important to understand its scope: it is designed as a user interface layer on top of other systems. It provides search capability for existing records, and it provides friendly access to existing user accounts. It is not designed to create or maintain records, however, nor is it meant to be your primary user management system. For library applications, the expectation is that you have an existing integrated library system or library services platform for managing resources and accounts. For other applications, it is assumed that the records you are indexing are created, managed and stored elsewhere.</p>
 <p>These limitations are intentional: managing records and searching records have different requirements. Systems that attempt to do everything usually have to make compromises in terms of performance or functionality. By separating management tasks from user-facing tasks, you can have a more efficient overall system. VuFind is designed for efficient searching, and it allows other systems to focus on other priorities, like maintaining data integrity and providing record editing interfaces.</p>
 </div>
 <div class="section" id="use-cases">
-<h4>1.1.4 Use Cases<a class="headerlink" href="#use-cases" title="Permalink to this headline">¶</a></h4>
+<h3>1.1.4 Use Cases<a class="headerlink" href="#use-cases" title="Permalink to this headline">¶</a></h3>
 <p>There are many possible reasons for using VuFind; here are a few common situations:</p>
 <ul class="simple">
 <li><p>You have multiple sets of resources (e.g. a library catalog, an institutional repository and a website), and you would like to make them searchable through a single box.</p></li>
@@ -86,22 +84,22 @@
 </div>
 </div>
 <div class="section" id="prerequisites-for-using-and-understanding-vufind">
-<h3>1.2 Prerequisites for Using and Understanding VuFind<a class="headerlink" href="#prerequisites-for-using-and-understanding-vufind" title="Permalink to this headline">¶</a></h3>
+<h2>1.2 Prerequisites for Using and Understanding VuFind<a class="headerlink" href="#prerequisites-for-using-and-understanding-vufind" title="Permalink to this headline">¶</a></h2>
 <p>In order to make the most of this book, it is helpful to have some background knowledge in a few areas. While going into depth introducing these topics is beyond the scope of this book, many online tutorials and textbooks are available on each of these subjects, should you wish to familiarize yourself with them before proceeding.</p>
 <p>While VuFind can run on a variety of operating systems (see section 2.1 for more details), running it on Linux is the preferred option, and so a basic understanding of the Linux command line, file system and permissions will be extremely helpful. Because most of VuFind’s configuration is accomplished by editing text files, comfort with a text editing tool of some sort – such as nano or vi – is a must; fortunately, a wide variety of user-friendly tools are available.</p>
 <p>If you plan to customize VuFind’s look and feel – and most VuFind users will at least want to change some logos and adjust some colors – you should have a basic understanding of web technologies like HTML and CSS. For more advanced customization, an understanding of Javascript programming and CSS pre-processors like LESS or SASS/SCSS may be helpful as well.</p>
 <p>For advanced customization of VuFind’s behavior, or for integrating the software with systems that are not already supported, you will need an understanding of the PHP programming language and object-oriented programming. Some of this book’s later chapters (part 6) will assume these basics, though they will go into some depth explaining the Laminas framework that provides structure to VuFind’s software components. You can accomplish a great deal with VuFind without having to do any programming, so you can freely skip these chapters if you are not comfortable with this level of detail; however, if you want to have full control over the application, this background knowledge will prove extremely valuable.</p>
 <div class="section" id="vufind-community">
-<h4>1.3 VuFind Community<a class="headerlink" href="#vufind-community" title="Permalink to this headline">¶</a></h4>
+<h3>1.3 VuFind Community<a class="headerlink" href="#vufind-community" title="Permalink to this headline">¶</a></h3>
 <p>One of the advantages of using open source software is that successful applications are supported by a community of users and developers who can often be a valuable resource. VuFind is no exception; it has an active and supportive community which provides several options for communication. Documentation for the software is provided through a searchable wiki (<a class="reference external" href="https://vufind.org/wiki">https://vufind.org/wiki</a>). When the documentation does not answer a question, users can ask questions on multiple mailing lists or via a Slack community (see the “Support” page of <a class="reference external" href="https://vufind.org">https://vufind.org</a> for the most up-to-date links). The community also streams a regular, free online Community Call to coordinate development of the software, provide updates on new features, and answer questions; the schedule for this can also be found on the website, and all are welcome to join in.</p>
 </div>
 </div>
 <div class="section" id="summary">
-<h3>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h3>
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
 <p>VuFind is an open source project designed to give libraries (and other cultural heritage institutions) more control over their web-based search and account management experience. Users with a basic understanding of Linux commands and HTML/CSS have a great deal of power to configure and customize the software; PHP programmers can go even further. This book will help provide a roadmap to VuFind’s features and options; the project’s friendly community can help answer questions when they arise.</p>
 </div>
 <div class="section" id="review-questions">
-<h3>Review Questions<a class="headerlink" href="#review-questions" title="Permalink to this headline">¶</a></h3>
+<h2>Review Questions<a class="headerlink" href="#review-questions" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
 <li><p>What are some of VuFind’s core features?</p></li>
 <li><p>What are some of VuFind’s limitations, and why do they exist?</p></li>
@@ -109,7 +107,6 @@
 <li><p>What technologies should you familiarize yourself with to make the most of VuFind?</p></li>
 <li><p>Why might a library wish to install VuFind?</p></li>
 </ol>
-</div>
 </div>
 </div>
 
@@ -122,8 +119,7 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Part 1. Vufind Basics</a><ul>
-<li><a class="reference internal" href="#chapter-1-introduction-to-vufind">Chapter 1. Introduction to VuFind</a><ul>
+<li><a class="reference internal" href="#">Chapter 1. Introduction to VuFind</a><ul>
 <li><a class="reference internal" href="#learning-objectives">Learning Objectives</a></li>
 <li><a class="reference internal" href="#what-is-and-isnt-vufind">1.1 What is (and isn’t) VuFind?</a><ul>
 <li><a class="reference internal" href="#history">1.1.1 History</a></li>
@@ -141,15 +137,13 @@
 </ul>
 </li>
 </ul>
-</li>
-</ul>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="preface.html"
                         title="previous chapter">Preface</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="installv.html"
-                        title="next chapter">Part 1. Vufind Basics</a></p>
+                        title="next chapter">Chapter 2. Installing VuFind</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -178,13 +172,13 @@
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="installv.html" title="Part 1. Vufind Basics"
+          <a href="installv.html" title="Chapter 2. Installing VuFind"
              >next</a> |</li>
         <li class="right" >
           <a href="preface.html" title="Preface"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Vufind Documentation 0.0.1 documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Part 1. Vufind Basics</a></li> 
+        <li class="nav-item nav-item-this"><a href="">Chapter 1. Introduction to VuFind</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
