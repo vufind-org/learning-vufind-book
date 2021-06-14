@@ -53,13 +53,13 @@ In addition to their web-scale discovery service, EDS, EBSCO also provides the l
 
 15.3.4 LibGuides
 ________________
+
 The popular LibGuides service, used for developing library subject guides and other similar resources, provides an API for searching available guides. VuFind is able to use this as a search backend, making it possible to highlight relevant guides in a combined search. Note that it may also be possible to index LibGuides pages into a local web index using a sitemap as described in chapter 12; however, direct API access might be preferable if it is important to you to reflect page changes in real-time, if you do not wish to maintain a web index, or if you want to highlight guides independently of other web content.
 
 15.3.5 Pazpar2
 ______________
+
 Pazpar2 is an open source federated search application which can be configured to perform a search across multiple databases and applications and then return a unified list of search results. VuFind can then be configured to fetch results from Pazpar2 through a search backend. Federated search is no longer a popular technology, due both to performance limitations and the complexity of configuring and maintaining it. Due to inherent limitations of Pazpar2’s features, the integration with VuFind lacks some functionality found in other backends (such as the ability to save records to favorites). For all of these reasons, using Pazpar2 is not recommended; however, support exists for those rare situations where it may be the best solution to a problem.
-
-
 
 Additional Resources
 ---------------------
@@ -77,6 +77,3 @@ Review Questions
 1.      How do you change the default search presented by VuFind (e.g. replace Solr with Primo Central or EDS)?
 2.      Which web-scale discovery services are supported by VuFind, and how can they be configured?
 3.      Which search backend is most useful for listing books held by other libraries?
-
-
-                        

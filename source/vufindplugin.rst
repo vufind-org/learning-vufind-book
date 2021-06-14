@@ -18,9 +18,9 @@ One of VuFind’s design goals is to be as extensible as possible, and one of th
 
 As discussed in section 16.4, Laminas offers a service manager component which offers a useful abstraction for loading and building complex objects “on the fly” based on configuration. The service manager provides the foundation for all of VuFind’s plug-ins.
 
-VuFind actually uses a large number of service managers, arranged in a two-level hierarchy. There is the top-level service manager which manages unique and globally-used services as well as all of the lower-level service managers, each of which in turn manages a family of related plug-ins. To fetch a specific plug-in, code first needs to request the appropriate plug-in manager from the top-level service manager, and then the plug-in itself can be requested from the plug-in manager. To differentiate between the two different levels of managers, the lower-level managers are usually referred to as “plug-in managers” while the top-level manager is simply called “the service manager.”
+VuFind actually uses a large number of service managers, arranged in a two-level hierarchy. There is the top-level service manager which manages unique and globally-used services as well as all of the lower- level service managers, each of which in turn manages a family of related plug-ins. To fetch a specific plug-in, code first needs to request the appropriate plug-in manager from the top-level service manager, and then the plug-in itself can be requested from the plug-in manager. To differentiate between the two different levels of managers, the lower-level managers are usually referred to as “plug-in managers” while the top-level manager is simply called “the service manager.”
 
-The most meaningful difference between the top-level service manager and a lower-level plug-in manager is simply how each is configured; they all provide the same dependency injection and container functionality, but they are set up to build and manage different types of objects. Using a dedicated plug-in manager for each type of plug-in offers several benefits over simply loading everything into the top-level service manager:
+The most meaningful difference between the top-level service manager and a lower-level plug-in manager is simply how each is configured; they all provide the same dependency injection and container functionality, but they are set up to build and manage different types of objects. Using a dedicated plug- in manager for each type of plug-in offers several benefits over simply loading everything into the top- level service manager:
 
 •       We can better organize the application’s service configurations, making it more readable and understandable.
 •       We can improve efficiency by only loading configurations for specific plug-in types when they are actually needed.
@@ -33,7 +33,7 @@ All of the plug-in managers are registered as services in the top-level service 
 
 Several components of VuFind discussed elsewhere in this text utilize this plug-in architecture: view helpers (section 7.5), record drivers (section 9.1), recommendation modules (chapter 14), and most of the components that make up search backends (chapter 15). There are many more plug-in types within the VuFind code; see “Additional Resources” below to learn more about them.
 
-There is no question that VuFind’s plug-in manager and service manager code and configuration is complex, and it can take some time and experience to fully understand it. However, this complexity is designed to make a lot of higher-level tasks easier and simpler. Only experienced VuFind developers need to master this; newcomers can simply take advantage of it to build custom code more easily. Do not be concerned if you do not understand everything yet; you can take advantage of the power of plug-ins without fully understanding how they are implemented in VuFind’s core code. The next section will show you how to easily build your own plug-ins without having to touch any low-level VuFind code or configuration.
+There is no question that VuFind’s plug-in manager and service manager code and configuration is complex, and it can take some time and experience to fully understand it. However, this complexity is designed to make a lot of higher-level tasks easier and simpler. Only experienced VuFind developers need to master this; newcomers can simply take advantage of it to build custom code more easily. Do not be concerned if you do not understand everything yet; you can take advantage of the power of plug- ins without fully understanding how they are implemented in VuFind’s core code. The next section will show you how to easily build your own plug-ins without having to touch any low-level VuFind code or configuration.
 
 17.2 Command Line Plug-In Generator Tools
 -----------------------------------------
@@ -42,8 +42,9 @@ While the Laminas service manager and plug-in managers are powerful tools, setti
 
 There are a couple of things you’ll need to remember to make the most of the generators:
 
-•       Make sure you have all of your environment variables, including VUFIND_LOCAL_MODULES, exported correctly when running the generators, or else they will not be able to find the right place to put your custom code. See section 16.3.3 for more discussion of local modules.
-•       Many of the commands require you to type fully qualified PHP class names. Because these class names include backslash (\) characters, and these characters have special meaning on the command line, you will need to escape them by doubling them. So be sure you type (for example) “VuFind\\Recommend\\SideFacets” and not “VuFind\Recommend\SideFacets” when you list a class name as a parameter.
+• Make sure you have all of your environment variables, including VUFIND_LOCAL_MODULES, exported correctly when running the generators, or else they will not be able to find the right place to put your custom code. See section 16.3.3 for more discussion of local modules.
+
+• Many of the commands require you to type fully qualified PHP class names. Because these class names include backslash (\) characters, and these characters have special meaning on the command line, you will need to escape them by doubling them. So be sure you type (for example) “VuFind\\Recommend\\SideFacets” and not “VuFind\Recommend\SideFacets” when you list a class name as a parameter.
 
 
 
@@ -55,11 +56,16 @@ If you want to extend or override an existing plug-in, VuFind’s “extendclass
 The examples below assume a local custom module with the name “MyModule.”
 
 Example 1: Extend the SideFacets Recommendation Module, Keep the Existing Factory
-php $VUFIND_HOME/public/index.php generate extendclass VuFind\\Recommend\\SideFacets MyModule
 
+.. code-block:: console
+
+    php $VUFIND_HOME/public/index.php generate extendclass VuFind\\Recommend\\SideFacets MyModule
 
 Example 2: Extend the Koha ILS Driver, Use a Custom Factory
-php $VUFIND_HOME/public/index.php generate extendclass --extendfactory VuFind\\ILS\\Driver\\Koha MyModule
+
+.. code-block:: console
+
+    php $VUFIND_HOME/public/index.php generate extendclass --extendfactory VuFind\\ILS\\Driver\\Koha MyModule
 
 Example 3: Extend an ILS Driver
 See section 9.3.2 for another example of this code generator in action.
@@ -73,13 +79,17 @@ The examples below assume a local custom module with the name “MyModule.”
 
 Example 1: Create a New Record Driver and Accompanying Factory
 
-php $VUFIND_HOME/public/index.php generate plugin MyModule\\RecordDriver\\MyRecordType
+.. code-block:: console
+
+    php $VUFIND_HOME/public/index.php generate plugin MyModule\\RecordDriver\\MyRecordType
+
+Example 2: Create a New Recommendation Module; Use an Existing Factory
+The next section (17.3) consists of an extended example matching this scenario.
 
 17.3 Example: Building a New Recommendation Module
 __________________________________________________
 
 As discussed in chapter 14, recommendation modules provide a way to supplement search results with additional useful information. It is often useful to build custom recommendation modules to provide local information or to augment custom search handlers. This section will demonstrate how to build a bare-minimum recommendation module which simply causes some custom text to be displayed; it can be used as the basis for more complex plug-ins.
-
 
 17.3.1 Building the Recommendation Module Class
 _______________________________________________
@@ -168,12 +178,10 @@ Now, the only thing left to do is to make your new recommendation module visible
 
 Now, when you perform a search, you should see your custom text above the search results.
 
-
 17.3.4 Taking It Further
 ________________________
 
 While this example has now served the purpose of showing how you can create a very simple plug-in, we can make a few more adjustments to this example to also show off more of the power of custom recommendation modules. So far, we have shown that you can build a custom class and template to display some text, but the custom class doesn’t actually do anything. Let’s revise it to make it configurable. Change the PHP file so that it contains this content:
-
 
 .. code-block:: console
 
@@ -191,19 +199,19 @@ While this example has now served the purpose of showing how you can create a ve
           }
          }
 
-        public function init($params, $request)
-        {
-        }
-
-        public function process($results)
-        {
-        }
-
-        public function getName()
-        {
-            return $this->name;
-        }
+    public function init($params, $request)
+    {
     }
+
+    public function process($results)
+    {
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+}
 
 And change the template so that it contains this content:
 
@@ -211,28 +219,29 @@ And change the template so that it contains this content:
 
     <p>If you need more help, be sure to talk to <?=$this->escapeHtml($this->recommend->getName())?>!</p>
 
-
 Now, if you refresh your search results, you will still see the same text as before… but you have gained the ability to override the name being displayed through the configuration file. Try editing searches.ini like this:
 
 .. code-block:: console
 
     default_top_recommend[] = "LocalText:Your Name Here"
 
-
 Now if you refresh the search results, “a librarian” will be replaced with “Your Name Here.” So how did this work?
+
 In the LocalText PHP class, we added a property called $name. This is initialized to “a librarian,” so it has a default value.
+
 The setConfig() method is called when the recommendation module is initialized; it is passed any configuration settings that are attached to the recommendation module name with a colon. In other words, when we configure “LocalText: Your Name Here” in searches.ini, VuFind passes the text “Your Name Here” to the setConfig method. The logic here checks if the incoming text is non-empty, and overrides the default value of the $name property when appropriate.
+
 We also defined a public getName() method, which simply provides the current value of the $name property.
 
 In the view template, the recommendation module object is exposed as a value called $this->recommend. Thus, we can define any public methods we like in the PHP code and then access those methods from the template. Thus, *<?=$this->escapeHtml($this->recommend->getName())?>* in the template provides the connection where the value from our configuration file can be surfaced in the user interface. The *$this->escapeHtml()* call wrapped around *$this->recommend->getName()* simply ensures that the provided text is properly formatted as HTML, in case it contains special characters like <, > or &.
 
 Hopefully you can see how this offers you a great deal of power to use PHP code to retrieve information from various sources and then expose it to the user through the template. If you examine the existing recommendation modules that ship with VuFind, you will see more advanced examples of how to leverage third-party APIs, make decisions based on the contents of search results, and even manipulate the parameters used to perform the search.
 
-
 Additional Resources
 --------------------
 
 The VuFind wiki has a page summarizing all available plug-in types and providing advice on how to build them: https://vufind.org/wiki/development:plugins.
+The tutorial video at https://vufind.org/wiki/videos:code_generators_1 includes an example of building a custom recommendation module.
 
 Summary
 -------
@@ -241,14 +250,11 @@ The Laminas service manager component provides conventions that allow VuFind to 
 
 Review Questions
 ----------------
-1.	What are some reasons that VuFind uses plug-in managers instead of simply registering all plug-in code directly within the top-level service manager?
-2.	In what situation would you want to generate a new factory for a plug-in? When would it be better to use an existing factory?
-3.	What is wrong with the following command?
 
-..code-block:: console
+1.      What are some reasons that VuFind uses plug-in managers instead of simply registering all plug-in code directly within the top-level service manager?
+2.      In what situation would you want to generate a new factory for a plug-in? When would it be better to use an existing factory?
+3.      What is wrong with the following command?
+
+.. code-block:: console
 
   php $VUFIND_HOME/public/index.php generate plugin MyModule\RecordDriver\MyRecordType
-
-
-
-

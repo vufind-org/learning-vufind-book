@@ -30,13 +30,13 @@ Each search backend (Solr, EDS, Summon, etc.) has its own separate recommendatio
 
 Recommendation configuration can be found in the primary .ini file for the relevant backend – e.g. searches.ini for the primary Solr search, website.ini for the Solr website search, EDS.ini for EBSCO Discovery Service, Summon.ini for Summon, etc. The most detailed notes and comments (including a list of all available modules) can be found in searches.ini, since this is the most commonly-used configuration. Configuration works exactly the same way across all backends, though some modules may only apply to specific backends. The comments will note this when relevant.
 
-Recommendation settings are spread across several sections of the .ini files. In the [General] section, the default_top_recommend[], default_side_recommend[] and default_noresults_recommend[] settings allow defaults to be configured. These are the modules that will be loaded in the specified context(s) when more specific configurations are not found in the other relevant sections: [SideRecommendations], [TopRecommendations] and [NoResultsRecommendations]. In these latter three sections, the configuration keys are the names of search handlers, and the values are the recommendation modules that should be displayed when those search handlers are used. A special [AuthorModuleRecommendations] section also exists in searches.ini for configuration of the recommendations presented on the special author screen reached by clicking on author names in Solr search results
+Recommendation settings are spread across several sections of the .ini files. In the [General] section, the default_top_recommend[], default_side_recommend[] and default_noresults_recommend[] settings allow defaults to be configured. These are the modules that will be loaded in the specified context(s) when more specific configurations are not found in the other relevant sections: [SideRecommendations], [TopRecommendations] and [NoResultsRecommendations]. In these latter three sections, the configuration keys are the names of search handlers, and the values are the recommendation modules that should be displayed when those search handlers are used. A special [AuthorModuleRecommendations] section also exists in searches.ini for configuration of the recommendations presented on the special author screen reached by clicking on author names in Solr search results.
 
 This configuration setup offers a balance between ease of use and specificity. You can define default values that will be used in most situations, but you can override them with more specific recommendations as needed.
 
 At each level of the configuration, recommendation modules are configured by providing the name of the module, optionally followed by a set of parameters separated by colons. The meanings of these parameters are detailed in the comments in searches.ini (and some examples will be explained below).
 
-Here are the most relevant configurations from searches.ini as of VuFind 6.1.1:
+Here are the most relevant configurations from searches.ini as of VuFind 7.0:
 
 .. code-block:: console
 
@@ -126,5 +126,4 @@ Review Questions
 
 1.      Where can you find a complete list of recommendation modules, including parameters?
 2.      Why are the brackets ([]) important at the end of settings like “default_top_recommend[]”?
-
-
+3.      If you wanted to add a new recommendation module only shown for Subject searches, while also displaying the existing default modules, how would you configure that?

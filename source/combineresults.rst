@@ -118,7 +118,7 @@ VuFind’s search tab feature also includes the ability to create specialized ta
 Additional Resources
 --------------------
 
-Some additional information on the subjects discussed in this chapter can be found on the “Combining Search Types” page in VuFind’s wiki (https://vufind.org/wiki/configuration:combining_search_types).
+Some additional information on the subjects discussed in this chapter can be found on the “Combining Search Types” page in VuFind’s wiki (https://vufind.org/wiki/configuration:combining_search_types). A video about combining searches can be found here: https://vufind.org/wiki/videos:combining_search_types.
 
 Summary
 -------
@@ -131,4 +131,3 @@ Review Questions
 1.      How can you add or remove search backends on your combined search results screen?
 2.      Which configuration file can be used to display options from multiple search backends in the drop-down menu next to the search box?
 3.      How can you create a filtered search tab?
-
