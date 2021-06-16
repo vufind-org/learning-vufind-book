@@ -12,7 +12,7 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-   preface
+   00-preface
 
 Part 1. Vufind Basics
 _____________________
@@ -20,9 +20,9 @@ _____________________
 .. toctree::
    :maxdepth: 2
 
-   vufindb
-   installv
-   indexmarc
+   01-introduction_to_vufind
+   02-installing_vufind
+   03-indexing_marc_records
 
 Part 2. Configuration and Administration
 ________________________________________
@@ -30,9 +30,9 @@ ________________________________________
 .. toctree::
    :maxdepth: 2
 
-   confvufind
-   solr
-   adminvufind
+   04-configuring_vufind
+   05-understanding_solr
+   06-administering_a_vufind_server
 
 Part 3. Styling and Theming
 ___________________________
@@ -40,9 +40,9 @@ ___________________________
 .. toctree::
    :maxdepth: 2
 
-   vufindtheme
-   vufindstyle
-   vufindcustom
+   07-creating_a_vufind_theme
+   08-styling_vufind
+   09-customizing_record_views
 
 Part 4. Working with XML and HTML
 _________________________________
@@ -50,9 +50,9 @@ _________________________________
 .. toctree::
    :maxdepth: 2
 
-   vufind_harvest
-   xmlindex
-   webcrawl
+   10-content_harvesting
+   11-xml_indexing
+   12-web_crawling_with_vufind
 
 Part 5. Combining and Enhancing Searches
 ________________________________________
@@ -60,9 +60,9 @@ ________________________________________
 .. toctree::
    :maxdepth: 2
 
-   combineresults
-   recommend
-   otherv
+   13-combining_different_types_of_search_results
+   14-recommendation_modules
+   15-other_search_backends
 
 Part 6. Extending and Customizing VuFind’s Code
 _______________________________________________
@@ -70,10 +70,10 @@ _______________________________________________
 .. toctree::
    :maxdepth: 2
 
-   extendvufind
-   vufindplugin
-   controlers
-   conf_files
+   16-introduction_to_laminas
+   17-vufind_plug-ins
+   18-controllers_and_actions
+   19-vufinds_configuration_files
 
 
 Indices and tables

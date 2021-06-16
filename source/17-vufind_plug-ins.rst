@@ -197,19 +197,19 @@ While this example has now served the purpose of showing how you can create a ve
           }
          }
 
-    public function init($params, $request)
-    {
-    }
+        public function init($params, $request)
+        {
+        }
 
-    public function process($results)
-    {
-    }
+        public function process($results)
+        {
+        }
 
-    public function getName()
-    {
-        return $this->name;
+        public function getName()
+        {
+            return $this->name;
+        }
     }
-}
 
 And change the template so that it contains this content:
 
