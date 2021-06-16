@@ -42,7 +42,7 @@ To learn about the Laminas router component in more detail, see the documentatio
 
 To continue the example of accessing the URL of http://localhost/vufind/Example/Page, the default route defined above would extract a ‘controller’ value of ‘Example’ and an ‘action’ value of ‘Page’. These route values have special meanings when used in the laminas-mvc framework that VuFind is built on: they control which PHP code gets executed.
 
-First, the controller value is used to look up a controller class in the controller plugin manager (see chapter 17 for more on plugin manages). By convention, VuFind’s controllers are set up with short names as aliases to make routing configuration more readable – thus, if VuFind had a VuFind\Controller\ExampleController, it would also have an alias configuration allowing ‘Example’ to be used as a shorthand for retrieving the controller from the plugin manager.
+First, the controller value is used to look up a controller class in the controller plugin manager (see chapter 17 for more on plugin managers). By convention, VuFind’s controllers are set up with short names as aliases to make routing configuration more readable – thus, if VuFind had a VuFind\Controller\ExampleController, it would also have an alias configuration allowing ‘Example’ to be used as a shorthand for retrieving the controller from the plugin manager.
 
 If no matching controller can be found, VuFind will throw a 404 not found error… but if a controller exists, the action parameter from the route will be used to call a matching method on the controller. Controller actions must be named as an action name, followed by the word Action – so in the current example, VuFind would attempt to call the pageAction() method on the ExampleController.
 
@@ -50,7 +50,7 @@ Controller action methods most commonly return a Laminas\View\Model\ViewModel ob
 
 In some special cases, controller actions may instead return a Laminas\Http\Response object representing a fully-formed HTTP response. This bypasses the usual view rendering behavior and can be useful in situations where special actions are needed (like a forced redirect to a different page) or where different types of content need to be returned (like when rendering an image, or providing a download of a binary file like a PDF).
 
-Controllers are discussed in more detail in the Laminas documentation at https://docs.laminas.dev/laminas-mvc/controllers/
+Controllers are discussed in more detail in the Laminas documentation at https://docs.laminas.dev/laminas-mvc/controllers/.
 
 Most of VuFind’s controllers extend the VuFind\Controller\AbstractBase class, which provides some helpful convenience methods for common VuFind-related activities. For example, there is a createViewModel() method which constructs a ViewModel object with some useful pre-populated values. In general, when adding new functionality to VuFind, it is useful to examine existing controllers and actions providing similar functionality, as there may be some patterns observed there that can be usefully emulated.
 
@@ -62,7 +62,7 @@ The http://localhost/vufind/Example/Page action from the previous section would 
 For the purposes of this example, we will assume that you have a local code module called MyModule (see section 16.3.3 for more on local code modules) and a local theme called localtheme (see section 7.2 for more on theme generation). This example also assumes you are using VuFind 7.0 or later; earlier releases of VuFind did not support automatic generation of controllers, though of course the same effect could be achieved by manually creating files and editing configurations.
 
 18.2.1 Creating the ExampleController
---------------------------------------
+-------------------------------------
 
 VuFind’s plugin generator can create controllers starting with VuFind 7.0, so this command will establish the ExampleController and configure it to be built using the standard VuFind\Controller\AbstractBaseFactory:
 
@@ -81,16 +81,16 @@ This command will create a file called $VUFIND_HOME/module/MyModule/src/MyModule
     class ExampleController extends \VuFind\Controller\AbstractBase
     {
         /**
-             *
-             * @return \Laminas\View\Model\ViewModel
-                */
-                 public function pageAction()
-                       {
-                          return $this->createViewModel();
-                                 }
-                               }
+         *
+         * @return \Laminas\View\Model\ViewModel
+         */
+        public function pageAction()
+        {
+            return $this->createViewModel();
+        }
+    }
 
-All the pageAction does is return an empty view model, which will simply cause a view template to be rendered. And that leads to the next step
+All the pageAction does is return an empty view model, which will simply cause a view template to be rendered. And that leads to the next step…
 
 18.2.2 Create the View Template
 _______________________________
@@ -117,14 +117,18 @@ This will create some route configuration inside MyModule’s config/module.conf
 .. code-block:: console
 
    <?php $link = $this->url('example-page'); ?>
-   <p>Hello, world! The link to this page is <a href="<?=$this->escapeHtmlAttr($link)?>"><?=$this->escapeHtml($link)?></a>.</
+   <p>Hello, world! The link to this page is <a href="<?=$this->escapeHtmlAttr($link)?>"><?=$this->escapeHtml($link)?></a>.</p>
  
 Obviously, this is a very simplistic example – but by understanding the relationship between routes, controllers and views, you can better understand VuFind’s code and behavior, and more easily extend its functionality to meet your local needs!
 
 Additional Resources
 --------------------
 
-As noted earlier, the Laminas documentation provides more detail on controllers and routing; see https://docs.laminas.dev/laminas-mvc/ and https://docs.laminas.dev/laminas-router/ in particular. The VuFind wiki page on controllers also contains some VuFind-specific details and up-to-date examples: https://vufind.org/wiki/development:plugins:controllers.
+As noted earlier, the Laminas documentation provides more detail on controllers and routing; see https://docs.laminas.dev/laminas-mvc/ and https://docs.laminas.dev/laminas-router/ in particular.
+
+The VuFind wiki page on controllers also contains some VuFind-specific details and up-to-date examples: https://vufind.org/wiki/development:plugins:controllers.
+
+The tutorial video at https://vufind.org/wiki/videos:code_generators_2 includes an example of building a local custom controller.
 
 Summary
 -------
