@@ -73,8 +73,6 @@ _______________________________________________
    16-introduction_to_laminas
    17-vufind_plug-ins
    18-controllers_and_actions
-   19-vufinds_configuration_files
-
 
 Indices and tables
 ==================
