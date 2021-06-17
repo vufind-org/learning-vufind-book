@@ -3,8 +3,8 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Vufind Documentation's documentation!
-================================================
+Welcome to Learning VuFind!
+===========================
 
 Contents:
 #########
@@ -14,7 +14,7 @@ Contents:
 
    00-preface
 
-Part 1. Vufind Basics
+Part 1. VuFind Basics
 _____________________
 
 .. toctree::
