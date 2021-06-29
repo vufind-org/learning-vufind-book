@@ -73,11 +73,3 @@ _______________________________________________
    16-introduction_to_laminas
    17-vufind_plug-ins
    18-controllers_and_actions
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
