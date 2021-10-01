@@ -262,6 +262,14 @@ latex_elements = {
      # Latex figure (float) alignment
      #
      # 'figure_align': 'htbp',
+'fncychap': r'\usepackage[Conny]{fncychap}',
+'preamble': r'''
+\renewcommand{\thechapter}{}
+\renewcommand{\FmN}[1]{}
+\setcounter{chapter}{-1}
+\setcounter{secnumdepth}{0}
+\renewcommand{\numberline}[1]{}
+''',
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
