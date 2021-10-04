@@ -36,7 +36,7 @@ At each level of the configuration, recommendation modules are configured by pro
 
 Here are the most relevant configurations from searches.ini as of VuFind 7.0:
 
-.. code-block:: console
+.. code-block:: properties
 
    [General]
    default_top_recommend[] = TopFacets:ResultsTop
@@ -101,7 +101,7 @@ It is often useful to provide links to specific resources related to a search. F
 
 To implement the example of a link to a “search tips” guide when a user performs a search with no results, we could simply add *default_noresults_recommend[] = RecommendLinks* to the [General] section of $VUFIND_LOCAL_DIR/config/vufind/searches.ini, and then, in the same file, add this to the [RecommendLinks] section:
 
-.. code-block:: console
+.. code-block:: properties
 
    Search Tips = http://library.myuniversity.edu/search-tips
 

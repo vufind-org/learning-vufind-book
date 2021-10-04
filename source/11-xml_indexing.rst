@@ -46,30 +46,30 @@ The import-xsl.php command accepts an optional --test-only switch, which puts it
 
 The result might look something like this:
 
-.. code-block:: console
+.. code-block:: xml
 
    <?xml version="1.0" encoding="utf-8"?>
-    <add xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:php="http://php.net/xsl" xmlns:xlink="http://www.w3.org/2001/XMLSchema-instance">
-     <doc>
-     <field name="id"/>
-     <field name="record_format">ojs</field>
-     <field name="allfields">The Useful Uselessness of the Humanities Roochnik, David Villanova University 2008-01-01 application/pdf http://expositions.journals.villanova.edu/article/view/82 Expositions; Vol 2, No 1 (2008); 19-26 North America Contemporary Authors who publish with this journal agree to the following terms:Authors retain copyright and grant the journal right of first publication with the work simultaneously licensed under a Creative Commons Attribution License that allows others to share the work with an acknowledgement of the work's authorship and initial publication in this journal.Authors are able to enter into separate, additional contractual arrangements for the non-exclusive distribution of the journal's published version of the work (e.g., post it to an institutional repository or publish it in a book), with an acknowledgement of its initial publication in this journal.Authors are permitted and encouraged to post their work online (e.g., in institutional repositories or on their website) prior to and during the submission process, as it can lead to productive exchanges, as well as earlier and greater citation of published work (See The Effect of Open Access).</field>
-     <field name="institution">My University</field>
-     <field name="collection">OJS</field>
-     <field name="format">Online</field>
-     <field name="author">Roochnik, David</field>
-     <field name="author_sort">Roochnik, David</field>
-     <field name="title">The Useful Uselessness of the Humanities</field>
-     <field name="title_short">The Useful Uselessness of the Humanities</field>
-     <field name="title_full">The Useful Uselessness of the Humanities</field>
-     <field name="title_sort">useful uselessness of the humanities</field>
-     <field name="description"> </field>
-     <field name="publisher">Villanova University</field>
-     <field name="publishDate">2008</field>
-     <field name="publishDateSort">2008</field>
-     <field name="url">http://expositions.journals.villanova.edu/article/view/82</field>
-    </doc>
-    </add>
+   <add xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:php="http://php.net/xsl" xmlns:xlink="http://www.w3.org/2001/XMLSchema-instance">
+      <doc>
+         <field name="id"/>
+         <field name="record_format">ojs</field>
+         <field name="allfields">The Useful Uselessness of the Humanities Roochnik, David Villanova University 2008-01-01 application/pdf http://expositions.journals.villanova.edu/article/view/82 Expositions; Vol 2, No 1 (2008); 19-26 North America Contemporary Authors who publish with this journal agree to the following terms:Authors retain copyright and grant the journal right of first publication with the work simultaneously licensed under a Creative Commons Attribution License that allows others to share the work with an acknowledgement of the work's authorship and initial publication in this journal.Authors are able to enter into separate, additional contractual arrangements for the non-exclusive distribution of the journal's published version of the work (e.g., post it to an institutional repository or publish it in a book), with an acknowledgement of its initial publication in this journal.Authors are permitted and encouraged to post their work online (e.g., in institutional repositories or on their website) prior to and during the submission process, as it can lead to productive exchanges, as well as earlier and greater citation of published work (See The Effect of Open Access).</field>
+         <field name="institution">My University</field>
+         <field name="collection">OJS</field>
+         <field name="format">Online</field>
+         <field name="author">Roochnik, David</field>
+         <field name="author_sort">Roochnik, David</field>
+         <field name="title">The Useful Uselessness of the Humanities</field>
+         <field name="title_short">The Useful Uselessness of the Humanities</field>
+         <field name="title_full">The Useful Uselessness of the Humanities</field>
+         <field name="title_sort">useful uselessness of the humanities</field>
+         <field name="description"> </field>
+         <field name="publisher">Villanova University</field>
+         <field name="publishDate">2008</field>
+         <field name="publishDateSort">2008</field>
+         <field name="url">http://expositions.journals.villanova.edu/article/view/82</field>
+      </doc>
+   </add>
 
 11.3 Batch-Loading XML
 ----------------------

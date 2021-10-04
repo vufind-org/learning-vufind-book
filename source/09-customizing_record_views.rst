@@ -36,7 +36,7 @@ To address these issues, VuFind 4.0 introduced a new view helper called the Reco
 To see how the RecordDataFormatter is configured, you can look at the factory code which builds the view helper, which is found in $VUFIND_HOME/module/VuFind/src/VuFind/View/Helper/Root/RecordDataFormatterFactory.php. If you are not familiar with PHP, this file will be quite intimidating at first glance, but once you recognize some basic patterns, most of it should make sense even if you do not fully understand the programming language behind it. At the top of the file, there is a method named __invoke(), which does the high-level
 work of building the view helper. You will notice several “setDefaults” lines, which establish default rules for which fields should be retrieved on particular templates. For example:
 
-.. code-block:: console
+.. code-block:: php
 
    $helper->setDefaults('core', [$this, 'getDefaultCoreSpecs']);
 
@@ -48,7 +48,7 @@ The SpecBuilder has several methods, including *setLine, setMultiLine*, and *set
 
 The *setLine* method offers the absolute simplest example. For example, take a look at this line from *getDefaultDescriptionSpecs()*:
 
-.. code-block:: console
+.. code-block:: php
 
    getDefaultDescriptionSpecs():
    $spec->setLine('Physical Description', 'getPhysicalDescriptions');
@@ -59,11 +59,11 @@ This simple case, taking only two parameters (label and method) takes advantage 
 
 The other two methods(*setTemplateLine()* and *setMultiLine()*) are actually wrappers around *setLine()* which make it more convenient to set up some commonly-used advanced configurations. The *setTemplateLine()* method is by far the most commonly-used option; this retrieves data from a record driver method, but instead of displaying it “raw,” it instead passes it to its own record driver template for additional formatting. This is useful for data fields that need to be linked or labeled in special ways. This method is used to display many of VuFind’s default fields, which also means that if you want to change the way those fields are displayed, you can simply override the relevant template in your custom theme without having to touch the RecordDataFormatter configuration. Here is an example:
 
-.. code-block:: console
+.. code-block:: php
 
    $spec->setTemplateLine('Series', 'getSeries', 'data-series.phtml');
 
- As you can probably guess, this retrieves data from the record driver’s *getSeries()* method, formats that data using the data-series.phtml template, and then displays the result with a label of “Series:”.
+As you can probably guess, this retrieves data from the record driver’s *getSeries()* method, formats that data using the data-series.phtml template, and then displays the result with a label of “Series:”.
 
 The *setMultiLine()* method is only needed for some rare situations where a single record driver method returns data that needs to be displayed as multiple separate, labeled lines in the output. It allows you to set up a custom PHP function to sort out and format the data. It is rarely needed, and requires more advanced PHP knowledge to understand; if you are interested, you can look at the ‘Authors’ example in the *getDefaultCoreSpecs()* method.
 
@@ -119,7 +119,7 @@ If successful, you should see output similar to:
 
 Now if you edit $VUFIND_HOME/module/MyModule/src/MyModule/RecordDriver/SolrMarc.php, you will see that the generator has created an empty PHP class for you:
 
-.. code-block:: console
+.. code-block:: php
 
    <?php
 
@@ -132,7 +132,7 @@ Now if you edit $VUFIND_HOME/module/MyModule/src/MyModule/RecordDriver/SolrMarc.
 
 You simply need to add a method to provide access to the new donor_str_mv field. Edit the file so it looks like this:
 
-.. code-block:: console
+.. code-block:: php
 
    <?php
 
@@ -141,9 +141,9 @@ You simply need to add a method to provide access to the new donor_str_mv field.
    class SolrMarc extends \VuFind\RecordDriver\SolrMarc
    {
        public function getDonors()
-           {
-                   return $this->fields['donor_str_mv'] ?? [];
-           }
+       {
+           return $this->fields['donor_str_mv'] ?? [];
+       }
    }
 
 All of the Solr fields are exposed to the record driver as part of the *$this->fields* property. The *?? []* syntax simply means “if the requested value is not there, return an empty array instead.”
@@ -169,7 +169,7 @@ Next, create a file for your custom factory, called $VUFIND_HOME/module/MyModule
 
 You should fill in the file with this code:
 
-.. code-block:: console
+.. code-block:: php
 
    <?php
 
@@ -180,11 +180,11 @@ You should fill in the file with this code:
    class RecordDataFormatterFactory extends \VuFind\View\Helper\Root\RecordDataFormatterFactory
    {
        public function getDefaultCoreSpecs()
-           {
-                   $spec = new SpecBuilder(parent::getDefaultCoreSpecs());
-                           $spec->setLine('Donors', 'getDonors');
-                                   return $spec->getArray();
-           }
+         {
+            $spec = new SpecBuilder(parent::getDefaultCoreSpecs());
+            $spec->setLine('Donors', 'getDonors');
+            return $spec->getArray();
+         }
    }
 
 This code takes advantage of PHP inheritance – it calls the core code’s getDefaultCoreSpecs() method to get default configurations, then adds an additional line to display the donors. This way, even if the core code changes in a future VuFind release to add more fields, we can benefit from those improvements while still adding our additional local field.
@@ -193,17 +193,17 @@ By passing additional options, and by manipulating the array inherited from the 
 
 In any case, now that the factory is built, the last step is to register it in our theme configuration. Edit your $VUFIND_HOME/themes/localtheme/theme.config.php file, and edit it so it looks something like this:
 
-.. code-block:: console
+.. code-block:: php
 
    <?php
    return [
        'extends' => 'bootstrap3',
-           'helpers' => [
-                   'factories' => [
-                               'VuFind\View\Helper\Root\RecordDataFormatter' => 'MyModule\View\Helper\Root\RecordDataFormatterFactory',
-                                       ],
-                                   ],
-                               ];
+       'helpers' => [
+           'factories' => [
+               'VuFind\View\Helper\Root\RecordDataFormatter' => 'MyModule\View\Helper\Root\RecordDataFormatterFactory',
+            ],
+       ],
+   ];
 
 (The helpers section is the important part for the purposes of this example; if you have made other customizations, be sure to reconcile this addition with whatever existing configuration you have).
 

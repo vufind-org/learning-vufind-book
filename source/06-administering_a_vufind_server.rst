@@ -47,7 +47,7 @@ _______________________________
 
 Programs that can be started or stopped using systemd are known as services. Each is defined by a small configuration file found in /etc/systemd/system which tells the operating system how to manage the program. To manage VuFind’s Solr instance, you can create a file called /etc/systemd/system/vufind.service, containing the following:
 
-.. code-block:: console
+.. code-block:: properties
 
    After=network.target
 
