@@ -62,8 +62,8 @@ You should add a comma on the end of the ‘extends’ line, and put a ‘css’
     <?php
     return [
         'extends' => 'bootstrap3',
-            'css' => ['myinstitution.css']
-      ];
+        'css' => ['myinstitution.css']
+    ];
 
 This tells VuFind to add a CSS file called myinstitution.css to every page of its interface; we chose the name myinstitution.css to avoid any possible naming conflict with the core themes (of course, you could replace “myinstitution” with the actual name of your institution if you wished). You only need to specify the filename itself, not any path information; VuFind will search for this filename in your theme’s css folder, and should it fail to find it, it will also search through all of the parent themes.
 
