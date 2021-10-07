@@ -72,7 +72,7 @@ The more you understand about both HTML and PHP, the more comfortable you will b
 
 Most of a template is just plain HTML. However, you may see some :code:`<?php … ?>` blocks containing PHP logic, and some :code:`<?= … ?>` blocks used for displaying variables inline. For example, you might see something like this:
 
-.. code-block:: console
+.. code-block:: php
 
    <?php if (isset($title)): ?>
      <h1><?=$title?></h1>

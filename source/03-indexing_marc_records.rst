@@ -103,7 +103,7 @@ As noted above under 3.4.2, VuFind’s default indexing configuration includes s
 
 Next, use your editor of choice to edit the resulting $VUFIND_LOCAL_DIR/import/marc_local.properties file. You will see that it contains lines that look like this:
 
-.. code-block:: console
+.. code-block:: properties
  
    # Uncomment the following settings to insert appropriate values for your site:
    #collection = "Catalog"
@@ -112,7 +112,7 @@ Next, use your editor of choice to edit the resulting $VUFIND_LOCAL_DIR/import/m
 
 Note that all of these lines start with a # character – the # symbol at the beginning of a line tells SolrMarc that these are comments intended for a human, and they should be ignored by the software. Lines such as these are said to be “commented out.” You can “uncomment” them by removing the # signs, and then SolrMarc will obey the instructions. For example, you could change them to look like this:
 
-.. code-block:: console
+.. code-block:: properties
 
    # Uncomment the following settings to insert appropriate values for your site:
    collection = "Online Catalog"
@@ -128,7 +128,7 @@ When indexing records, it is very important to make sure that the “id” field
 
 In VuFind’s default configuration, the MARC 001 field is used to populate “id.” This will work correctly for many systems, but there are some that place the bibliographic identifier in a different place. For example, some methods of exporting records from the Koha ILS will put the appropriate identifier in field 999, subfield c. Thus, to index these records correctly into VuFind, you would have to establish and edit a local copy of marc_local.properties (as described under 3.5.1 above), and then add the line:
 
-.. code-block:: console
+.. code-block:: properties
 
    id = 999c, first
 

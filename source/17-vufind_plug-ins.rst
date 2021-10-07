@@ -116,7 +116,7 @@ The output will resemble this:
 
 You will now have an empty recommendation module set up in $VUFIND_HOME/module/MyModule/src/MyModule/Recommend/LocalText.php:
 
-.. code-block:: console
+.. code-block:: php
 
    <?php
 
@@ -124,32 +124,30 @@ You will now have an empty recommendation module set up in $VUFIND_HOME/module/M
 
    class LocalText implements \VuFind\Recommend\RecommendInterface
    {
-
-
    }
 
 
 Now all that is left is to fill in the code to fulfill the requirements of the RecommendInterface, which every recommendation module needs to implement. This interface contains three methods: setConfig(), which processes configuration settings passed in from the .ini file; init(), which can make adjustments to search backend parameters prior to performing the search; and process(), which can extract data from search results after the search has been completed. For our current example, none of these methods need to do any work, but we still need to define them to comply with the interface. We can simply add them to the file, so that it looks like this:
 
-.. code-block:: console
+.. code-block:: php
 
    <?php
 
    namespace MyModule\Recommend;
 
    class LocalText implements \VuFind\Recommend\RecommendInterface
-    {
-    public function setConfig($settings)
-    {
-    }
+   {
+       public function setConfig($settings)
+       {
+       }
 
-    public function init($params, $request)
-    {
-    }
+       public function init($params, $request)
+       {
+       }
 
-    public function process($results)
-    {
-    }
+       public function process($results)
+       {
+       }
    }
 
 Additional functionality can be added to these stub functions in the future if the need should arise, but simply defining them so that they do nothing is good enough for the purposes of this example
@@ -159,7 +157,7 @@ __________________________________________________
 
 Every recommendation module needs a template file to serve as its view component so that it can be displayed on screen. By convention, these match the name of the class and are stored in the Recommend folder of the template directory. If you set up a local theme named “localtheme” as described in section 7.2, you could edit the file $VUFIND_HOME/themes/localtheme/templates/Recommend/LocalText.phtml to set up the view for your recommendation module. For example, try something like this:
 
-.. code-block:: console
+.. code-block:: php
 
    <p>If you need more help, be sure to talk to a librarian!</p>
 
@@ -169,7 +167,7 @@ ___________________________________
 Now, the only thing left to do is to make your new recommendation module visible. For example, you could edit your $VUFIND_LOCAL_DIR/config/vufind/searches.ini (remember to copy it from $VUFIND_HOME/config/vufind/searches.ini if you don’t already have one) and add this to the [General] section:
 
 
-.. code-block:: console
+.. code-block:: ini
 
    default_top_recommend[] = LocalText
 
@@ -181,7 +179,7 @@ ________________________
 
 While this example has now served the purpose of showing how you can create a very simple plug-in, we can make a few more adjustments to this example to also show off more of the power of custom recommendation modules. So far, we have shown that you can build a custom class and template to display some text, but the custom class doesn’t actually do anything. Let’s revise it to make it configurable. Change the PHP file so that it contains this content:
 
-.. code-block:: console
+.. code-block:: php
 
    <?php
     namespace MyModule\Recommend;
@@ -191,11 +189,11 @@ While this example has now served the purpose of showing how you can create a ve
         protected $name = 'a librarian';
 
         public function setConfig($settings)
-         {
+        {
             if (!empty($settings)) {
                $this->name = $settings;
-          }
-         }
+            }
+        }
 
         public function init($params, $request)
         {
@@ -213,13 +211,13 @@ While this example has now served the purpose of showing how you can create a ve
 
 And change the template so that it contains this content:
 
-.. code-block:: console
+.. code-block:: php
 
     <p>If you need more help, be sure to talk to <?=$this->escapeHtml($this->recommend->getName())?>!</p>
 
 Now, if you refresh your search results, you will still see the same text as before… but you have gained the ability to override the name being displayed through the configuration file. Try editing searches.ini like this:
 
-.. code-block:: console
+.. code-block:: ini
 
     default_top_recommend[] = "LocalText:Your Name Here"
 

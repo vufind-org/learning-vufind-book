@@ -89,7 +89,7 @@ The searchspecs.yaml file (found in $VUFIND_HOME/config/vufind along with VuFind
 
 Under the documentation comment, there are a number of sections defining VuFind’s “search handlers” – the options that can be configured in searches.ini, which define different types of searches (title, author, subject, etc.) that users can perform. Here is an example, defining VuFind’s “Author” search:
 
-.. code-block:: console
+.. code-block:: yaml
 
    Author:
      DismaxFields:
@@ -118,7 +118,7 @@ _________________________
 
 Whenever VuFind performs a DisMax search, it looks for user search terms across a set of fields, then does some mathematical analysis on the matches it finds to calculate which documents have the best matches, for the purpose of putting the result set in a useful order. This relevance calculation is informed to a large extent by relative weights applied to the fields being searched. In searchspecs.yaml, the DismaxFields section serves the dual purposes of defining which fields Solr should search across and assigning relative weights to those fields. To return to the Author example from above:
 
-.. code-block:: console
+.. code-block:: yaml
 
    DismaxFields:
        - author^100
@@ -148,14 +148,14 @@ Sometimes, when calculating relevance, ranking documents on which fields match t
 
 Boost queries are the simplest to use. You simply provide a bq parameter whose value is a Solr search query. Any documents that match the boost query will receive a relevance boost. For example, if you wanted to boost documents with a format field value of “Book,” you could add this configuration to the relevant searchspecs.yaml section:
 
-.. code-block:: console
+.. code-block:: yaml
 
    DismaxParams
    - [bq, format:Book]
 
 Another simple option is phrase boosting; if you specify a field name in the pf parameter, then Solr will apply extra weight to documents in which the user’s search terms appear as a phrase within the specified field. This helps to break ties between documents that contain matching terms that are far apart, and documents that contain the same matching terms closer together. This can be especially valuable for title searching. For example, you might add this to the “Title” section:
 
-.. code-block:: console
+.. code-block:: yaml
 
     DismaxParams:
         - [pf, title_full]
@@ -166,7 +166,7 @@ Finally, an advanced option is to provide a boost function using the bf paramete
 ^^^^^^^^^^^^^^^^^^^^^^^^
 VuFind is configured that, by default, when a user enters multiple search terms to perform a DisMax search, only records that match ALL of those terms will be returned. However, DisMax can be more tolerant of partial matching – for example, if you want to return records that match 75% of search terms, even if no records match 100% of terms. This extra level of tolerance can be useful, especially when dealing with very long queries. Solr’s mm (“minimum should match”) parameter controls this behavior, and it supports a variety of different scenarios. You can set minimum matching requirements, or you can allow tolerance for certain levels of unmatched clauses. You can even specify different rules for different numbers of incoming terms. See the Solr documentation for a full explanation of how these settings work. Here is a simple example, ensuring that at least 75% of search terms must match:
 
-.. code-block:: console
+.. code-block:: yaml
 
      DismaxParams:
          - [mm, 75%]
@@ -179,7 +179,7 @@ ______________
 
 This is probably best explained with another example:
 
-.. code-block:: console
+.. code-block:: yaml
 
      oclc_num:
        CustomMunge:

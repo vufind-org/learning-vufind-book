@@ -19,21 +19,21 @@ When a user accesses one of VuFind’s URLs, the laminas-router system is trigge
 
 For example, if the user enters http://localhost/vufind/Example/Page, they will most likely match VuFind’s default routing rule, defined in $VUFIND_HOME/module/VuFind/config/module.config.php:
 
-.. code-block:: console 
+.. code-block:: php 
 
    'default' => [
-    'type'    => 'Laminas\Router\Http\Segment',
-    'options' => [
-        'route'    => '/[:controller[/[:action]]]',
-        'constraints' => [
-            'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-            'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-        ],
-        'defaults' => [
-            'controller' => 'index',
-            'action'     => 'Home',
-        ],
-    ],
+       'type'    => 'Laminas\Router\Http\Segment',
+       'options' => [
+           'route'    => '/[:controller[/[:action]]]',
+           'constraints' => [
+               'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+               'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+           ],
+           'defaults' => [
+               'controller' => 'index',
+               'action'     => 'Home',
+           ],
+       ],
    ],
 
 This particular route uses a ‘type’ of ‘Laminas\Router\Http\Segment’, which means that the route definition in ‘route’ can contain “segments” that start with colons (like :controller and :action), allowing parts of the user’s URL to be extracted and passed along to other parts of the code. Some of the route definition is enclosed in brackets, making it optional. Defaults are provided to give values to the segments in case the user omits them entirely – so with this route definition, accessing simply http://localhost/vufind is effectively the same as accessing http://localhost/vufind/index/Home. 
@@ -72,7 +72,7 @@ VuFind’s plugin generator can create controllers starting with VuFind 7.0, so 
 
 This command will create a file called $VUFIND_HOME/module/MyModule/src/MyModule/Controller/ExampleController.php. The class will be empty when generated, so you should edit it to add a basic pageAction(), like this:
 
-.. code-block:: console
+.. code-block:: php
    
     <?php
      
@@ -97,7 +97,7 @@ _______________________________
 
 By convention, the template file displayed by the pageAction of the ExampleController should be named example/page.phtml, so you should create the file $VUFIND_HOME/themes/localtheme/templates/example/page.phtml. You can put any HTML and/or PHP logic in here that you like. For example:
 
-.. code-block:: console 
+.. code-block:: php 
 
    <p>Hello, world!</p>
 
@@ -114,7 +114,7 @@ For simple routes like this one, VuFind has a “staticroute” generator you ca
 
 This will create some route configuration inside MyModule’s config/module.config.php file defining a route named ‘example-page’ which matches an ‘/Example/Page’ URL and routes the user to the pageAction of the ExampleController. The main advantage to this over simply relying on the default route is that it allows you to generate links to your new page by using the URL view helper with the route name. For example, you could edit your $VUFIND_HOME/themes/localtheme/templates/example/page.phtml like this:
 
-.. code-block:: console
+.. code-block:: php
 
    <?php $link = $this->url('example-page'); ?>
    <p>Hello, world! The link to this page is <a href="<?=$this->escapeHtmlAttr($link)?>"><?=$this->escapeHtml($link)?></a>.</p>
