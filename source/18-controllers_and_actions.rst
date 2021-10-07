@@ -22,18 +22,18 @@ For example, if the user enters http://localhost/vufind/Example/Page, they will 
 .. code-block:: php 
 
    'default' => [
-    'type'    => 'Laminas\Router\Http\Segment',
-    'options' => [
-        'route'    => '/[:controller[/[:action]]]',
-        'constraints' => [
-            'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-            'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-        ],
-        'defaults' => [
-            'controller' => 'index',
-            'action'     => 'Home',
-        ],
-    ],
+       'type'    => 'Laminas\Router\Http\Segment',
+       'options' => [
+           'route'    => '/[:controller[/[:action]]]',
+           'constraints' => [
+               'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+               'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+           ],
+           'defaults' => [
+               'controller' => 'index',
+               'action'     => 'Home',
+           ],
+       ],
    ],
 
 This particular route uses a ‘type’ of ‘Laminas\Router\Http\Segment’, which means that the route definition in ‘route’ can contain “segments” that start with colons (like :controller and :action), allowing parts of the user’s URL to be extracted and passed along to other parts of the code. Some of the route definition is enclosed in brackets, making it optional. Defaults are provided to give values to the segments in case the user omits them entirely – so with this route definition, accessing simply http://localhost/vufind is effectively the same as accessing http://localhost/vufind/index/Home. 
