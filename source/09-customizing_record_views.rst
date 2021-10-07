@@ -127,7 +127,6 @@ Now if you edit $VUFIND_HOME/module/MyModule/src/MyModule/RecordDriver/SolrMarc.
 
    class SolrMarc extends \VuFind\RecordDriver\SolrMarc
    {
-
    }
 
 You simply need to add a method to provide access to the new donor_str_mv field. Edit the file so it looks like this:
