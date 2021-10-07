@@ -25,7 +25,7 @@ The reserved sections affect global aspects of the combined screen: how to lay o
 
 For example, suppose we want to show our standard Solr search results side-by-side with our website search results. We want to load the Solr results “inline” (so they are immediately available when the page loads) but we want to load the website results using AJAX (meaning that they will “pop in” shortly after the rest of the page has loaded – using AJAX makes the overall page load more quickly, though some results may take additional time to appear). The configuration would look like this ($VUFIND_LOCAL_DIR/config/vufind/combined.ini):
 
-.. code-block:: properties
+.. code-block:: ini
 
    [Layout]
    columns = 2
@@ -42,7 +42,7 @@ For example, suppose we want to show our standard Solr search results side-by-si
 
 VuFind’s combined search feature also includes the ability to create specialized boxes by applying filters to search backends. For example, if you wanted to highlight online materials in your catalog, you could create a special box to show them. To do this, you simply need to add a colon and a differentiating name after the search backend name in the configuration, then populate the filter or hiddenFilter setting. The difference between a “filter” and a “hiddenFilter” is whether or not the user interface will show the filter as an applied facet. If you use “filter” and the user clicks through to the full search results, they will see the filter and can remove it; if you use “hiddenFilter,” the filter will be applied but there will be no control to get rid of it. The “hiddenFilter” control is useful in combination with filtered search tabs (described below in section 13.3), but “filter” will provide a better user experience in other situations. The “online” example could be set up like this:
 
-.. code-block:: properties
+.. code-block:: ini
 
    [Solr:online]
    label = Online Material
@@ -63,7 +63,7 @@ VuFind offers a configuration file to control the behavior of the search box tha
 
 To turn on combined options in the search box, simply copy $VUFIND_HOME/config/vufind/searchbox.ini into $VUFIND_LOCAL_DIR/config/vufind/, turn on the combinedHandlers option in the [General] section, and populate the [CombinedHandlers] section with the appropriate options. For example:
 
-.. code-block:: properties
+.. code-block:: ini
 
    [General]
    combinedHandlers = true
@@ -94,7 +94,7 @@ When search tabs are enabled, tabs will appear near the search box. When search 
 
 Configuration of search tabs takes place in config.ini’s [SearchTabs] section. Simply create a map of search handler names to labels. To continue this chapter’s example of combined bibliographic and website searching, you could use these settings:
 
-.. code-block:: properties
+.. code-block:: ini
 
    [SearchTabs]
    Solr = Catalog
@@ -102,7 +102,7 @@ Configuration of search tabs takes place in config.ini’s [SearchTabs] section.
 
 VuFind’s search tab feature also includes the ability to create specialized tabs by applying filters to search backends, similar to the way combined search Bento Boxes can be filtered. To do this, you simply need to add a colon and a differentiating name after the search backend name in the configuration. Then you need to add an entry to the [SearchTabsFilters] section of the configuration specifying the filter(s) to apply. The “online” tab example from section 13.1 could be set up as a tab like this:
 
-.. code-block:: properties
+.. code-block:: ini
 
    [SearchTabs]
    Solr = Catalog

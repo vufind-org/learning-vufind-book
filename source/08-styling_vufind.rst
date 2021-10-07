@@ -86,7 +86,7 @@ If you look in $VUFIND_HOME/themes/localtheme/less after generating the theme, y
 
 If you edit custom.less, you will see that its first line is:
 
-.. code-block:: css
+.. code-block:: less
 
    @import “bootstrap”;
 
@@ -98,13 +98,13 @@ If you wanted to implement the same background color change that was used as an 
 
 First, edit $VUFIND_HOME/themes/localtheme/less/custom.less, and change this line:
 
-.. code-block:: css
+.. code-block:: less
 
    @body-bg: #5ab48a;
 
 to
 
-.. code-block:: css
+.. code-block:: less
   
    @body-bg: #d0d0d8;
    

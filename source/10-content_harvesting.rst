@@ -56,7 +56,7 @@ ________________________________
 
 At a bare minimum, only two fields are actually required to perform an OAI-PMH harvest: the URL, which contains the base URL of the OAI-PMH server you are harvesting from, and metadataPrefix, which specifies the type of metadata to harvest. This is a very simple example that can be used to harvest records from the public DOAJ repository:
 
-.. code-block:: properties
+.. code-block:: ini
 
    [doaj]
    url = http://www.doaj.org/oai.article
@@ -110,7 +110,7 @@ It is also worth noting that most OAI-PMH record identifiers are quite verbose �
 
 If we wanted to replace the “oai:doaj.org/” prefix with a more concise “doaj_” prefix, we could revise our example configuration from earlier to:
 
-.. code-block:: properties 
+.. code-block:: ini
    
    [doaj]
    url = http://www.doaj.org/oai.article

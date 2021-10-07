@@ -167,7 +167,7 @@ ___________________________________
 Now, the only thing left to do is to make your new recommendation module visible. For example, you could edit your $VUFIND_LOCAL_DIR/config/vufind/searches.ini (remember to copy it from $VUFIND_HOME/config/vufind/searches.ini if you don’t already have one) and add this to the [General] section:
 
 
-.. code-block:: properties
+.. code-block:: ini
 
    default_top_recommend[] = LocalText
 
@@ -217,7 +217,7 @@ And change the template so that it contains this content:
 
 Now, if you refresh your search results, you will still see the same text as before… but you have gained the ability to override the name being displayed through the configuration file. Try editing searches.ini like this:
 
-.. code-block:: properties
+.. code-block:: ini
 
     default_top_recommend[] = "LocalText:Your Name Here"
 
