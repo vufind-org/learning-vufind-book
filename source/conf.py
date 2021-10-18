@@ -265,6 +265,8 @@ latex_elements = {
      \setcounter{chapter}{-1}
      \setcounter{secnumdepth}{0}
      \renewcommand{\numberline}[1]{}
+     \fancypagestyle{normal}{
+     }
      ''',
 
      # Latex figure (float) alignment
