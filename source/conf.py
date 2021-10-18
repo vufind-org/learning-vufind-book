@@ -266,6 +266,7 @@ latex_elements = {
      \setcounter{secnumdepth}{0}
      \renewcommand{\numberline}[1]{}
      \fancypagestyle{normal}{
+          \fancyfoot[LO,RE]{\nouppercase{\rightmark}}
      }
      ''',
 
