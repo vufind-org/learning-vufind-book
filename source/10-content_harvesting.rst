@@ -56,7 +56,7 @@ ________________________________
 
 At a bare minimum, only two fields are actually required to perform an OAI-PMH harvest: the URL, which contains the base URL of the OAI-PMH server you are harvesting from, and metadataPrefix, which specifies the type of metadata to harvest. This is a very simple example that can be used to harvest records from the public DOAJ repository:
 
-.. code-block:: console
+.. code-block:: ini
 
    [doaj]
    url = http://www.doaj.org/oai.article
@@ -69,7 +69,7 @@ _________________________________
 As noted above, every OAI-PMH server should support the default “oai_dc” metadata format; however, it is also possible that some services are also capable of providing richer formats like MARC. If the provider does not provide documentation about available formats, you can find a list by using the OAI- PMH protocol directly. Simply take the OAI-PMH server URL, add “?verb=ListMetadataFormats” to it, and open the resulting URL in your web browser. For example, for DOAJ, you could use https://www.doaj.org/oai.article?verb=ListMetadataFormats. The result will be an XML document that you can look through for “metadataPrefix” values. The DOAJ example returns this:
 
 
-.. code-block:: console
+.. code-block:: xml
    
    <?xml version="1.0" encoding="UTF-8"?>
    <OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/"
@@ -78,20 +78,19 @@ As noted above, every OAI-PMH server should support the default “oai_dc” met
    http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd">
    <responseDate>2020-03-25T14:46:53Z</responseDate>
    <request verb="ListMetadataFormats">http://www.doaj.org/oai.article</request>
-   <ListMetadataFormats>
-      <metadataFormat>
-         <metadataPrefix>oai_dc</metadataPrefix>
-         <schema>http://www.openarchives.org/OAI/2.0/oai_dc.xsd</schema>
-    <metadataNamespace>http://www.openarchives.org/OAI/2.0/oai_dc/</metadataNamespace>
-      </metadataFormat>
-      <metadataFormat>
-         <metadataPrefix>oai_doaj</metadataPrefix>
-         <schema>https://doaj.org/static/doaj/doajArticles.xsd</schema>
- 
-     <metadataNamespace>https://doaj.org/features/oai_doaj/1.0/</metadataNamespace>
-      </metadataFormat>
+      <ListMetadataFormats>
+         <metadataFormat>
+            <metadataPrefix>oai_dc</metadataPrefix>
+            <schema>http://www.openarchives.org/OAI/2.0/oai_dc.xsd</schema>
+            <metadataNamespace>http://www.openarchives.org/OAI/2.0/oai_dc/</metadataNamespace>
+         </metadataFormat>
+         <metadataFormat>
+            <metadataPrefix>oai_doaj</metadataPrefix>
+            <schema>https://doaj.org/static/doaj/doajArticles.xsd</schema>
+            <metadataNamespace>https://doaj.org/features/oai_doaj/1.0/</metadataNamespace>
+         </metadataFormat>
       </ListMetadataFormats>
-     </OAI-PMH>
+   </OAI-PMH>
 
 
 As you can see, this reveals support for not just the standard oai_dc format, but also for a locally- defined metadata format called oai_doaj.
@@ -111,7 +110,7 @@ It is also worth noting that most OAI-PMH record identifiers are quite verbose �
 
 If we wanted to replace the “oai:doaj.org/” prefix with a more concise “doaj_” prefix, we could revise our example configuration from earlier to:
 
-.. code-block:: console 
+.. code-block:: ini
    
    [doaj]
    url = http://www.doaj.org/oai.article

@@ -47,7 +47,7 @@ As an example, assume that you have created a custom theme named “localtheme�
 
 First, you should edit your $VUFIND_HOME/themes/localtheme/theme.config.php file; by default, it should look like this:
 
-.. code-block:: console
+.. code-block:: php
 
    <?php
    return [
@@ -57,19 +57,19 @@ First, you should edit your $VUFIND_HOME/themes/localtheme/theme.config.php file
 
 You should add a comma on the end of the ‘extends’ line, and put a ‘css’ line below that pointing to an array of filenames (which for now will include just one file):
 
-.. code-block:: console
+.. code-block:: php
 
     <?php
     return [
         'extends' => 'bootstrap3',
-            'css' => ['myinstitution.css']
-      ];
+        'css' => ['myinstitution.css']
+    ];
 
 This tells VuFind to add a CSS file called myinstitution.css to every page of its interface; we chose the name myinstitution.css to avoid any possible naming conflict with the core themes (of course, you could replace “myinstitution” with the actual name of your institution if you wished). You only need to specify the filename itself, not any path information; VuFind will search for this filename in your theme’s css folder, and should it fail to find it, it will also search through all of the parent themes.
 
 In order to ensure that VuFind actually finds something when it does its search, you should also create the expected file by editing $VUFIND_HOME/themes/localtheme/css/myinstitution.css. You can paste in this content:
 
-.. code-block:: console
+.. code-block:: css
 
    body {
     background-color: #d0d0d8;
@@ -86,7 +86,7 @@ If you look in $VUFIND_HOME/themes/localtheme/less after generating the theme, y
 
 If you edit custom.less, you will see that its first line is:
 
-.. code-block:: console
+.. code-block:: less
 
    @import “bootstrap”;
 
@@ -98,13 +98,13 @@ If you wanted to implement the same background color change that was used as an 
 
 First, edit $VUFIND_HOME/themes/localtheme/less/custom.less, and change this line:
 
-.. code-block:: console
+.. code-block:: less
 
    @body-bg: #5ab48a;
 
 to
 
-.. code-block:: console
+.. code-block:: less
   
    @body-bg: #d0d0d8;
    
