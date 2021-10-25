@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 Welcome to Learning VuFind®!
-===========================
+============================
 
 .. toctree::
    :maxdepth: 2
@@ -12,7 +12,7 @@ Welcome to Learning VuFind®!
    00-preface
 
 Part 1. VuFind® Basics
-_____________________
+______________________
 
 .. toctree::
    :maxdepth: 2
@@ -62,7 +62,7 @@ ________________________________________
    15-other_search_backends
 
 Part 6. Extending and Customizing VuFind®’s Code
-_______________________________________________
+________________________________________________
 
 .. toctree::
    :maxdepth: 2
