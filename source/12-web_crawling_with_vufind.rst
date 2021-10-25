@@ -85,7 +85,7 @@ If you wish to customize the behavior of the web search, there are several files
 
 - $VUFIND_HOME/config/vufind/websearchspecs.yaml – This file contains rules used for managing relevance ranking of search results, following the same format as the main searchspecs.yaml used by the biblio core. See section 5.2 for more detail.
 
-- templates/RecordDriver/SolrWeb/result-list.phtml – This template file can be overridden within your theme to change the way individual web results are displayed in the search result list; the VuFind®\RecordDriver\SolrWeb class can also be extended to add functionality as needed. For more on customizing record views, see chapter 9.
+- templates/RecordDriver/SolrWeb/result-list.phtml – This template file can be overridden within your theme to change the way individual web results are displayed in the search result list; the VuFind\RecordDriver\SolrWeb class can also be extended to add functionality as needed. For more on customizing record views, see chapter 9.
 
 Unless you are planning on using VuFind® exclusively for web searching, you will likely want to make it convenient for users to seamlessly search across both the web index and the main bibliographic record index. See chapter 13 for more on how to combine different types of searches using VuFind®.
 

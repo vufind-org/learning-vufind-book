@@ -102,7 +102,7 @@ As discussed further in section 17.2.1, VuFind® contains a code generator tool 
 .. code-block:: console
 
    cd $VUFIND_HOME
-   php public/index.php generate extendclass VuFind®\\RecordDriver\\SolrMarc MyModule
+   php public/index.php generate extendclass VuFind\\RecordDriver\\SolrMarc MyModule
 
 
 Note the double backslashes in the class name; because backslash has a special meaning to the Unix command line, it is necessary to “escape” the backslash characters on the command line, or else they will not be passed to the generator correctly.
@@ -125,7 +125,7 @@ Now if you edit $VUFIND_HOME/module/MyModule/src/MyModule/RecordDriver/SolrMarc.
 
    namespace MyModule\RecordDriver;
 
-   class SolrMarc extends \VuFind®\RecordDriver\SolrMarc
+   class SolrMarc extends \VuFind\RecordDriver\SolrMarc
    {
    }
 
@@ -137,7 +137,7 @@ You simply need to add a method to provide access to the new donor_str_mv field.
 
    namespace MyModule\RecordDriver;
 
-   class SolrMarc extends \VuFind®\RecordDriver\SolrMarc
+   class SolrMarc extends \VuFind\RecordDriver\SolrMarc
    {
        public function getDonors()
        {
@@ -174,9 +174,9 @@ You should fill in the file with this code:
 
    namespace MyModule\View\Helper\Root;
 
-   use VuFind®\View\Helper\Root\RecordDataFormatter\SpecBuilder;
+   use VuFind\View\Helper\Root\RecordDataFormatter\SpecBuilder;
 
-   class RecordDataFormatterFactory extends \VuFind®\View\Helper\Root\RecordDataFormatterFactory
+   class RecordDataFormatterFactory extends \VuFind\View\Helper\Root\RecordDataFormatterFactory
    {
        public function getDefaultCoreSpecs()
          {
@@ -199,7 +199,7 @@ In any case, now that the factory is built, the last step is to register it in o
        'extends' => 'bootstrap3',
        'helpers' => [
            'factories' => [
-               'VuFind®\View\Helper\Root\RecordDataFormatter' => 'MyModule\View\Helper\Root\RecordDataFormatterFactory',
+               'VuFind\View\Helper\Root\RecordDataFormatter' => 'MyModule\View\Helper\Root\RecordDataFormatterFactory',
             ],
        ],
    ];

@@ -42,7 +42,7 @@ To learn about the Laminas router component in more detail, see the documentatio
 
 To continue the example of accessing the URL of http://localhost/vufind/Example/Page, the default route defined above would extract a ‘controller’ value of ‘Example’ and an ‘action’ value of ‘Page’. These route values have special meanings when used in the laminas-mvc framework that VuFind® is built on: they control which PHP code gets executed.
 
-First, the controller value is used to look up a controller class in the controller plugin manager (see chapter 17 for more on plugin managers). By convention, VuFind’s controllers are set up with short names as aliases to make routing configuration more readable – thus, if VuFind® had a VuFind®\Controller\ExampleController, it would also have an alias configuration allowing ‘Example’ to be used as a shorthand for retrieving the controller from the plugin manager.
+First, the controller value is used to look up a controller class in the controller plugin manager (see chapter 17 for more on plugin managers). By convention, VuFind’s controllers are set up with short names as aliases to make routing configuration more readable – thus, if VuFind® had a VuFind\Controller\ExampleController, it would also have an alias configuration allowing ‘Example’ to be used as a shorthand for retrieving the controller from the plugin manager.
 
 If no matching controller can be found, VuFind® will throw a 404 not found error… but if a controller exists, the action parameter from the route will be used to call a matching method on the controller. Controller actions must be named as an action name, followed by the word Action – so in the current example, VuFind® would attempt to call the pageAction() method on the ExampleController.
 
@@ -52,7 +52,7 @@ In some special cases, controller actions may instead return a Laminas\Http\Resp
 
 Controllers are discussed in more detail in the Laminas documentation at https://docs.laminas.dev/laminas-mvc/controllers/.
 
-Most of VuFind’s controllers extend the VuFind®\Controller\AbstractBase class, which provides some helpful convenience methods for common VuFind®-related activities. For example, there is a createViewModel() method which constructs a ViewModel object with some useful pre-populated values. In general, when adding new functionality to VuFind®, it is useful to examine existing controllers and actions providing similar functionality, as there may be some patterns observed there that can be usefully emulated.
+Most of VuFind’s controllers extend the VuFind\Controller\AbstractBase class, which provides some helpful convenience methods for common VuFind®-related activities. For example, there is a createViewModel() method which constructs a ViewModel object with some useful pre-populated values. In general, when adding new functionality to VuFind®, it is useful to examine existing controllers and actions providing similar functionality, as there may be some patterns observed there that can be usefully emulated.
 
 18.2 Example: Adding a Page to VuFind®
 --------------------------------------
@@ -64,11 +64,11 @@ For the purposes of this example, we will assume that you have a local code modu
 18.2.1 Creating the ExampleController
 -------------------------------------
 
-VuFind’s plugin generator can create controllers starting with VuFind® 7.0, so this command will establish the ExampleController and configure it to be built using the standard VuFind®\Controller\AbstractBaseFactory:
+VuFind’s plugin generator can create controllers starting with VuFind® 7.0, so this command will establish the ExampleController and configure it to be built using the standard VuFind\Controller\AbstractBaseFactory:
 
 .. code-block:: console
 
-   php $VUFIND_HOME/public/index.php generate plugin MyModule\\Controller\\ExampleController VuFind®\\Controller\\AbstractBaseFactory
+   php $VUFIND_HOME/public/index.php generate plugin MyModule\\Controller\\ExampleController VuFind\\Controller\\AbstractBaseFactory
 
 This command will create a file called $VUFIND_HOME/module/MyModule/src/MyModule/Controller/ExampleController.php. The class will be empty when generated, so you should edit it to add a basic pageAction(), like this:
 
@@ -78,7 +78,7 @@ This command will create a file called $VUFIND_HOME/module/MyModule/src/MyModule
      
     namespace MyModule\Controller;
      
-    class ExampleController extends \VuFind®\Controller\AbstractBase
+    class ExampleController extends \VuFind\Controller\AbstractBase
     {
         /**
          *

@@ -42,7 +42,7 @@ There are a couple of things you’ll need to remember to make the most of the g
 
 • Make sure you have all of your environment variables, including VUFIND_LOCAL_MODULES, exported correctly when running the generators, or else they will not be able to find the right place to put your custom code. See section 16.3.3 for more discussion of local modules.
 
-• Many of the commands require you to type fully qualified PHP class names. Because these class names include backslash (\) characters, and these characters have special meaning on the command line, you will need to escape them by doubling them. So be sure you type (for example) “VuFind®\\Recommend\\SideFacets” and not “VuFind®\Recommend\SideFacets” when you list a class name as a parameter.
+• Many of the commands require you to type fully qualified PHP class names. Because these class names include backslash (\) characters, and these characters have special meaning on the command line, you will need to escape them by doubling them. So be sure you type (for example) “VuFind\\Recommend\\SideFacets” and not “VuFind\Recommend\SideFacets” when you list a class name as a parameter.
 
 
 
@@ -57,13 +57,13 @@ Example 1: Extend the SideFacets Recommendation Module, Keep the Existing Factor
 
 .. code-block:: console
 
-    php $VUFIND_HOME/public/index.php generate extendclass VuFind®\\Recommend\\SideFacets MyModule
+    php $VUFIND_HOME/public/index.php generate extendclass VuFind\\Recommend\\SideFacets MyModule
 
 Example 2: Extend the Koha ILS Driver, Use a Custom Factory
 
 .. code-block:: console
 
-    php $VUFIND_HOME/public/index.php generate extendclass --extendfactory VuFind®\\ILS\\Driver\\Koha MyModule
+    php $VUFIND_HOME/public/index.php generate extendclass --extendfactory VuFind\\ILS\\Driver\\Koha MyModule
 
 Example 3: Extend an ILS Driver
 See section 9.3.2 for another example of this code generator in action.
@@ -92,7 +92,7 @@ As discussed in chapter 14, recommendation modules provide a way to supplement s
 17.3.1 Building the Recommendation Module Class
 _______________________________________________
 
-This example will assume that your local module is set up and named MyModule, and that the recommendation module class you want to create will be named MyModule\Recommend\LocalText. Every part of this name is meaningful to VuFind®’s generator tool: the first part of the namespace (MyModule) tells it that the class needs to be created inside the MyModule module; the middle part of the namespace (Recommend) tells it to create a recommendation module, since every VuFind® recommendation module is in the “VuFind®\Recommend” namespace; the final part specifies the actual class name being created.
+This example will assume that your local module is set up and named MyModule, and that the recommendation module class you want to create will be named MyModule\Recommend\LocalText. Every part of this name is meaningful to VuFind®’s generator tool: the first part of the namespace (MyModule) tells it that the class needs to be created inside the MyModule module; the middle part of the namespace (Recommend) tells it to create a recommendation module, since every VuFind® recommendation module is in the “VuFind\Recommend” namespace; the final part specifies the actual class name being created.
 
 Because our example is going to be very simple and will have no external dependencies, we do not need to build a custom factory for it. Instead, we want to use the standard, framework-provided Laminas\ServiceManager\Factory\InvokableFactory which (as discussed in section 16.4) simply constructs objects without passing any parameters to them.
 
@@ -122,7 +122,7 @@ You will now have an empty recommendation module set up in $VUFIND_HOME/module/M
 
    namespace MyModule\Recommend;
 
-   class LocalText implements \VuFind®\Recommend\RecommendInterface
+   class LocalText implements \VuFind\Recommend\RecommendInterface
    {
    }
 
@@ -135,7 +135,7 @@ Now all that is left is to fill in the code to fulfill the requirements of the R
 
    namespace MyModule\Recommend;
 
-   class LocalText implements \VuFind®\Recommend\RecommendInterface
+   class LocalText implements \VuFind\Recommend\RecommendInterface
    {
        public function setConfig($settings)
        {
@@ -184,7 +184,7 @@ While this example has now served the purpose of showing how you can create a ve
    <?php
     namespace MyModule\Recommend;
 
-    class LocalText implements \VuFind®\Recommend\RecommendInterface
+    class LocalText implements \VuFind\Recommend\RecommendInterface
     {
         protected $name = 'a librarian';
 
