@@ -17,7 +17,7 @@ As discussed in section 16.2, VuFind® uses the laminas-mvc package to implement
 
 When a user accesses one of VuFind’s URLs, the laminas-router system is triggered. The router component compares the text of the request URL against a set of rules configured in VuFind’s Laminas modules in order to figure out which piece of controller code to dispatch.
 
-For example, if the user enters http://localhost/vufind/Example/Page, they will most likely match VuFind’s default routing rule, defined in $VUFIND_HOME/module/VuFind®/config/module.config.php:
+For example, if the user enters http://localhost/vufind/Example/Page, they will most likely match VuFind’s default routing rule, defined in $VUFIND_HOME/module/VuFind/config/module.config.php:
 
 .. code-block:: php 
 
