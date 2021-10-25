@@ -56,7 +56,7 @@ ________________________________
 
 VuFind® contains several code modules, found under the $VUFIND_HOME/modules directory; as of release 7.0, they are:
 
-•       VuFind® – the core of VuFind®, containing the majority of the code.
+•       VuFind – the core of VuFind®, containing the majority of the code.
 •       VuFindAdmin – code for VuFind®’s web-based administration panel.
 •       VuFindApi – code for exposing VuFind® search results and records through an API.
 •       VuFindConsole – code for all of VuFind®’s command-line utilities.
