@@ -69,12 +69,12 @@ To turn on combined options in the search box, simply copy $VUFIND_HOME/config/v
    combinedHandlers = true
 
    [CombinedHandlers]
-   type[] = VuFind®
+   type[] = VuFind
    target[] = Solr
    label[] = Catalog
    group[] = false
 
-   type[] = VuFind®
+   type[] = VuFind
    target[] = SolrWeb
    label[] = Website
    group[] = false
