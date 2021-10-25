@@ -1,6 +1,6 @@
-############################
+#############################
 Chapter 2. Installing VuFind®
-############################
+#############################
 
 Learning Objectives
 -------------------
@@ -117,7 +117,7 @@ The “version control” portion of “distributed version control” refers to
 The “distributed” part of “distributed version control” refers to the fact that every user of Git creates their own “clone” or “fork” of the software repository that they are working with. They end up with a full copy of all of the history and changes, to which they can add their own commits, branches and tags. This is a significant difference from earlier version control systems like Subversion, which relied on a single shared server to hold all of the change history, which made it more difficult for large groups of developers to work independently of one another. Git comes with tools for “pushing” and “pulling” changes between repositories, so users can work independently with their local repositories without having to worry about what others are doing, and then they can share their work “upstream” when it is in an appropriately polished state.
 
 2.3.1.2 Installing VuFind® with Git
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 To install VuFind® using Git, you first need to clone the official VuFind® Git repository. If you wish to install the software in the default /usr/local/vufind directory, you could do it like this:
 
@@ -186,7 +186,7 @@ Vagrant allows you to create a file called “Vagrantfile” which defines a bas
 Manually setting up a VM can be a time-consuming and labor-intensive process; Vagrant makes this mostly automatic. A single command can create and configure a VM, and another command can destroy it when you are finished using it.
 
 2.3.2.2 Using Vagrant to Run VuFind®
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Using Vagrant to run VuFind® is quite simple. No matter what method you used to install VuFind®, you will find a Vagrantfile in the directory where the software was installed. You can switch to that directory and run:
 

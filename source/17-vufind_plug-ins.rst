@@ -1,6 +1,6 @@
-###########################
+############################
 Chapter 17. VuFind® Plug-Ins
-###########################
+############################
 
 After reading this chapter, you will understand:
 
@@ -10,7 +10,7 @@ After reading this chapter, you will understand:
 
 
 17.1 VuFind®’s Plug-In Architecture
-----------------------------------
+-----------------------------------
 
 One of VuFind®’s design goals is to be as extensible as possible, and one of the ways in which it implements extensibility is to use plug-in code. All of VuFind®’s pluggable code follows the same basic strategy: define a common interface that broadly defines a piece of required functionality, offer multiple implementations of the interface to meet different needs, and use configuration to load the appropriate implementation based on user preferences. Plug-ins fall into two broad categories: those that allow a function to be fulfilled by different technologies by exposing a generic interface to higher-level VuFind® code (for example, authentication handlers, session handlers, ILS drivers, etc.); and those that provide “hooks” for custom functionality (for example, recommendation modules, related record plug-ins, DOI handlers, etc). Regardless of the behavior or purpose of the plug-in, the general mechanisms for configuring and accessing it are the same.
 

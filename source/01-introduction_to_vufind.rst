@@ -1,6 +1,6 @@
-#################################
+##################################
 Chapter 1. Introduction to VuFind®
-#################################
+##################################
 
 Learning Objectives
 -------------------
@@ -50,7 +50,7 @@ There are many possible reasons for using VuFind®; here are a few common situat
 Each of these goals can be accomplished with VuFind® using the appropriate configuration options. This text will give you the tools necessary to solve these problems, and many more.
 
 1.2 Prerequisites for Using and Understanding VuFind®
-----------------------------------------------------
+-----------------------------------------------------
 
 In order to make the most of this book, it is helpful to have some background knowledge in a few areas. While going into depth introducing these topics is beyond the scope of this book, many online tutorials and textbooks are available on each of these subjects, should you wish to familiarize yourself with them before proceeding. 
 

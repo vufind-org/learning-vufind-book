@@ -1,6 +1,6 @@
-####################################
+#####################################
 Chapter 12. Web Crawling with VuFind®
-####################################
+#####################################
 
 Learning Objectives
 -------------------
@@ -23,7 +23,7 @@ Many search engines will try to automatically locate XML sitemaps, but some also
 VuFind® can serve as both a producer and consumer of XML sitemaps. This chapter will address both use cases.
 
 12.2 Generating Sitemaps in VuFind®
-----------------------------------
+-----------------------------------
 
 As mentioned in section 4.5.3, there is a sitemap.ini file in VuFind®’s standard configuration directory which can be used to configure where and how VuFind® builds XML sitemaps. VuFind® can, for example, build XML sitemaps documenting all of the records in your index, plus a top-level sitemap index that links to the VuFind®-generated sitemap as well as additional sitemaps you specify (useful, for example, if you integrate VuFind® with another content management system to build your overall website).
 
@@ -38,7 +38,7 @@ As records are added or removed from your system, you will need to re-run the si
 Be sure that the user running the sitemap generation process has appropriate permissions to write files into the directory where your sitemaps will be served from.
 
 12.3 VuFind®’s Web Crawler
--------------------------
+--------------------------
 
 VuFind® is often used in combination with a content management system like WordPress, Drupal or Concrete5; VuFind® provides the search capabilities while the CMS provides static content. For example, a library might use VuFind® for catalog searching, but have a CMS for providing lists of online resources, guides for researching particular topics, etc. In this kind of scenario, it is useful to be able to make all of the web content searchable through VuFind®, so users can perform a full text search across the entire site. To support this use case, VuFind® includes a separate Solr core designed for searching web pages. The default tool for populating this index relies on XML sitemaps to retrieve content. Fortunately, most commonly used platforms already support sitemap generation, and the format is so simple that it is possible to build them by hand (for a small number of pages) or develop tools to help build them (if you have some basic experience with script-writing).
 
@@ -75,7 +75,7 @@ This will index all of the pages in all of the sitemaps referenced in webcrawl.i
 The webcrawl.php tool operates by applying an XSLT to the downloaded sitemap.xml files; it is actually a specialized version of the XML indexer described in chapter 11. If you need to make changes to the way pages are indexed (for example, to extract the content of a specific <meta> tag into a custom index field for faceting purposes), you can override and customize $VUFIND_HOME/import/sitemap.properties and/or $VUFIND_HOME/import/xsl/sitemap.xsl as needed. For an example of this type of customization, see the WordPress section of the article “The Triumph of David: A Case Study in VuFind® Customization,” published in Annals of Library and Information Science v. 63, no. 4 and available online here: http://op.niscair.res.in/index.php/ALIS/article/view/14527.
 
 12.4 Accessing and Customizing VuFind®’s Web Search
---------------------------------------------------
+---------------------------------------------------
 
 Once you have finished indexing content, you can search your web index through VuFind®’s separate Web search; the URL will be something like http://localhost/vufind/Web, assuming that http://localhost/vufind/ is your VuFind® base URL.
 
