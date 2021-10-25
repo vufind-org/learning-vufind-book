@@ -247,6 +247,8 @@ htmlhelp_basename = 'LearningVuFind'
 # -- Options for LaTeX output ---------------------------------------------
 
 latex_elements = {
+     'fncychap': r'\usepackage[Conny]{fncychap}',
+
      # The paper size ('letterpaper' or 'a4paper').
      #
      # 'papersize': 'letterpaper',
@@ -257,7 +259,16 @@ latex_elements = {
 
      # Additional stuff for the LaTeX preamble.
      #
-     # 'preamble': '',
+     'preamble': r'''
+     \renewcommand{\thechapter}{}
+     \renewcommand{\FmN}[1]{}
+     \setcounter{chapter}{-1}
+     \setcounter{secnumdepth}{0}
+     \renewcommand{\numberline}[1]{}
+     \fancypagestyle{normal}{
+          \fancyfoot[LO,RE]{\nouppercase{\rightmark}}
+     }
+     ''',
 
      # Latex figure (float) alignment
      #

@@ -6,9 +6,6 @@
 Welcome to Learning VuFind!
 ===========================
 
-Contents:
-#########
-
 .. toctree::
    :maxdepth: 2
 
