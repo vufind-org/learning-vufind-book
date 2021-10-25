@@ -1,8 +1,8 @@
-# Learning VuFind
+# Learning VuFind®
 
-This book provides basic insights for installation, configuration and customisation of the Open Source Discovery Software VuFind.
+This book provides a basic introduction to installation, configuration and customization of the open source discovery software, VuFind®.
 
-For more information on VuFind please visit: https://www.vufind.org
+For more information on VuFind®, please visit: https://www.vufind.org
 
 ## Build documentation
 
@@ -18,7 +18,7 @@ change directory
 
     $ cd learning-vufind-book
 
-and build the Learning VuFind Book
+and build the Learning VuFind® Book
 
     $ make html
 
