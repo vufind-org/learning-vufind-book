@@ -116,7 +116,7 @@ Note that all of these lines start with a # character – the # symbol at the be
 
    # Uncomment the following settings to insert appropriate values for your site:
    collection = "Online Catalog"
-   institution = "VuFind® University"
+   institution = "VuFind University"
    building = "Main Library"
 
 Once you have adjusted the settings to meet your needs, you must reindex all of your records (by re-running the import-marc.sh command as described in section 3.2). Remember, SolrMarc transforms records and loads them into Solr. Changing its configuration file will not have any effect on records that you loaded in the past; it will only change the way new records are loaded. Every change you make will require a full rebuild of the index.
