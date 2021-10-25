@@ -10,26 +10,26 @@ After reading this chapter, you will understand:
 •       The purpose of Solr, and how it differs from other related tools like databases.
 •       Basic Solr terminology, such as “field type” and “analyzer chain.”
 •       How to interact with Solr, including some basic syntax.
-•       How to configure VuFind’s use of Solr.
+•       How to configure VuFind®’s use of Solr.
 
 
 5.1 Solr Overview
 -----------------
 
-Apache Solr is an open source search platform, designed to support fast and flexible full text searching. Since VuFind is primarily concerned with searching, Solr is an ideal engine to drive most of its functionality. While VuFind provides reasonable default settings and tools that save users from having to work directly with Solr, an understanding of how the tool works can be helpful when troubleshooting problems and customizing search behavior. Describing Solr in detail is beyond the scope of this book, but this chapter will provide high-level overviews of some key features; see the “Additional Resources” at the end for some suggestions if you wish to learn more.
+Apache Solr is an open source search platform, designed to support fast and flexible full text searching. Since VuFind® is primarily concerned with searching, Solr is an ideal engine to drive most of its functionality. While VuFind® provides reasonable default settings and tools that save users from having to work directly with Solr, an understanding of how the tool works can be helpful when troubleshooting problems and customizing search behavior. Describing Solr in detail is beyond the scope of this book, but this chapter will provide high-level overviews of some key features; see the “Additional Resources” at the end for some suggestions if you wish to learn more.
 
 5.1.1 Indexes vs. Databases
 ___________________________
 
 
-There are many different types of computer systems for storing and retrieving data, and different systems are better suited to different tasks. In fact, while VuFind uses Solr for searching, it also uses a relational database (usually MySQL/MariaDB or PostgreSQL) for storing persistent data like user accounts. Users who have a strong background in databases can find working with Solr confusing at first, so it is important to explain how an index like Solr differs from a relational database like MySQL.
+There are many different types of computer systems for storing and retrieving data, and different systems are better suited to different tasks. In fact, while VuFind® uses Solr for searching, it also uses a relational database (usually MySQL/MariaDB or PostgreSQL) for storing persistent data like user accounts. Users who have a strong background in databases can find working with Solr confusing at first, so it is important to explain how an index like Solr differs from a relational database like MySQL.
 
 In a relational database, data is stored in a collection of rigidly-structured tables which aim to break content down into the smallest possible pieces. Tables can define relationships with one another so that the small pieces can be recomposed into more complex wholes through querying. This allows data to be stored with very little duplication, which makes maintenance easier. The enforcement of rules helps to prevent certain types of common data entry errors. The clear expression of data types and relationships makes it possible to query the data in complex ways. A relational database is an excellent tool for managing highly structured data. However, it may not be as useful when dealing with extremely heterogeneous information, and searching across many fields and many tables can be slow due to the work involved in fitting all the pieces back together again.
 
 An index like Solr differs from a relational database in many significant ways. While it imposes some structure on data, that structure is much less complex: a collection of documents containing named fields. There are fewer rules, and no safeguards to enforce data integrity, because data integrity is not a major concern of an index. Its job is simply to accept queries and find documents that match those queries as quickly and accurately as possible. To meet this goal, it makes a useful trade-off between resource consumption and performance, using significant amounts of memory and disk space to create data structures that help it to very rapidly identify matches. Solr is very good at searching, but it is most powerful when it is used to add search capabilities to data that is created and managed in some other system; while Solr can be used for end-to-end data management, doing so can be problematic, especially when upgrading to a new version of Solr or making changes to the structure of your documents.
 
 
-In the real world, distinctions between relational databases and indexes can sometimes be blurry; most major relational databases have added full text searching capabilities that resemble Solr, and over time, Solr has made it more feasible (though still not necessarily desirable) to manage data directly in the index. However, even with these caveats, it remains true that each type of system has strengths and weaknesses, and VuFind has been designed to play to the strengths of its components. This is why VuFind only uses Solr for searching, and other tools are used for managing persistent data.
+In the real world, distinctions between relational databases and indexes can sometimes be blurry; most major relational databases have added full text searching capabilities that resemble Solr, and over time, Solr has made it more feasible (though still not necessarily desirable) to manage data directly in the index. However, even with these caveats, it remains true that each type of system has strengths and weaknesses, and VuFind® has been designed to play to the strengths of its components. This is why VuFind® only uses Solr for searching, and other tools are used for managing persistent data.
 
 5.1.2 Solr’s Data Model
 _______________________
@@ -78,16 +78,16 @@ As described in section 4.3, the searches.ini file gives you control over which 
 5.2.1 Working with YAML
 _______________________
 
-As the filename suggests, searchspecs.yaml is a YAML file. YAML is a format designed for storing complex data in a human-readable format. When search configuration functionality was added to VuFind, the .ini format used for most of VuFind’s other configuration files was too simplistic to easily represent the complexity of the available options. Of other commonly-used file formats, XML seemed too verbose, and JSON did not support the ability to insert human-readable comments. Thus, YAML was chosen as a best-of-all-worlds solution.
+As the filename suggests, searchspecs.yaml is a YAML file. YAML is a format designed for storing complex data in a human-readable format. When search configuration functionality was added to VuFind®, the .ini format used for most of VuFind®’s other configuration files was too simplistic to easily represent the complexity of the available options. Of other commonly-used file formats, XML seemed too verbose, and JSON did not support the ability to insert human-readable comments. Thus, YAML was chosen as a best-of-all-worlds solution.
 
 YAML does have some drawbacks, most particularly a sensitivity to misplaced whitespace. If you edit the searchspecs.yaml file, be very careful that you follow the existing indentation and alignment conventions, since a line out of place can cause the file to be misinterpreted. Fortunately, many of the changes you may wish to make are simply a matter of changing numbers and following existing examples, so it should be possible to avoid pitfalls with a bit of caution.
 
 5.2.2 Anatomy of searchspecs.yaml
 _________________________________
 
-The searchspecs.yaml file (found in $VUFIND_HOME/config/vufind along with VuFind’s other configuration files) begins with a long block of comments summarizing the available settings and options; this comment block should always be treated as the most up-to-date documentation on the behavior of the file.
+The searchspecs.yaml file (found in $VUFIND_HOME/config/vufind along with VuFind®’s other configuration files) begins with a long block of comments summarizing the available settings and options; this comment block should always be treated as the most up-to-date documentation on the behavior of the file.
 
-Under the documentation comment, there are a number of sections defining VuFind’s “search handlers” – the options that can be configured in searches.ini, which define different types of searches (title, author, subject, etc.) that users can perform. Here is an example, defining VuFind’s “Author” search:
+Under the documentation comment, there are a number of sections defining VuFind®’s “search handlers” – the options that can be configured in searches.ini, which define different types of searches (title, author, subject, etc.) that users can perform. Here is an example, defining VuFind®’s “Author” search:
 
 .. code-block:: yaml
 
@@ -103,7 +103,7 @@ Under the documentation comment, there are a number of sections defining VuFind�
         - author2_variant
      DismaxHandler: edismax
 
-The top-level “Author:” begins the block. Everything beneath that is indented by two spaces to show that it is contained within the section – it is this type of indentation that must be carefully maintained to ensure the file is read correctly by the software. Within the block, there are two main settings: “DismaxFields,” which controls relevance ranking (see 5.2.4 below), and DismaxHandler, which in this instance tells VuFind to use Solr’s “Extended DisMax” search functionality. Quite a few other options are supported, some of which will be described in more detail below, and the rest of which can be found described in the aforementioned documentation comment embedded in the searchspecs.yaml file.
+The top-level “Author:” begins the block. Everything beneath that is indented by two spaces to show that it is contained within the section – it is this type of indentation that must be carefully maintained to ensure the file is read correctly by the software. Within the block, there are two main settings: “DismaxFields,” which controls relevance ranking (see 5.2.4 below), and DismaxHandler, which in this instance tells VuFind® to use Solr’s “Extended DisMax” search functionality. Quite a few other options are supported, some of which will be described in more detail below, and the rest of which can be found described in the aforementioned documentation comment embedded in the searchspecs.yaml file.
 
 5.2.3 Lucene, DisMax and Extended DisMax
 ________________________________________
@@ -111,12 +111,12 @@ ________________________________________
 
 You will see the word “DisMax” a lot when reading the file, so it is worth taking a moment to explain it. “DisMax” is short for “Disjunction Max,” which is a powerful Solr query mode which allows the same term to be searched across a number of different fields, with relevance ranking rules applied to bring the “best” matches to the top of the list (see https://cwiki.apache.org/confluence/display/SOLR/DisMax for more details).
 
-Before “DisMax” was introduced, VuFind relied on a much more complicated (and less accurate/reliable) method of generating search queries using the Boolean-based syntax of Solr’s underlying index engine, Lucene. For many years, VuFind operated in a hybrid mode, using DisMax for most searches but switching over to the old method for queries that used features unsupported by DisMax. This old method is still used in VuFind for some very specialized types of searches (see 5.2.6 below for more details), but since the introduction of Solr’s “Extended DisMax” mode, which allows a “best of both worlds” approach combining both DisMax behavior and traditional Boolean logic, VuFind’s search configurations have been significantly streamlined and simplified. Understanding the differences between all of these different search methods is not critical to making the most of VuFind, but knowing a little of this history may make some of the documentation easier to understand.
+Before “DisMax” was introduced, VuFind® relied on a much more complicated (and less accurate/reliable) method of generating search queries using the Boolean-based syntax of Solr’s underlying index engine, Lucene. For many years, VuFind® operated in a hybrid mode, using DisMax for most searches but switching over to the old method for queries that used features unsupported by DisMax. This old method is still used in VuFind® for some very specialized types of searches (see 5.2.6 below for more details), but since the introduction of Solr’s “Extended DisMax” mode, which allows a “best of both worlds” approach combining both DisMax behavior and traditional Boolean logic, VuFind®’s search configurations have been significantly streamlined and simplified. Understanding the differences between all of these different search methods is not critical to making the most of VuFind®, but knowing a little of this history may make some of the documentation easier to understand.
 
 5.2.4 Adjusting Relevance
 _________________________
 
-Whenever VuFind performs a DisMax search, it looks for user search terms across a set of fields, then does some mathematical analysis on the matches it finds to calculate which documents have the best matches, for the purpose of putting the result set in a useful order. This relevance calculation is informed to a large extent by relative weights applied to the fields being searched. In searchspecs.yaml, the DismaxFields section serves the dual purposes of defining which fields Solr should search across and assigning relative weights to those fields. To return to the Author example from above:
+Whenever VuFind® performs a DisMax search, it looks for user search terms across a set of fields, then does some mathematical analysis on the matches it finds to calculate which documents have the best matches, for the purpose of putting the result set in a useful order. This relevance calculation is informed to a large extent by relative weights applied to the fields being searched. In searchspecs.yaml, the DismaxFields section serves the dual purposes of defining which fields Solr should search across and assigning relative weights to those fields. To return to the Author example from above:
 
 .. code-block:: yaml
 
@@ -164,7 +164,7 @@ Finally, an advanced option is to provide a boost function using the bf paramete
 
 5.2.5.2 Minimum Matching
 ^^^^^^^^^^^^^^^^^^^^^^^^
-VuFind is configured that, by default, when a user enters multiple search terms to perform a DisMax search, only records that match ALL of those terms will be returned. However, DisMax can be more tolerant of partial matching – for example, if you want to return records that match 75% of search terms, even if no records match 100% of terms. This extra level of tolerance can be useful, especially when dealing with very long queries. Solr’s mm (“minimum should match”) parameter controls this behavior, and it supports a variety of different scenarios. You can set minimum matching requirements, or you can allow tolerance for certain levels of unmatched clauses. You can even specify different rules for different numbers of incoming terms. See the Solr documentation for a full explanation of how these settings work. Here is a simple example, ensuring that at least 75% of search terms must match:
+VuFind® is configured that, by default, when a user enters multiple search terms to perform a DisMax search, only records that match ALL of those terms will be returned. However, DisMax can be more tolerant of partial matching – for example, if you want to return records that match 75% of search terms, even if no records match 100% of terms. This extra level of tolerance can be useful, especially when dealing with very long queries. Solr’s mm (“minimum should match”) parameter controls this behavior, and it supports a variety of different scenarios. You can set minimum matching requirements, or you can allow tolerance for certain levels of unmatched clauses. You can even specify different rules for different numbers of incoming terms. See the Solr documentation for a full explanation of how these settings work. Here is a simple example, ensuring that at least 75% of search terms must match:
 
 .. code-block:: yaml
 
@@ -175,7 +175,7 @@ VuFind is configured that, by default, when a user enters multiple search terms 
 ______________
 
 
-“Munging” is a slang term for data manipulation, often implying a somewhat crude or rudimentary approach. When working with Solr, it is usually a good idea to let Solr do most of the data manipulation. However, there are rare occasions where it may be useful to have VuFind manipulate user input before submitting it to Solr. For these situations, the searchspecs.yaml “munging” system exists.
+“Munging” is a slang term for data manipulation, often implying a somewhat crude or rudimentary approach. When working with Solr, it is usually a good idea to let Solr do most of the data manipulation. However, there are rare occasions where it may be useful to have VuFind® manipulate user input before submitting it to Solr. For these situations, the searchspecs.yaml “munging” system exists.
 
 This is probably best explained with another example:
 
@@ -201,14 +201,14 @@ The QueryFields section specifies which field or fields will be searched, and wh
 
 Fortunately, because DisMax provides a much simpler configuration and works for the majority of cases, it is rare that users need to work with or understand these older munge-based search types; however, a basic understanding of how to read them may be helpful, especially if you are troubleshooting a search that uses them. Call Number searching is probably the most common remaining use case for this type of search configuration.
 
-5.3 Troubleshooting Solr with VuFind’s Debug Mode
+5.3 Troubleshooting Solr with VuFind®’s Debug Mode
 -------------------------------------------------
 
-As mentioned earlier, VuFind does the hard work of interacting with Solr for you, and exposes most of the options you will need through configuration files. When you perform a search in VuFind, it translates your query into a Solr query according to the rules defined in its configuration files, then uses that query to retrieve search results, and finally formats those results into the web page that you end up seeing.
+As mentioned earlier, VuFind® does the hard work of interacting with Solr for you, and exposes most of the options you will need through configuration files. When you perform a search in VuFind®, it translates your query into a Solr query according to the rules defined in its configuration files, then uses that query to retrieve search results, and finally formats those results into the web page that you end up seeing.
 
-Sometimes, if VuFind does not seem to be finding the results that you think it should, it may be helpful to see exactly what is happening behind the scenes. Fortunately, VuFind includes a debug mode which allows you to see more information about what it is doing. To turn this on, simply edit your local config.ini file, look for the “debug = false” line near the top, and change it to “debug = true.”
+Sometimes, if VuFind® does not seem to be finding the results that you think it should, it may be helpful to see exactly what is happening behind the scenes. Fortunately, VuFind® includes a debug mode which allows you to see more information about what it is doing. To turn this on, simply edit your local config.ini file, look for the “debug = false” line near the top, and change it to “debug = true.”
 
-When debug mode is turned on, you will see information boxes scattered around VuFind’s interface full of detailed technical information. When you perform a search, some of these boxes will include full Solr query URLs. Note that, because of the way VuFind’s spell checking feature works, a single search can actually trigger multiple queries against Solr; generally speaking, when looking at VuFind debug output, the first Solr URL is the most important one.
+When debug mode is turned on, you will see information boxes scattered around VuFind®’s interface full of detailed technical information. When you perform a search, some of these boxes will include full Solr query URLs. Note that, because of the way VuFind®’s spell checking feature works, a single search can actually trigger multiple queries against Solr; generally speaking, when looking at VuFind® debug output, the first Solr URL is the most important one.
 
 For example, try turning on debug mode and then searching for “SOLR” as described in the example in section 5.1. You should see a debug message similar to this:
 
@@ -231,7 +231,7 @@ This is a fairly intimidating block of text, but if you break it apart into chun
 
 All of these parameters (and many others) are documented in the online Solr documentation (https://lucene.apache.org/solr/) and clarification can usually be found with the help of the search engine of your choice.
 
-You should be able to copy the URL from this message directly into your web browser to see the Solr response, as well as a more readable summary of the input parameters. (Note that, if the URL starts with http://localhost, you may have to replace “localhost” with the name of the Solr/VuFind server if you are trying to review the results from a different machine – and, of course, access from another machine will only work if firewalls are set up to allow it. For security reasons, cross-machine access to Solr should generally be restricted except when needed for development or troubleshooting).
+You should be able to copy the URL from this message directly into your web browser to see the Solr response, as well as a more readable summary of the input parameters. (Note that, if the URL starts with http://localhost, you may have to replace “localhost” with the name of the Solr/VuFind® server if you are trying to review the results from a different machine – and, of course, access from another machine will only work if firewalls are set up to allow it. For security reasons, cross-machine access to Solr should generally be restricted except when needed for development or troubleshooting).
 
 In any case, once you have access to Solr query results, you can see exactly what details are coming out of Solr, and you can edit the parameters in the URL to try different searches, sorts, etc. You can add a :code:`&debugQuery=true` parameter on the end of the URL to activate a debug mode that adds an extra section to the Solr response that provides a breakdown of how Solr is processing text and how long each step of the analyzer chain is taking, which can be useful for identifying performance problems.
 
@@ -244,7 +244,7 @@ In any case, once you have access to Solr query results, you can see exactly wha
 
 You will also find that if you access just the base part of the URL (which will usually be something like  http://localhost:8983/solr), you will find a useful Solr administration panel which lets you explore some of the features of the platform; this also includes a helpful form for building your own queries. If you decide to learn more about Solr using the “Additional Resources” below, you will likely spend a lot of time in this interface.
 
-Note that turning on debug mode can prevent some features of VuFind from working correctly, so it is not a good idea to leave it turned on all the time; it is just intended as a quick-and-easy way to access some technical details like Solr queries. For some more robust alternatives, including logging to files, see the troubleshooting page in VuFind’s wiki (https://vufind.org/wiki/development:troubleshooting).
+Note that turning on debug mode can prevent some features of VuFind® from working correctly, so it is not a good idea to leave it turned on all the time; it is just intended as a quick-and-easy way to access some technical details like Solr queries. For some more robust alternatives, including logging to files, see the troubleshooting page in VuFind®’s wiki (https://vufind.org/wiki/development:troubleshooting).
 
 
 Additional Resources
@@ -256,11 +256,11 @@ There are several book-length introductions to Solr currently in print as of thi
 Summary
 -------
 
-Solr is an index engine optimized for searching, which is why it serves as the foundation for VuFind’s default search functionality. It provides access to documents by providing field-based searching. A highly configurable search schema and a wealth of search parameters give the administrator a great deal of control over how searches are performed; VuFind exposes much of this functionality through its own configuration files, and its debug mode can help you troubleshoot problems. With a basic understandingof how Solr works and where VuFind’s configuration options can be changed, it should be possible to tune VuFind to meet the needs of local user communities.
+Solr is an index engine optimized for searching, which is why it serves as the foundation for VuFind®’s default search functionality. It provides access to documents by providing field-based searching. A highly configurable search schema and a wealth of search parameters give the administrator a great deal of control over how searches are performed; VuFind® exposes much of this functionality through its own configuration files, and its debug mode can help you troubleshoot problems. With a basic understandingof how Solr works and where VuFind®’s configuration options can be changed, it should be possible to tune VuFind® to meet the needs of local user communities.
 
 Review Questions
 ----------------
-1.  Why does VuFind use both a relational database and an index? What is the role of each?
+1.  Why does VuFind® use both a relational database and an index? What is the role of each?
 2.  What is the benefit of applying the same analyzer chain to indexed text and user search queries?
-3.  Name three parameters that VuFind passes to Solr when performing searches, and what their purposes are.
+3.  Name three parameters that VuFind® passes to Solr when performing searches, and what their purposes are.
 

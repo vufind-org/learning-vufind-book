@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Learning VuFind!
+Welcome to Learning VuFind®!
 ===========================
 
 .. toctree::
@@ -11,7 +11,7 @@ Welcome to Learning VuFind!
 
    00-preface
 
-Part 1. VuFind Basics
+Part 1. VuFind® Basics
 _____________________
 
 .. toctree::
@@ -61,7 +61,7 @@ ________________________________________
    14-recommendation_modules
    15-other_search_backends
 
-Part 6. Extending and Customizing VuFind’s Code
+Part 6. Extending and Customizing VuFind®’s Code
 _______________________________________________
 
 .. toctree::
