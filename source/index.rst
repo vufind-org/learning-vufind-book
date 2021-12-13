@@ -3,16 +3,16 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Learning VuFind!
-===========================
+Welcome to Learning VuFind®!
+============================
 
 .. toctree::
    :maxdepth: 2
 
    00-preface
 
-Part 1. VuFind Basics
-_____________________
+Part 1. VuFind® Basics
+______________________
 
 .. toctree::
    :maxdepth: 2
@@ -61,8 +61,8 @@ ________________________________________
    14-recommendation_modules
    15-other_search_backends
 
-Part 6. Extending and Customizing VuFind’s Code
-_______________________________________________
+Part 6. Extending and Customizing VuFind®’s Code
+________________________________________________
 
 .. toctree::
    :maxdepth: 2

@@ -15,11 +15,11 @@ After reading this chapter, you will understand:
 14.1 What is a Recommendation Module?
 --------------------------------------
 
-Generally, when a user sees a list of search results, it is beneficial to provide them with some additional information beyond the results themselves: facet lists for limiting results, suggestions about spelling corrections or relevant alternate resources, etc. In VuFind, all of this supplemental information is displayed to the user using “recommendation modules.”
+Generally, when a user sees a list of search results, it is beneficial to provide them with some additional information beyond the results themselves: facet lists for limiting results, suggestions about spelling corrections or relevant alternate resources, etc. In VuFind®, all of this supplemental information is displayed to the user using “recommendation modules.”
 
-A recommendation module is a VuFind plug-in, consisting of a PHP class and an associated template, which can examine a user’s search query and/or the search results, then display useful information based on some or all of that input. Recommendation module output can be configured to display above or beside the search results, and different modules can be configured for each search handler. It is also possible to configure VuFind to display different recommendation modules when the user’s search results are empty, since a different set of suggestions may be relevant in that scenario.
+A recommendation module is a VuFind® plug-in, consisting of a PHP class and an associated template, which can examine a user’s search query and/or the search results, then display useful information based on some or all of that input. Recommendation module output can be configured to display above or beside the search results, and different modules can be configured for each search handler. It is also possible to configure VuFind® to display different recommendation modules when the user’s search results are empty, since a different set of suggestions may be relevant in that scenario.
 
-VuFind includes a large variety of recommendation modules and a default configuration that makes use of those that are most commonly needed. VuFind’s built-in extensibility also makes it straightforward for developers to build their own custom modules as needed.
+VuFind® includes a large variety of recommendation modules and a default configuration that makes use of those that are most commonly needed. VuFind®’s built-in extensibility also makes it straightforward for developers to build their own custom modules as needed.
 
 14.2 Understanding Recommendation Configuration
 -----------------------------------------------
@@ -34,7 +34,7 @@ This configuration setup offers a balance between ease of use and specificity. Y
 
 At each level of the configuration, recommendation modules are configured by providing the name of the module, optionally followed by a set of parameters separated by colons. The meanings of these parameters are detailed in the comments in searches.ini (and some examples will be explained below).
 
-Here are the most relevant configurations from searches.ini as of VuFind 7.0:
+Here are the most relevant configurations from searches.ini as of VuFind® 7.0:
 
 .. code-block:: ini
 
@@ -78,17 +78,17 @@ Note that for all of the repeating settings (like default_top_recommend[]), it i
 
 Chapter 13 discussed an example of combining standard search results with website search results in a variety of ways. With recommendation modules, it is possible to add another layer of combined searching: you can display results from one backend as a sidebar in another result set. For example, you could show the top five web results in a sidebar next to main catalog results, and vice versa.
 
-VuFind provides two recommendation modules that can be used to meet this need: CatalogResults, which displays results from the main Solr biblio core, and WebResults, which displays results from the Solr website core. Both of these modules accept two parameters: the name of the URL parameter containing search terms (which defaults to “lookfor,” which does not need to be changed for this example) and the number of search results to display in the sidebar (which defaults to 5). We just need to turn on WebResults in searches.ini and CatalogResults in website.ini.
+VuFind® provides two recommendation modules that can be used to meet this need: CatalogResults, which displays results from the main Solr biblio core, and WebResults, which displays results from the Solr website core. Both of these modules accept two parameters: the name of the URL parameter containing search terms (which defaults to “lookfor,” which does not need to be changed for this example) and the number of search results to display in the sidebar (which defaults to 5). We just need to turn on WebResults in searches.ini and CatalogResults in website.ini.
 
 This can be set up by following these steps:
 
 1.      Copy searches.ini  and website.ini from $VUFIND_HOME/config/vufind/ to $VUFIND_LOCAL_DIR/config/vufind/ if you have not previously customized these files.
 
-2.      Edit $VUFIND_LOCAL_DIR/config/vufind/searches.ini, and add *default_side_recommend[] = WebResults* to the [General] section of the file. In a default VuFind configuration, there should be no customizations in the [SideRecommendations] section, but if you have made customizations there, you will want to add WebResults to each of the customized search handlers as well.
+2.      Edit $VUFIND_LOCAL_DIR/config/vufind/searches.ini, and add *default_side_recommend[] = WebResults* to the [General] section of the file. In a default VuFind® configuration, there should be no customizations in the [SideRecommendations] section, but if you have made customizations there, you will want to add WebResults to each of the customized search handlers as well.
 
-3.      Edit $VUFIND_LOCAL_DIR/config/vufind/website.ini and add *default_side_recommend[] = CatalogResults* to the [General] section if it is not already there (in recent VuFind releases, this is already turned on by default).
+3.      Edit $VUFIND_LOCAL_DIR/config/vufind/website.ini and add *default_side_recommend[] = CatalogResults* to the [General] section if it is not already there (in recent VuFind® releases, this is already turned on by default).
 
-Now VuFind should display brief previews of web results in standard result listings and vice versa.
+Now VuFind® should display brief previews of web results in standard result listings and vice versa.
 
 If you wanted to display a different number of results in the recommendation boxes (for the sake of example, 3), you could edit the configuration lines to read *default_side_recommend[] = WebResults::3* and *default_side_recommend[] = CatalogResults::3*. The double colon is present because we are leaving the first parameter blank.
 
@@ -97,7 +97,7 @@ If you want to customize the look and feel of the recommendation boxes, each rec
 14.4 Example: Displaying Extra Links for Empty Search Results
 --------------------------------------------------------------
 
-It is often useful to provide links to specific resources related to a search. For example, you might have a “search tips” page on your website which could provide guidance for users having difficulty with searches. VuFind includes a recommendation module named RecommendLinks which can render such a list. The RecommendLinks helper takes two parameters: the name of an ini file, and the name of a section within that file; it uses these to locate the list of recommendations to display. If no extra details are specified, it will look in the [RecommendLinks] section of searches.ini. Allowing configuration of the location of links means that the same RecommendLinks module can be used in different contexts to display different lists of links.
+It is often useful to provide links to specific resources related to a search. For example, you might have a “search tips” page on your website which could provide guidance for users having difficulty with searches. VuFind® includes a recommendation module named RecommendLinks which can render such a list. The RecommendLinks helper takes two parameters: the name of an ini file, and the name of a section within that file; it uses these to locate the list of recommendations to display. If no extra details are specified, it will look in the [RecommendLinks] section of searches.ini. Allowing configuration of the location of links means that the same RecommendLinks module can be used in different contexts to display different lists of links.
 
 To implement the example of a link to a “search tips” guide when a user performs a search with no results, we could simply add *default_noresults_recommend[] = RecommendLinks* to the [General] section of $VUFIND_LOCAL_DIR/config/vufind/searches.ini, and then, in the same file, add this to the [RecommendLinks] section:
 
@@ -113,11 +113,11 @@ As in the previous example, the presentation of the links can be customized by o
 Additional Resources
 ---------------------
 
-VuFind’s recommendation module wiki page can be found at https://vufind.org/wiki/development:plugins:recommendation_modules.
+VuFind®’s recommendation module wiki page can be found at https://vufind.org/wiki/development:plugins:recommendation_modules.
 
 Summary
 -------
-Recommendation modules are used by VuFind to display supplemental information that complements search results. They are highly configurable, so you can use them to communicate important information specific to certain search backends and/or search handlers.
+Recommendation modules are used by VuFind® to display supplemental information that complements search results. They are highly configurable, so you can use them to communicate important information specific to certain search backends and/or search handlers.
 
 Review Questions
 ----------------
