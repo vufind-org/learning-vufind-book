@@ -50,7 +50,6 @@ The *setLine* method offers the absolute simplest example. For example, take a l
 
 .. code-block:: php
 
-   getDefaultDescriptionSpecs():
    $spec->setLine('Physical Description', 'getPhysicalDescriptions');
 
 This simply says “retrieve any values from the record driver’s *getPhysicalDescriptions()* method, and display them with a label of ‘Physical Description:’.”
