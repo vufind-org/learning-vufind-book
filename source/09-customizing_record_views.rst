@@ -159,7 +159,7 @@ Now that the data is indexed and the record driver can retrieve it, you simply n
 
 First, make sure you have a custom theme set up, since you will need to register your custom factory in your theme configuration. See section 7.2 for details on creating a new theme. For this example, we assume that your theme is named localtheme.
 
-Next, create a file for your custom factory, called $VUFIND_HOME/module/MyModule/src/MyModule/View/Helper/Root/RecordDataFormatterFactory.p hp. Note that you will have to create a directory to hold this file first, which you can do with:
+Next, create a file for your custom factory, called $VUFIND_HOME/module/MyModule/src/MyModule/View/Helper/Root/RecordDataFormatterFactory.php. Note that you will have to create a directory to hold this file first, which you can do with:
 
 .. code-block:: console
 
