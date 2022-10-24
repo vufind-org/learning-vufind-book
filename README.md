@@ -28,6 +28,10 @@ If you prefer a PDF version, you can instead run
 
     $ make latexpdf
 
+If you prefer an ePub version, you can run
+
+    $ make epub
+
 If you prefer a single-file HTML version (which is useful for conversion to Microsoft Word format), you can run
 
     $ make singlehtml
