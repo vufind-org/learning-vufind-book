@@ -23,7 +23,7 @@ VuFind® can act as an OAI-PMH service provider, because it includes tools for h
 
 
 10.2 VuFind®’s OAI-PMH Harvester
--------------------------------
+--------------------------------
 
 VuFind®’s OAI-PMH harvester is a command line tool which allows you to harvest metadata from an OAI- PMH data provider into a directory of files on your local disk. This directory can then be indexed into VuFind® using the processes described in chapter 11. Rules for harvesting can be specified directly on the command line through a variety of options and switches, or they can be stored in the $VUFIND_LOCAL_DIR/harvest/oai.ini file. The oai.ini method is generally more convenient, and that is the approach that will be described here.  
 
@@ -167,7 +167,7 @@ ___________
 The OJS (Open Journal System) publishing platform includes built-in OAI-PMH data provider support as well as a metadata plug-in system which makes it possible to add support for custom metadata formats. VuFind® includes sample import rules for both the Dublin Core and NLM (National Library of Medicine) formats.
 
 10.4 VuFind®’s OAI-PMH Server
-____________________________
+_____________________________
 
 In addition to consuming OAI-PMH records, VuFind® can also produce them. While VuFind®’s OAI-PMH data provider server is turned off by default, it can be activated by uncommenting and filling in the [OAI] section of config.ini. All of the available settings are described by comments in the .ini file; none are required (simply uncommenting the [OAI] section header is enough to turn on the server), but setting an identifier and repository_name are strongly recommended. Other settings exist to give you control over how your OAI-PMH server presents record sets and metadata formats.
 

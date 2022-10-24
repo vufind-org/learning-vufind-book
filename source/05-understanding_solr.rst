@@ -202,7 +202,7 @@ The QueryFields section specifies which field or fields will be searched, and wh
 Fortunately, because DisMax provides a much simpler configuration and works for the majority of cases, it is rare that users need to work with or understand these older munge-based search types; however, a basic understanding of how to read them may be helpful, especially if you are troubleshooting a search that uses them. Call Number searching is probably the most common remaining use case for this type of search configuration.
 
 5.3 Troubleshooting Solr with VuFind®’s Debug Mode
--------------------------------------------------
+--------------------------------------------------
 
 As mentioned earlier, VuFind® does the hard work of interacting with Solr for you, and exposes most of the options you will need through configuration files. When you perform a search in VuFind®, it translates your query into a Solr query according to the rules defined in its configuration files, then uses that query to retrieve search results, and finally formats those results into the web page that you end up seeing.
 

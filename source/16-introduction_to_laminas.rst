@@ -52,7 +52,7 @@ Code modules are also a way of sharing functionality between Laminas-based appli
 If you are interested in seeing exactly how VuFind® loads its modules, take a look at the $VUFIND_HOME/config/application.config.php file, which contains most of the high-level Laminas application setup logic.
 
 16.3.2 VuFind®’s Built-In Modules
-________________________________
+_________________________________
 
 VuFind® contains several code modules, found under the $VUFIND_HOME/modules directory; as of release 7.0, they are:
 

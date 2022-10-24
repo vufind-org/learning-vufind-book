@@ -24,7 +24,7 @@ Writing your own XSLT sheets and custom PHP functions is beyond the scope of thi
 If you want to gain a deeper understanding of the XSLT language, numerous helpful books and online articles exist. Just be sure to check which version of the standard is being discussed, since articles about XSLT 2.0 and newer may include some information that will not apply to VuFind®’s basic XSLT 1.0 interpreter. Doug Tidwell’s XSLT, published by O’Reilly, is a thorough guidebook and reference; the first edition of the book (published in 2001) covers XSLT 1.0, while the second edition (published in 2009) discusses both 1.0 and 2.0.
 
 11.2 VuFind®’s Command-Line XSLT Indexer
----------------------------------------
+----------------------------------------
 
 VuFind®’s XSLT indexing tool is found at $VUFIND_HOME/import/import-xsl.php. It can be run from the command line like this:
 

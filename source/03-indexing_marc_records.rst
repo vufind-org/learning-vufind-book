@@ -38,7 +38,7 @@ Once the indexing process is complete, you should be able to return to http://lo
 SolrMarc maps MARC records into Solr using configuration files, and the defaults that ship with VuFind® should meet most needs. However, most users will want to customize at least some fields, and in some situations, customizations will be necessary for successful record loading. Before getting into the details of SolrMarc customization, however, it is important to understand how VuFind® stores and loads its configuration files.
 
 3.3 Understanding VuFind®’s “Local Directory”
---------------------------------------------
+---------------------------------------------
 
 In section 2.2.1, it was mentioned that installing VuFind® with a Debian package sets up two environment variables on your system: $VUFIND_HOME and $VUFIND_LOCAL_DIR. $VUFIND_HOME contains the full path to the directory containing the VuFind® software (/usr/local/vufind by default); $VUFIND_LOCAL_DIR contains the full path to VuFind®’s “local directory” (by default, /usr/local/vufind/local).
 
